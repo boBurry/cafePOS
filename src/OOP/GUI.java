@@ -16,6 +16,7 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         con = db.myCon();
     }
 
