@@ -23,42 +23,67 @@ public class Admin extends JFrame {
         // 1. MAIN LAYOUT
         setLayout(new BorderLayout(10, 10));
 
-        // --- TOP SECTION: Input Form ---
-        // Changed to 5 rows to fit the extra button comfortably
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        formPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-
+        // --- TOP CONTAINER (Holds Header + Inputs + Buttons) ---
+        JPanel topContainer = new JPanel();
+        topContainer.setLayout(new BoxLayout(topContainer, BoxLayout.Y_AXIS));
+        
+        // A. Header Panel (Top Left Back Button)
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        headerPanel.setBackground(new Color(245, 245, 245)); // Light gray background
+        
+        JButton btnBack = new JButton("⬅"); // Unicode Arrow
+        btnBack.setFont(new Font("SansSerif", Font.BOLD, 16));
+        btnBack.setToolTipText("Back to POS");
+        btnBack.setForeground(new Color(50, 36, 23)); // Coffee color
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false); // Transparent background
+        btnBack.setFocusPainted(false);
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        headerPanel.add(btnBack);
+        
+        // B. Input Fields Panel
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        inputPanel.setBorder(new EmptyBorder(10, 20, 10, 20)); // Margin
+        
         tfId = new JTextField();
         tfName = new JTextField();
         tfPrice = new JTextField();
 
-        formPanel.add(new JLabel("Product ID:"));
-        formPanel.add(tfId);
-        formPanel.add(new JLabel("Product Name:"));
-        formPanel.add(tfName);
-        formPanel.add(new JLabel("Price:"));
-        formPanel.add(tfPrice);
+        inputPanel.add(new JLabel("Product ID:"));
+        inputPanel.add(tfId);
+        inputPanel.add(new JLabel("Product Name:"));
+        inputPanel.add(tfName);
+        inputPanel.add(new JLabel("Price:"));
+        inputPanel.add(tfPrice);
 
-        // Buttons
+        // C. Action Buttons Panel (Add, Update, Delete, Clear)
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10)); // 1 Row, 4 Columns
+        buttonPanel.setBorder(new EmptyBorder(0, 20, 20, 20)); // Margin bottom
+
         JButton btnAdd = new JButton("Add");
-        JButton btnUpdate = new JButton("Update"); // NEW BUTTON
+        JButton btnUpdate = new JButton("Update");
         JButton btnDelete = new JButton("Delete");
-        JButton btnClear = new JButton("Clear Fields");
+        JButton btnClear = new JButton("Clear");
 
-        formPanel.add(btnAdd);
-        formPanel.add(btnUpdate);
-        formPanel.add(btnDelete);
-        formPanel.add(btnClear);
+        buttonPanel.add(btnAdd);
+        buttonPanel.add(btnUpdate);
+        buttonPanel.add(btnDelete);
+        buttonPanel.add(btnClear);
 
-        add(formPanel, BorderLayout.NORTH);
+        // Add everything to Top Container
+        topContainer.add(headerPanel);
+        topContainer.add(inputPanel);
+        topContainer.add(buttonPanel);
+        
+        add(topContainer, BorderLayout.NORTH);
 
         // --- BOTTOM SECTION: Data Table ---
         model = new DefaultTableModel(new String[]{"ID", "Name", "Price"}, 0);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(new EmptyBorder(10, 20, 20, 20));
+        scrollPane.setBorder(new EmptyBorder(0, 20, 20, 20));
         
-        // Optional: Click row to fill text fields (Makes it easier to get info for delete)
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = table.getSelectedRow();
@@ -72,9 +97,14 @@ public class Admin extends JFrame {
 
         // --- LOGIC ---
         btnAdd.addActionListener(e -> addData());
-        btnUpdate.addActionListener(e -> updateData()); // NEW ACTION
+        btnUpdate.addActionListener(e -> updateData());
         btnDelete.addActionListener(e -> deleteData());
         btnClear.addActionListener(e -> clear());
+        
+        // --- BACK BUTTON LOGIC ---
+        btnBack.addActionListener(e -> {
+            dispose();
+        });
         
         refreshTable();
     }
@@ -107,14 +137,12 @@ public class Admin extends JFrame {
         } catch (Exception e) { JOptionPane.showMessageDialog(this, "Error: " + e.getMessage()); }
     }
 
-    // --- NEW UPDATE METHOD ---
     private void updateData() {
         if(tfId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter Product ID to update.");
             return;
         }
         try {
-            // Update Name and Price where ID matches
             PreparedStatement p = connection.prepareStatement("UPDATE product SET Name=?, Price=? WHERE PID=?");
             p.setString(1, tfName.getText());
             p.setDouble(2, Double.parseDouble(tfPrice.getText()));
@@ -131,7 +159,6 @@ public class Admin extends JFrame {
         } catch (Exception e) { JOptionPane.showMessageDialog(this, "Error: " + e.getMessage()); }
     }
 
-    // --- STRICT DELETE METHOD ---
     private void deleteData() {
         String inputId = tfId.getText();
         String inputName = tfName.getText();
@@ -143,7 +170,6 @@ public class Admin extends JFrame {
         }
 
         try {
-            // 1. First, verify the data exists exactly as typed
             PreparedStatement check = connection.prepareStatement("SELECT * FROM product WHERE PID=? AND Name=? AND Price=?");
             check.setString(1, inputId);
             check.setString(2, inputName);
@@ -152,18 +178,15 @@ public class Admin extends JFrame {
             ResultSet rs = check.executeQuery();
             
             if (rs.next()) {
-                // 2. If data matches, perform delete
                 PreparedStatement del = connection.prepareStatement("DELETE FROM product WHERE PID=?");
                 del.setString(1, inputId);
                 del.executeUpdate();
-                
                 refreshTable();
                 clear();
                 JOptionPane.showMessageDialog(this, "Product Deleted Successfully.");
             } else {
                 JOptionPane.showMessageDialog(this, "Delete Failed: Information does not match database record.");
             }
-
         } catch (Exception e) { JOptionPane.showMessageDialog(this, "Error: " + e.getMessage()); }
     }
 
