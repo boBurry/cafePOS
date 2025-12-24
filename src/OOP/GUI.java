@@ -34,6 +34,7 @@ public class GUI extends javax.swing.JFrame {
         lbCake = new javax.swing.JLabel();
         lbDrink = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        lbAdmin = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         Drink = new javax.swing.JPanel();
         dContainer = new javax.swing.JPanel();
@@ -126,7 +127,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sidePanel.add(btExit);
-        btExit.setBounds(40, 860, 72, 40);
+        btExit.setBounds(40, 800, 72, 40);
 
         lbCake.setBackground(new java.awt.Color(229, 214, 192));
         lbCake.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
@@ -177,6 +178,22 @@ public class GUI extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/OOP/image 10.png"))); // NOI18N
         sidePanel.add(jLabel6);
         jLabel6.setBounds(20, 30, 120, 120);
+
+        lbAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        lbAdmin.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
+        lbAdmin.setForeground(new java.awt.Color(51, 51, 51));
+        lbAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAdmin.setText("Admin");
+        lbAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbAdmin.setOpaque(true);
+        lbAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbAdminMouseClicked(evt);
+            }
+        });
+        sidePanel.add(lbAdmin);
+        lbAdmin.setBounds(20, 750, 110, 40);
 
         getContentPane().add(sidePanel);
         sidePanel.setBounds(0, 0, 160, 980);
@@ -971,6 +988,11 @@ public class GUI extends javax.swing.JFrame {
         lbSubtotal.setText(String.format("$%.2f", sub));
     }//GEN-LAST:event_btSubtotalActionPerformed
 
+    private void lbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdminMouseClicked
+        Admin​ ad = new Admin();
+        ad.setVisible(true);
+    }//GEN-LAST:event_lbAdminMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1065,6 +1087,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lbAdmin;
     private javax.swing.JLabel lbCake;
     private javax.swing.JLabel lbDrink;
     private javax.swing.JTextField lbSubtotal;
