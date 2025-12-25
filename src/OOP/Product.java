@@ -4,7 +4,7 @@ public class Product {
     // 1. The Raw Data (The Blueprint)
     private String id;
     private String name;
-    private double basePrice; // Store the original menu price (e.g. 2.50)
+    private double basePrice; // Store the original menu price 
     private int quantity;
     
     // Customization Fields
@@ -31,16 +31,14 @@ public class Product {
         this(id, name, basePrice, quantity, "", "", "", false);
     }
 
-    // 3. The Logic (Calculates price on demand)
-    
-    // THIS IS THE MISSING METHOD YOU NEEDED
+    // 3. The Logic (Calculates price on demand) 
     public double getUnitFinalPrice() {
         double finalPrice = basePrice;
 
         // A. Adjust for Size
         if (size != null) {
             switch (size) {
-                case "Small" -> finalPrice -= 0.50;
+                case "Medium" -> finalPrice = basePrice;
                 case "Large" -> finalPrice += 0.50;
             }
         }

@@ -794,7 +794,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void cbDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDiscountActionPerformed
         // Get the selected discount percentage from the ComboBox
-        String selectedDiscount = (String) cbDiscount.getSelectedItem();
+        String selectedDiscount = (String)cbDiscount.getSelectedItem();
 
         double discountPercentage;
             // Adjust based on selection
@@ -883,7 +883,7 @@ public class GUI extends javax.swing.JFrame {
                 product.getCustomizationDetails(),
                 String.format("$%.2f", product.getTotal())
             });
-
+            
             qtySpinner.setValue(0);
         }
     }

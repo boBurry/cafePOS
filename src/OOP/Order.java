@@ -6,7 +6,7 @@ public class Order {
     private ArrayList<Product> products;
     private double subtotal;
     private double totalAmount;
-    private double discount; // 
+    private double discount; 
 
     public Order() {
         this.products = new ArrayList<>();
@@ -23,7 +23,6 @@ public class Order {
         this.discount = discountPercentage; 
     }
     
-    // Remove product logic (Crucial for your Delete button!)
     public void removeProduct(int index) {
         if (index >= 0 && index < products.size()) {
             products.remove(index);
@@ -56,7 +55,6 @@ public class Order {
     public double getTotalAmount() { return totalAmount; }
     public ArrayList<Product> getProducts() { return products; }
     
-    // --- THE FIXED CLEAR METHOD ---
     public void clear() {
         products.clear();         // 1. Clear the list
         discount = 0.0;           // 2. Reset discount (FIXED NAME)
