@@ -1825,11 +1825,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lbTotalActionPerformed
 
     private void addILatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatteActionPerformed
-        addToCart("D05", "Iced Latte", qtyILatte);
+        controller.addToCart("D05", qtyILatte);
     }//GEN-LAST:event_addILatteActionPerformed
 
     private void addICappuccinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccinoActionPerformed
-        addToCart("D07", "Iced Cappuccino", qtyICappuccino);
+        controller.addToCart("D07", qtyICappuccino);
     }//GEN-LAST:event_addICappuccinoActionPerformed
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
@@ -1890,37 +1890,33 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cbDiscountActionPerformed
 
     private void addIAmericanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericanoActionPerformed
-        addToCart("D07", "Iced Americano", qtyIAmericano);
+        controller.addToCart("D07", qtyIAmericano);
     }//GEN-LAST:event_addIAmericanoActionPerformed
 
     private void addIGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTeaActionPerformed
-        addToCart("D08", "Iced Green Tea", qtyIGreenTea);
+        controller.addToCart("D08", qtyIGreenTea);
     }//GEN-LAST:event_addIGreenTeaActionPerformed
 
     private void addHGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTeaActionPerformed
-        addToCart("D04", "Hot Green Tea", qtyHGreenTea);
+        controller.addToCart("D04", qtyHGreenTea);
     }//GEN-LAST:event_addHGreenTeaActionPerformed
 
     private void addHCappuccinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHCappuccinoActionPerformed
-        addToCart("D03", "Hot Cappuccino", qtyHCappuccino);
+        controller.addToCart("D03", qtyHCappuccino);
     }//GEN-LAST:event_addHCappuccinoActionPerformed
 
     private void addHLatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatteActionPerformed
-        addToCart("D01", "Hot Latte", qtyHLatte);
+        controller.addToCart("D01", qtyHLatte);
     }//GEN-LAST:event_addHLatteActionPerformed
 
     private void addHEspressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHEspressoActionPerformed
-        addToCart("D02", "Hot Espresso", qtyHEspresso);
+        controller.addToCart("D02", qtyHEspresso);
     }//GEN-LAST:event_addHEspressoActionPerformed
 
     private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btExitActionPerformed
-
-    private void addToCart(String pid, String name, javax.swing.JSpinner qtySpinner) {
-        controller.addToCart(pid, name, qtySpinner);
-    }
-    
+ 
     public javax.swing.JTable getTable() {
         return table;
     }
@@ -1947,7 +1943,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lbAdminMouseClicked
 
     private void addIChocolateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolateActionPerformed
-        addToCart("D09", "Iced Chocolate", qtyIChocolate);
+        controller.addToCart("D09", qtyIChocolate);
     }//GEN-LAST:event_addIChocolateActionPerformed
 
     private void addIChocolate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate1ActionPerformed
