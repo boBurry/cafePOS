@@ -40,123 +40,8 @@ public class GUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         lbAdmin = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
-        Cake = new javax.swing.JPanel();
-        dContainer3 = new javax.swing.JPanel();
-        btNext1 = new javax.swing.JButton();
-        jLabel62 = new javax.swing.JLabel();
-        pIChocolate2 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        addIChocolate2 = new javax.swing.JButton();
-        qtyIChocolate2 = new javax.swing.JSpinner();
-        pIGreenTea2 = new javax.swing.JPanel();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
-        addIGreenTea2 = new javax.swing.JButton();
-        qtyIGreenTea2 = new javax.swing.JSpinner();
-        pICappuccino2 = new javax.swing.JPanel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        addICappuccino2 = new javax.swing.JButton();
-        qtyICappuccino2 = new javax.swing.JSpinner();
-        pILatte2 = new javax.swing.JPanel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        addILatte2 = new javax.swing.JButton();
-        qtyILatte2 = new javax.swing.JSpinner();
-        pIAmericano2 = new javax.swing.JPanel();
-        jLabel75 = new javax.swing.JLabel();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel77 = new javax.swing.JLabel();
-        addIAmericano2 = new javax.swing.JButton();
-        qtyIAmericano2 = new javax.swing.JSpinner();
-        pHLatte2 = new javax.swing.JPanel();
-        jLabel78 = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        addHLatte2 = new javax.swing.JButton();
-        qtyHLatte2 = new javax.swing.JSpinner();
-        pHCappuccino2 = new javax.swing.JPanel();
-        jLabel81 = new javax.swing.JLabel();
-        jLabel82 = new javax.swing.JLabel();
-        jLabel83 = new javax.swing.JLabel();
-        addHCappuccino2 = new javax.swing.JButton();
-        qtyHCappuccino2 = new javax.swing.JSpinner();
-        pHGreenTea2 = new javax.swing.JPanel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
-        addHGreenTea2 = new javax.swing.JButton();
-        qtyHGreenTea2 = new javax.swing.JSpinner();
-        pHEspresso2 = new javax.swing.JPanel();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        jLabel89 = new javax.swing.JLabel();
-        addHEspresso2 = new javax.swing.JButton();
-        qtyHEspresso2 = new javax.swing.JSpinner();
-        dContainer4 = new javax.swing.JPanel();
-        btBack1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        pIChocolate3 = new javax.swing.JPanel();
-        jLabel90 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        addIChocolate3 = new javax.swing.JButton();
-        qtyIChocolate3 = new javax.swing.JSpinner();
-        pIGreenTea3 = new javax.swing.JPanel();
-        jLabel93 = new javax.swing.JLabel();
-        jLabel94 = new javax.swing.JLabel();
-        jLabel95 = new javax.swing.JLabel();
-        addIGreenTea3 = new javax.swing.JButton();
-        qtyIGreenTea3 = new javax.swing.JSpinner();
-        pICappuccino3 = new javax.swing.JPanel();
-        jLabel96 = new javax.swing.JLabel();
-        jLabel97 = new javax.swing.JLabel();
-        jLabel98 = new javax.swing.JLabel();
-        addICappuccino3 = new javax.swing.JButton();
-        qtyICappuccino3 = new javax.swing.JSpinner();
-        pILatte3 = new javax.swing.JPanel();
-        jLabel99 = new javax.swing.JLabel();
-        jLabel100 = new javax.swing.JLabel();
-        jLabel101 = new javax.swing.JLabel();
-        addILatte3 = new javax.swing.JButton();
-        qtyILatte3 = new javax.swing.JSpinner();
-        pIAmericano3 = new javax.swing.JPanel();
-        jLabel102 = new javax.swing.JLabel();
-        jLabel103 = new javax.swing.JLabel();
-        jLabel104 = new javax.swing.JLabel();
-        addIAmericano3 = new javax.swing.JButton();
-        qtyIAmericano3 = new javax.swing.JSpinner();
-        pHLatte3 = new javax.swing.JPanel();
-        jLabel105 = new javax.swing.JLabel();
-        jLabel106 = new javax.swing.JLabel();
-        jLabel107 = new javax.swing.JLabel();
-        addHLatte3 = new javax.swing.JButton();
-        qtyHLatte3 = new javax.swing.JSpinner();
-        pHCappuccino3 = new javax.swing.JPanel();
-        jLabel108 = new javax.swing.JLabel();
-        jLabel109 = new javax.swing.JLabel();
-        jLabel110 = new javax.swing.JLabel();
-        addHCappuccino3 = new javax.swing.JButton();
-        qtyHCappuccino3 = new javax.swing.JSpinner();
-        pHGreenTea3 = new javax.swing.JPanel();
-        jLabel111 = new javax.swing.JLabel();
-        jLabel112 = new javax.swing.JLabel();
-        jLabel113 = new javax.swing.JLabel();
-        addHGreenTea3 = new javax.swing.JButton();
-        qtyHGreenTea3 = new javax.swing.JSpinner();
-        pHEspresso3 = new javax.swing.JPanel();
-        jLabel114 = new javax.swing.JLabel();
-        jLabel115 = new javax.swing.JLabel();
-        jLabel116 = new javax.swing.JLabel();
-        addHEspresso3 = new javax.swing.JButton();
-        qtyHEspresso3 = new javax.swing.JSpinner();
         Drink = new javax.swing.JPanel();
-        dContainer2 = new javax.swing.JPanel();
+        dP1 = new javax.swing.JPanel();
         btNext = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         pIChocolate1 = new javax.swing.JPanel();
@@ -213,39 +98,9 @@ public class GUI extends javax.swing.JFrame {
         jLabel61 = new javax.swing.JLabel();
         addHEspresso1 = new javax.swing.JButton();
         qtyHEspresso1 = new javax.swing.JSpinner();
-        dContainer1 = new javax.swing.JPanel();
+        dP2 = new javax.swing.JPanel();
         btBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        pIChocolate = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        addIChocolate = new javax.swing.JButton();
-        qtyIChocolate = new javax.swing.JSpinner();
-        pIGreenTea = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        addIGreenTea = new javax.swing.JButton();
-        qtyIGreenTea = new javax.swing.JSpinner();
-        pICappuccino = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        addICappuccino = new javax.swing.JButton();
-        qtyICappuccino = new javax.swing.JSpinner();
-        pILatte = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        addILatte = new javax.swing.JButton();
-        qtyILatte = new javax.swing.JSpinner();
-        pIAmericano = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        addIAmericano = new javax.swing.JButton();
-        qtyIAmericano = new javax.swing.JSpinner();
         pHLatte = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -270,6 +125,63 @@ public class GUI extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         addHEspresso = new javax.swing.JButton();
         qtyHEspresso = new javax.swing.JSpinner();
+        Cake = new javax.swing.JPanel();
+        cP1 = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        pIChocolate2 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        addIChocolate2 = new javax.swing.JButton();
+        qtyIChocolate2 = new javax.swing.JSpinner();
+        pIGreenTea2 = new javax.swing.JPanel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        addIGreenTea2 = new javax.swing.JButton();
+        qtyIGreenTea2 = new javax.swing.JSpinner();
+        pICappuccino2 = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        addICappuccino2 = new javax.swing.JButton();
+        qtyICappuccino2 = new javax.swing.JSpinner();
+        pILatte2 = new javax.swing.JPanel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        addILatte2 = new javax.swing.JButton();
+        qtyILatte2 = new javax.swing.JSpinner();
+        pIAmericano2 = new javax.swing.JPanel();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        addIAmericano2 = new javax.swing.JButton();
+        qtyIAmericano2 = new javax.swing.JSpinner();
+        pHLatte2 = new javax.swing.JPanel();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        addHLatte2 = new javax.swing.JButton();
+        qtyHLatte2 = new javax.swing.JSpinner();
+        pHCappuccino2 = new javax.swing.JPanel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        addHCappuccino2 = new javax.swing.JButton();
+        qtyHCappuccino2 = new javax.swing.JSpinner();
+        pHGreenTea2 = new javax.swing.JPanel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        addHGreenTea2 = new javax.swing.JButton();
+        qtyHGreenTea2 = new javax.swing.JSpinner();
+        pHEspresso2 = new javax.swing.JPanel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        addHEspresso2 = new javax.swing.JButton();
+        qtyHEspresso2 = new javax.swing.JSpinner();
         right = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -372,660 +284,10 @@ public class GUI extends javax.swing.JFrame {
         body.setBackground(new java.awt.Color(255, 255, 255));
         body.setLayout(new java.awt.CardLayout());
 
-        Cake.setLayout(new java.awt.CardLayout());
-
-        dContainer3.setBackground(new java.awt.Color(245, 245, 245));
-        dContainer3.setLayout(null);
-
-        btNext1.setText("Next");
-        btNext1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNext1ActionPerformed(evt);
-            }
-        });
-        dContainer3.add(btNext1);
-        btNext1.setBounds(610, 40, 78, 23);
-
-        jLabel62.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
-        jLabel62.setText("Caffeine");
-        dContainer3.add(jLabel62);
-        jLabel62.setBounds(30, 30, 110, 50);
-
-        pIChocolate2.setBackground(new java.awt.Color(255, 255, 255));
-        pIChocolate2.setLayout(null);
-
-        jLabel63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 5.png"))); // NOI18N
-        pIChocolate2.add(jLabel63);
-        jLabel63.setBounds(20, -10, 150, 150);
-
-        jLabel64.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel64.setText("1.5$");
-        pIChocolate2.add(jLabel64);
-        jLabel64.setBounds(10, 180, 40, 16);
-
-        jLabel65.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel65.setText("Iced Chocolate");
-        pIChocolate2.add(jLabel65);
-        jLabel65.setBounds(10, 160, 120, 16);
-
-        addIChocolate2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIChocolate2.setText("ADD");
-        addIChocolate2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIChocolate2ActionPerformed(evt);
-            }
-        });
-        pIChocolate2.add(addIChocolate2);
-        addIChocolate2.setBounds(130, 160, 60, 60);
-
-        qtyIChocolate2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIChocolate2.add(qtyIChocolate2);
-        qtyIChocolate2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pIChocolate2);
-        pIChocolate2.setBounds(490, 610, 200, 240);
-
-        pIGreenTea2.setBackground(new java.awt.Color(255, 255, 255));
-        pIGreenTea2.setLayout(null);
-
-        jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 2.png"))); // NOI18N
-        pIGreenTea2.add(jLabel66);
-        jLabel66.setBounds(20, 0, 150, 150);
-
-        jLabel67.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel67.setText("1.5$");
-        pIGreenTea2.add(jLabel67);
-        jLabel67.setBounds(10, 180, 40, 16);
-
-        jLabel68.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel68.setText("Iced Green Tea");
-        pIGreenTea2.add(jLabel68);
-        jLabel68.setBounds(10, 160, 120, 16);
-
-        addIGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIGreenTea2.setText("ADD");
-        addIGreenTea2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIGreenTea2ActionPerformed(evt);
-            }
-        });
-        pIGreenTea2.add(addIGreenTea2);
-        addIGreenTea2.setBounds(130, 160, 60, 60);
-
-        qtyIGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIGreenTea2.add(qtyIGreenTea2);
-        qtyIGreenTea2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pIGreenTea2);
-        pIGreenTea2.setBounds(260, 610, 200, 240);
-
-        pICappuccino2.setBackground(new java.awt.Color(255, 255, 255));
-        pICappuccino2.setLayout(null);
-
-        jLabel69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 4.png"))); // NOI18N
-        pICappuccino2.add(jLabel69);
-        jLabel69.setBounds(20, 0, 150, 150);
-
-        jLabel70.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel70.setText("2.0$");
-        pICappuccino2.add(jLabel70);
-        jLabel70.setBounds(10, 180, 40, 16);
-
-        jLabel71.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel71.setText("Iced Cappuccino");
-        pICappuccino2.add(jLabel71);
-        jLabel71.setBounds(10, 160, 120, 16);
-
-        addICappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addICappuccino2.setText("ADD");
-        addICappuccino2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addICappuccino2ActionPerformed(evt);
-            }
-        });
-        pICappuccino2.add(addICappuccino2);
-        addICappuccino2.setBounds(130, 160, 60, 60);
-
-        qtyICappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pICappuccino2.add(qtyICappuccino2);
-        qtyICappuccino2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pICappuccino2);
-        pICappuccino2.setBounds(30, 610, 200, 240);
-
-        pILatte2.setBackground(new java.awt.Color(255, 255, 255));
-        pILatte2.setLayout(null);
-
-        jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
-        pILatte2.add(jLabel72);
-        jLabel72.setBounds(20, 0, 150, 150);
-
-        jLabel73.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel73.setText("2.0$");
-        pILatte2.add(jLabel73);
-        jLabel73.setBounds(10, 180, 40, 16);
-
-        jLabel74.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel74.setText("Iced Latte");
-        pILatte2.add(jLabel74);
-        jLabel74.setBounds(10, 160, 80, 16);
-
-        addILatte2.setText("ADD");
-        addILatte2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addILatte2ActionPerformed(evt);
-            }
-        });
-        pILatte2.add(addILatte2);
-        addILatte2.setBounds(130, 160, 60, 60);
-
-        qtyILatte2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pILatte2.add(qtyILatte2);
-        qtyILatte2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pILatte2);
-        pILatte2.setBounds(260, 350, 200, 240);
-
-        pIAmericano2.setBackground(new java.awt.Color(255, 255, 255));
-        pIAmericano2.setLayout(null);
-
-        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 3.png"))); // NOI18N
-        pIAmericano2.add(jLabel75);
-        jLabel75.setBounds(20, 0, 150, 150);
-
-        jLabel76.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel76.setText("1.5$");
-        pIAmericano2.add(jLabel76);
-        jLabel76.setBounds(10, 180, 40, 16);
-
-        jLabel77.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel77.setText("Iced Americano");
-        pIAmericano2.add(jLabel77);
-        jLabel77.setBounds(10, 160, 110, 16);
-
-        addIAmericano2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIAmericano2.setText("ADD");
-        addIAmericano2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIAmericano2ActionPerformed(evt);
-            }
-        });
-        pIAmericano2.add(addIAmericano2);
-        addIAmericano2.setBounds(130, 160, 60, 60);
-
-        qtyIAmericano2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIAmericano2.add(qtyIAmericano2);
-        qtyIAmericano2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pIAmericano2);
-        pIAmericano2.setBounds(490, 350, 200, 240);
-
-        pHLatte2.setBackground(new java.awt.Color(255, 255, 255));
-        pHLatte2.setLayout(null);
-
-        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/98d03bd7c2a93f2e4f9972efa9da61be.png"))); // NOI18N
-        pHLatte2.add(jLabel78);
-        jLabel78.setBounds(20, 0, 150, 150);
-
-        jLabel79.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel79.setText("1,5$");
-        pHLatte2.add(jLabel79);
-        jLabel79.setBounds(10, 180, 40, 16);
-
-        jLabel80.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel80.setText("Hot Latte");
-        pHLatte2.add(jLabel80);
-        jLabel80.setBounds(10, 160, 80, 16);
-
-        addHLatte2.setText("ADD");
-        addHLatte2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHLatte2ActionPerformed(evt);
-            }
-        });
-        pHLatte2.add(addHLatte2);
-        addHLatte2.setBounds(130, 160, 60, 60);
-
-        qtyHLatte2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHLatte2.add(qtyHLatte2);
-        qtyHLatte2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pHLatte2);
-        pHLatte2.setBounds(30, 90, 200, 240);
-
-        pHCappuccino2.setBackground(new java.awt.Color(255, 255, 255));
-        pHCappuccino2.setLayout(null);
-
-        jLabel81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/46e2af89e9d690dd555be8a7e486bb96.png"))); // NOI18N
-        pHCappuccino2.add(jLabel81);
-        jLabel81.setBounds(20, 0, 150, 150);
-
-        jLabel82.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel82.setText("1.5$");
-        pHCappuccino2.add(jLabel82);
-        jLabel82.setBounds(10, 180, 40, 16);
-
-        jLabel83.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel83.setText("Hot Cappuccino");
-        pHCappuccino2.add(jLabel83);
-        jLabel83.setBounds(10, 160, 120, 16);
-
-        addHCappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHCappuccino2.setText("ADD");
-        addHCappuccino2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHCappuccino2ActionPerformed(evt);
-            }
-        });
-        pHCappuccino2.add(addHCappuccino2);
-        addHCappuccino2.setBounds(130, 160, 60, 60);
-
-        qtyHCappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHCappuccino2.add(qtyHCappuccino2);
-        qtyHCappuccino2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pHCappuccino2);
-        pHCappuccino2.setBounds(490, 90, 200, 240);
-
-        pHGreenTea2.setBackground(new java.awt.Color(255, 255, 255));
-        pHGreenTea2.setLayout(null);
-
-        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/73745cbf117bac2f7bd80a018767976b.png"))); // NOI18N
-        pHGreenTea2.add(jLabel84);
-        jLabel84.setBounds(20, 0, 150, 150);
-
-        jLabel85.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel85.setText("1.5$");
-        pHGreenTea2.add(jLabel85);
-        jLabel85.setBounds(10, 180, 40, 16);
-
-        jLabel86.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel86.setText("Hot Green Tea");
-        pHGreenTea2.add(jLabel86);
-        jLabel86.setBounds(10, 160, 120, 16);
-
-        addHGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHGreenTea2.setText("ADD");
-        addHGreenTea2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHGreenTea2ActionPerformed(evt);
-            }
-        });
-        pHGreenTea2.add(addHGreenTea2);
-        addHGreenTea2.setBounds(130, 160, 60, 60);
-
-        qtyHGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHGreenTea2.add(qtyHGreenTea2);
-        qtyHGreenTea2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pHGreenTea2);
-        pHGreenTea2.setBounds(30, 350, 200, 240);
-
-        pHEspresso2.setBackground(new java.awt.Color(255, 255, 255));
-        pHEspresso2.setLayout(null);
-
-        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/d6600f2db33c4ccad883a646531c8b23.png"))); // NOI18N
-        pHEspresso2.add(jLabel87);
-        jLabel87.setBounds(20, 0, 150, 150);
-
-        jLabel88.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel88.setText("1.0$");
-        pHEspresso2.add(jLabel88);
-        jLabel88.setBounds(10, 180, 40, 16);
-
-        jLabel89.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel89.setText("Hot Espresso");
-        pHEspresso2.add(jLabel89);
-        jLabel89.setBounds(10, 160, 110, 16);
-
-        addHEspresso2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHEspresso2.setText("ADD");
-        addHEspresso2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHEspresso2ActionPerformed(evt);
-            }
-        });
-        pHEspresso2.add(addHEspresso2);
-        addHEspresso2.setBounds(130, 160, 60, 60);
-
-        qtyHEspresso2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHEspresso2.add(qtyHEspresso2);
-        qtyHEspresso2.setBounds(10, 200, 64, 20);
-
-        dContainer3.add(pHEspresso2);
-        pHEspresso2.setBounds(260, 90, 200, 240);
-
-        Cake.add(dContainer3, "card2");
-
-        dContainer4.setBackground(new java.awt.Color(245, 245, 245));
-        dContainer4.setLayout(null);
-
-        btBack1.setText("Back");
-        btBack1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBack1ActionPerformed(evt);
-            }
-        });
-        dContainer4.add(btBack1);
-        btBack1.setBounds(610, 40, 78, 23);
-
-        jLabel2.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
-        jLabel2.setText("Caffeine");
-        dContainer4.add(jLabel2);
-        jLabel2.setBounds(30, 30, 110, 50);
-
-        pIChocolate3.setBackground(new java.awt.Color(255, 255, 255));
-        pIChocolate3.setLayout(null);
-
-        jLabel90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 5.png"))); // NOI18N
-        pIChocolate3.add(jLabel90);
-        jLabel90.setBounds(20, -10, 150, 150);
-
-        jLabel91.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel91.setText("1.5$");
-        pIChocolate3.add(jLabel91);
-        jLabel91.setBounds(10, 180, 40, 16);
-
-        jLabel92.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel92.setText("Iced Chocolate");
-        pIChocolate3.add(jLabel92);
-        jLabel92.setBounds(10, 160, 120, 16);
-
-        addIChocolate3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIChocolate3.setText("ADD");
-        addIChocolate3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIChocolate3ActionPerformed(evt);
-            }
-        });
-        pIChocolate3.add(addIChocolate3);
-        addIChocolate3.setBounds(130, 160, 60, 60);
-
-        qtyIChocolate3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIChocolate3.add(qtyIChocolate3);
-        qtyIChocolate3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pIChocolate3);
-        pIChocolate3.setBounds(490, 610, 200, 240);
-
-        pIGreenTea3.setBackground(new java.awt.Color(255, 255, 255));
-        pIGreenTea3.setLayout(null);
-
-        jLabel93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 2.png"))); // NOI18N
-        pIGreenTea3.add(jLabel93);
-        jLabel93.setBounds(20, 0, 150, 150);
-
-        jLabel94.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel94.setText("1.5$");
-        pIGreenTea3.add(jLabel94);
-        jLabel94.setBounds(10, 180, 40, 16);
-
-        jLabel95.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel95.setText("Iced Green Tea");
-        pIGreenTea3.add(jLabel95);
-        jLabel95.setBounds(10, 160, 120, 16);
-
-        addIGreenTea3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIGreenTea3.setText("ADD");
-        addIGreenTea3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIGreenTea3ActionPerformed(evt);
-            }
-        });
-        pIGreenTea3.add(addIGreenTea3);
-        addIGreenTea3.setBounds(130, 160, 60, 60);
-
-        qtyIGreenTea3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIGreenTea3.add(qtyIGreenTea3);
-        qtyIGreenTea3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pIGreenTea3);
-        pIGreenTea3.setBounds(260, 610, 200, 240);
-
-        pICappuccino3.setBackground(new java.awt.Color(255, 255, 255));
-        pICappuccino3.setLayout(null);
-
-        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 4.png"))); // NOI18N
-        pICappuccino3.add(jLabel96);
-        jLabel96.setBounds(20, 0, 150, 150);
-
-        jLabel97.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel97.setText("2.0$");
-        pICappuccino3.add(jLabel97);
-        jLabel97.setBounds(10, 180, 40, 16);
-
-        jLabel98.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel98.setText("Iced Cappuccino");
-        pICappuccino3.add(jLabel98);
-        jLabel98.setBounds(10, 160, 120, 16);
-
-        addICappuccino3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addICappuccino3.setText("ADD");
-        addICappuccino3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addICappuccino3ActionPerformed(evt);
-            }
-        });
-        pICappuccino3.add(addICappuccino3);
-        addICappuccino3.setBounds(130, 160, 60, 60);
-
-        qtyICappuccino3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pICappuccino3.add(qtyICappuccino3);
-        qtyICappuccino3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pICappuccino3);
-        pICappuccino3.setBounds(30, 610, 200, 240);
-
-        pILatte3.setBackground(new java.awt.Color(255, 255, 255));
-        pILatte3.setLayout(null);
-
-        jLabel99.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
-        pILatte3.add(jLabel99);
-        jLabel99.setBounds(20, 0, 150, 150);
-
-        jLabel100.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel100.setText("2.0$");
-        pILatte3.add(jLabel100);
-        jLabel100.setBounds(10, 180, 40, 16);
-
-        jLabel101.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel101.setText("Iced Latte");
-        pILatte3.add(jLabel101);
-        jLabel101.setBounds(10, 160, 80, 16);
-
-        addILatte3.setText("ADD");
-        addILatte3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addILatte3ActionPerformed(evt);
-            }
-        });
-        pILatte3.add(addILatte3);
-        addILatte3.setBounds(130, 160, 60, 60);
-
-        qtyILatte3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pILatte3.add(qtyILatte3);
-        qtyILatte3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pILatte3);
-        pILatte3.setBounds(260, 350, 200, 240);
-
-        pIAmericano3.setBackground(new java.awt.Color(255, 255, 255));
-        pIAmericano3.setLayout(null);
-
-        jLabel102.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 3.png"))); // NOI18N
-        pIAmericano3.add(jLabel102);
-        jLabel102.setBounds(20, 0, 150, 150);
-
-        jLabel103.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel103.setText("1.5$");
-        pIAmericano3.add(jLabel103);
-        jLabel103.setBounds(10, 180, 40, 16);
-
-        jLabel104.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel104.setText("Iced Americano");
-        pIAmericano3.add(jLabel104);
-        jLabel104.setBounds(10, 160, 110, 16);
-
-        addIAmericano3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIAmericano3.setText("ADD");
-        addIAmericano3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIAmericano3ActionPerformed(evt);
-            }
-        });
-        pIAmericano3.add(addIAmericano3);
-        addIAmericano3.setBounds(130, 160, 60, 60);
-
-        qtyIAmericano3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIAmericano3.add(qtyIAmericano3);
-        qtyIAmericano3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pIAmericano3);
-        pIAmericano3.setBounds(490, 350, 200, 240);
-
-        pHLatte3.setBackground(new java.awt.Color(255, 255, 255));
-        pHLatte3.setLayout(null);
-
-        jLabel105.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
-        pHLatte3.add(jLabel105);
-        jLabel105.setBounds(20, 0, 150, 150);
-
-        jLabel106.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel106.setText("1,5$");
-        pHLatte3.add(jLabel106);
-        jLabel106.setBounds(10, 180, 40, 16);
-
-        jLabel107.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel107.setText("Hot Latte");
-        pHLatte3.add(jLabel107);
-        jLabel107.setBounds(10, 160, 80, 16);
-
-        addHLatte3.setText("ADD");
-        addHLatte3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHLatte3ActionPerformed(evt);
-            }
-        });
-        pHLatte3.add(addHLatte3);
-        addHLatte3.setBounds(130, 160, 60, 60);
-
-        qtyHLatte3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHLatte3.add(qtyHLatte3);
-        qtyHLatte3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pHLatte3);
-        pHLatte3.setBounds(30, 90, 200, 240);
-
-        pHCappuccino3.setBackground(new java.awt.Color(255, 255, 255));
-        pHCappuccino3.setLayout(null);
-
-        jLabel108.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/46e2af89e9d690dd555be8a7e486bb96.png"))); // NOI18N
-        pHCappuccino3.add(jLabel108);
-        jLabel108.setBounds(20, 0, 150, 150);
-
-        jLabel109.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel109.setText("1.5$");
-        pHCappuccino3.add(jLabel109);
-        jLabel109.setBounds(10, 180, 40, 16);
-
-        jLabel110.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel110.setText("Hot Cappuccino");
-        pHCappuccino3.add(jLabel110);
-        jLabel110.setBounds(10, 160, 120, 16);
-
-        addHCappuccino3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHCappuccino3.setText("ADD");
-        addHCappuccino3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHCappuccino3ActionPerformed(evt);
-            }
-        });
-        pHCappuccino3.add(addHCappuccino3);
-        addHCappuccino3.setBounds(130, 160, 60, 60);
-
-        qtyHCappuccino3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHCappuccino3.add(qtyHCappuccino3);
-        qtyHCappuccino3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pHCappuccino3);
-        pHCappuccino3.setBounds(490, 90, 200, 240);
-
-        pHGreenTea3.setBackground(new java.awt.Color(255, 255, 255));
-        pHGreenTea3.setLayout(null);
-
-        jLabel111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/73745cbf117bac2f7bd80a018767976b.png"))); // NOI18N
-        pHGreenTea3.add(jLabel111);
-        jLabel111.setBounds(20, 0, 150, 150);
-
-        jLabel112.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel112.setText("1.5$");
-        pHGreenTea3.add(jLabel112);
-        jLabel112.setBounds(10, 180, 40, 16);
-
-        jLabel113.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel113.setText("Hot Green Tea");
-        pHGreenTea3.add(jLabel113);
-        jLabel113.setBounds(10, 160, 120, 16);
-
-        addHGreenTea3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHGreenTea3.setText("ADD");
-        addHGreenTea3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHGreenTea3ActionPerformed(evt);
-            }
-        });
-        pHGreenTea3.add(addHGreenTea3);
-        addHGreenTea3.setBounds(130, 160, 60, 60);
-
-        qtyHGreenTea3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHGreenTea3.add(qtyHGreenTea3);
-        qtyHGreenTea3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pHGreenTea3);
-        pHGreenTea3.setBounds(30, 350, 200, 240);
-
-        pHEspresso3.setBackground(new java.awt.Color(255, 255, 255));
-        pHEspresso3.setLayout(null);
-
-        jLabel114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/d6600f2db33c4ccad883a646531c8b23.png"))); // NOI18N
-        pHEspresso3.add(jLabel114);
-        jLabel114.setBounds(20, 0, 150, 150);
-
-        jLabel115.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel115.setText("1.0$");
-        pHEspresso3.add(jLabel115);
-        jLabel115.setBounds(10, 180, 40, 16);
-
-        jLabel116.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel116.setText("Hot Espresso");
-        pHEspresso3.add(jLabel116);
-        jLabel116.setBounds(10, 160, 110, 16);
-
-        addHEspresso3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addHEspresso3.setText("ADD");
-        addHEspresso3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addHEspresso3ActionPerformed(evt);
-            }
-        });
-        pHEspresso3.add(addHEspresso3);
-        addHEspresso3.setBounds(130, 160, 60, 60);
-
-        qtyHEspresso3.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHEspresso3.add(qtyHEspresso3);
-        qtyHEspresso3.setBounds(10, 200, 64, 20);
-
-        dContainer4.add(pHEspresso3);
-        pHEspresso3.setBounds(260, 90, 200, 240);
-
-        Cake.add(dContainer4, "card2");
-
-        body.add(Cake, "card2");
-
         Drink.setLayout(new java.awt.CardLayout());
 
-        dContainer2.setBackground(new java.awt.Color(245, 245, 245));
-        dContainer2.setLayout(null);
+        dP1.setBackground(new java.awt.Color(245, 245, 245));
+        dP1.setLayout(null);
 
         btNext.setText("Next");
         btNext.addActionListener(new java.awt.event.ActionListener() {
@@ -1033,13 +295,13 @@ public class GUI extends javax.swing.JFrame {
                 btNextActionPerformed(evt);
             }
         });
-        dContainer2.add(btNext);
-        btNext.setBounds(610, 40, 78, 23);
+        dP1.add(btNext);
+        btNext.setBounds(610, 50, 78, 30);
 
         jLabel31.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
-        jLabel31.setText("Caffeine");
-        dContainer2.add(jLabel31);
-        jLabel31.setBounds(30, 30, 110, 50);
+        jLabel31.setText("Drink");
+        dP1.add(jLabel31);
+        jLabel31.setBounds(30, 30, 70, 50);
 
         pIChocolate1.setBackground(new java.awt.Color(255, 255, 255));
         pIChocolate1.setLayout(null);
@@ -1072,7 +334,7 @@ public class GUI extends javax.swing.JFrame {
         pIChocolate1.add(qtyIChocolate1);
         qtyIChocolate1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pIChocolate1);
+        dP1.add(pIChocolate1);
         pIChocolate1.setBounds(490, 610, 200, 240);
 
         pIGreenTea1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1106,7 +368,7 @@ public class GUI extends javax.swing.JFrame {
         pIGreenTea1.add(qtyIGreenTea1);
         qtyIGreenTea1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pIGreenTea1);
+        dP1.add(pIGreenTea1);
         pIGreenTea1.setBounds(260, 610, 200, 240);
 
         pICappuccino1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1140,7 +402,7 @@ public class GUI extends javax.swing.JFrame {
         pICappuccino1.add(qtyICappuccino1);
         qtyICappuccino1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pICappuccino1);
+        dP1.add(pICappuccino1);
         pICappuccino1.setBounds(30, 610, 200, 240);
 
         pILatte1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1173,7 +435,7 @@ public class GUI extends javax.swing.JFrame {
         pILatte1.add(qtyILatte1);
         qtyILatte1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pILatte1);
+        dP1.add(pILatte1);
         pILatte1.setBounds(260, 350, 200, 240);
 
         pIAmericano1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1207,7 +469,7 @@ public class GUI extends javax.swing.JFrame {
         pIAmericano1.add(qtyIAmericano1);
         qtyIAmericano1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pIAmericano1);
+        dP1.add(pIAmericano1);
         pIAmericano1.setBounds(490, 350, 200, 240);
 
         pHLatte1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1240,7 +502,7 @@ public class GUI extends javax.swing.JFrame {
         pHLatte1.add(qtyHLatte1);
         qtyHLatte1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pHLatte1);
+        dP1.add(pHLatte1);
         pHLatte1.setBounds(30, 90, 200, 240);
 
         pHCappuccino1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1274,7 +536,7 @@ public class GUI extends javax.swing.JFrame {
         pHCappuccino1.add(qtyHCappuccino1);
         qtyHCappuccino1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pHCappuccino1);
+        dP1.add(pHCappuccino1);
         pHCappuccino1.setBounds(490, 90, 200, 240);
 
         pHGreenTea1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1308,7 +570,7 @@ public class GUI extends javax.swing.JFrame {
         pHGreenTea1.add(qtyHGreenTea1);
         qtyHGreenTea1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pHGreenTea1);
+        dP1.add(pHGreenTea1);
         pHGreenTea1.setBounds(30, 350, 200, 240);
 
         pHEspresso1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1342,13 +604,13 @@ public class GUI extends javax.swing.JFrame {
         pHEspresso1.add(qtyHEspresso1);
         qtyHEspresso1.setBounds(10, 200, 64, 20);
 
-        dContainer2.add(pHEspresso1);
+        dP1.add(pHEspresso1);
         pHEspresso1.setBounds(260, 90, 200, 240);
 
-        Drink.add(dContainer2, "card2");
+        Drink.add(dP1, "card2");
 
-        dContainer1.setBackground(new java.awt.Color(245, 245, 245));
-        dContainer1.setLayout(null);
+        dP2.setBackground(new java.awt.Color(245, 245, 245));
+        dP2.setLayout(null);
 
         btBack.setText("Back");
         btBack.addActionListener(new java.awt.event.ActionListener() {
@@ -1356,199 +618,30 @@ public class GUI extends javax.swing.JFrame {
                 btBackActionPerformed(evt);
             }
         });
-        dContainer1.add(btBack);
-        btBack.setBounds(610, 40, 78, 23);
+        dP2.add(btBack);
+        btBack.setBounds(610, 50, 78, 30);
 
         jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
-        jLabel1.setText("Caffeine");
-        dContainer1.add(jLabel1);
-        jLabel1.setBounds(30, 30, 110, 50);
-
-        pIChocolate.setBackground(new java.awt.Color(255, 255, 255));
-        pIChocolate.setLayout(null);
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 5.png"))); // NOI18N
-        pIChocolate.add(jLabel34);
-        jLabel34.setBounds(20, -10, 150, 150);
-
-        jLabel35.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel35.setText("1.5$");
-        pIChocolate.add(jLabel35);
-        jLabel35.setBounds(10, 180, 40, 16);
-
-        jLabel36.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel36.setText("Iced Chocolate");
-        pIChocolate.add(jLabel36);
-        jLabel36.setBounds(10, 160, 120, 16);
-
-        addIChocolate.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIChocolate.setText("ADD");
-        addIChocolate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIChocolateActionPerformed(evt);
-            }
-        });
-        pIChocolate.add(addIChocolate);
-        addIChocolate.setBounds(130, 160, 60, 60);
-
-        qtyIChocolate.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIChocolate.add(qtyIChocolate);
-        qtyIChocolate.setBounds(10, 200, 64, 20);
-
-        dContainer1.add(pIChocolate);
-        pIChocolate.setBounds(490, 610, 200, 240);
-
-        pIGreenTea.setBackground(new java.awt.Color(255, 255, 255));
-        pIGreenTea.setLayout(null);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 2.png"))); // NOI18N
-        pIGreenTea.add(jLabel10);
-        jLabel10.setBounds(20, 0, 150, 150);
-
-        jLabel17.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel17.setText("1.5$");
-        pIGreenTea.add(jLabel17);
-        jLabel17.setBounds(10, 180, 40, 16);
-
-        jLabel18.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel18.setText("Iced Green Tea");
-        pIGreenTea.add(jLabel18);
-        jLabel18.setBounds(10, 160, 120, 16);
-
-        addIGreenTea.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIGreenTea.setText("ADD");
-        addIGreenTea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIGreenTeaActionPerformed(evt);
-            }
-        });
-        pIGreenTea.add(addIGreenTea);
-        addIGreenTea.setBounds(130, 160, 60, 60);
-
-        qtyIGreenTea.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIGreenTea.add(qtyIGreenTea);
-        qtyIGreenTea.setBounds(10, 200, 64, 20);
-
-        dContainer1.add(pIGreenTea);
-        pIGreenTea.setBounds(260, 610, 200, 240);
-
-        pICappuccino.setBackground(new java.awt.Color(255, 255, 255));
-        pICappuccino.setLayout(null);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 4.png"))); // NOI18N
-        pICappuccino.add(jLabel8);
-        jLabel8.setBounds(20, 0, 150, 150);
-
-        jLabel13.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel13.setText("2.0$");
-        pICappuccino.add(jLabel13);
-        jLabel13.setBounds(10, 180, 40, 16);
-
-        jLabel14.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel14.setText("Iced Cappuccino");
-        pICappuccino.add(jLabel14);
-        jLabel14.setBounds(10, 160, 120, 16);
-
-        addICappuccino.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addICappuccino.setText("ADD");
-        addICappuccino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addICappuccinoActionPerformed(evt);
-            }
-        });
-        pICappuccino.add(addICappuccino);
-        addICappuccino.setBounds(130, 160, 60, 60);
-
-        qtyICappuccino.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pICappuccino.add(qtyICappuccino);
-        qtyICappuccino.setBounds(10, 200, 64, 20);
-
-        dContainer1.add(pICappuccino);
-        pICappuccino.setBounds(30, 610, 200, 240);
-
-        pILatte.setBackground(new java.awt.Color(255, 255, 255));
-        pILatte.setLayout(null);
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
-        pILatte.add(jLabel7);
-        jLabel7.setBounds(20, 0, 150, 150);
-
-        jLabel11.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel11.setText("2.0$");
-        pILatte.add(jLabel11);
-        jLabel11.setBounds(10, 180, 40, 16);
-
-        jLabel12.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel12.setText("Iced Latte");
-        pILatte.add(jLabel12);
-        jLabel12.setBounds(10, 160, 80, 16);
-
-        addILatte.setText("ADD");
-        addILatte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addILatteActionPerformed(evt);
-            }
-        });
-        pILatte.add(addILatte);
-        addILatte.setBounds(130, 160, 60, 60);
-
-        qtyILatte.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pILatte.add(qtyILatte);
-        qtyILatte.setBounds(10, 200, 64, 20);
-
-        dContainer1.add(pILatte);
-        pILatte.setBounds(260, 350, 200, 240);
-
-        pIAmericano.setBackground(new java.awt.Color(255, 255, 255));
-        pIAmericano.setLayout(null);
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 3.png"))); // NOI18N
-        pIAmericano.add(jLabel9);
-        jLabel9.setBounds(20, 0, 150, 150);
-
-        jLabel15.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel15.setText("1.5$");
-        pIAmericano.add(jLabel15);
-        jLabel15.setBounds(10, 180, 40, 16);
-
-        jLabel16.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel16.setText("Iced Americano");
-        pIAmericano.add(jLabel16);
-        jLabel16.setBounds(10, 160, 110, 16);
-
-        addIAmericano.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        addIAmericano.setText("ADD");
-        addIAmericano.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addIAmericanoActionPerformed(evt);
-            }
-        });
-        pIAmericano.add(addIAmericano);
-        addIAmericano.setBounds(130, 160, 60, 60);
-
-        qtyIAmericano.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIAmericano.add(qtyIAmericano);
-        qtyIAmericano.setBounds(10, 200, 64, 20);
-
-        dContainer1.add(pIAmericano);
-        pIAmericano.setBounds(490, 350, 200, 240);
+        jLabel1.setText("Drink");
+        dP2.add(jLabel1);
+        jLabel1.setBounds(30, 30, 70, 50);
 
         pHLatte.setBackground(new java.awt.Color(255, 255, 255));
         pHLatte.setLayout(null);
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 7.png"))); // NOI18N
         pHLatte.add(jLabel25);
         jLabel25.setBounds(20, 0, 150, 150);
 
         jLabel26.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel26.setText("1,5$");
+        jLabel26.setText("2,5$");
         pHLatte.add(jLabel26);
         jLabel26.setBounds(10, 180, 40, 16);
 
         jLabel27.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel27.setText("Hot Latte");
+        jLabel27.setText("Green Tea Frappe");
         pHLatte.add(jLabel27);
-        jLabel27.setBounds(10, 160, 80, 16);
+        jLabel27.setBounds(10, 160, 120, 16);
 
         addHLatte.setText("ADD");
         addHLatte.addActionListener(new java.awt.event.ActionListener() {
@@ -1563,25 +656,25 @@ public class GUI extends javax.swing.JFrame {
         pHLatte.add(qtyHLatte);
         qtyHLatte.setBounds(10, 200, 64, 20);
 
-        dContainer1.add(pHLatte);
+        dP2.add(pHLatte);
         pHLatte.setBounds(30, 90, 200, 240);
 
         pHCappuccino.setBackground(new java.awt.Color(255, 255, 255));
         pHCappuccino.setLayout(null);
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/46e2af89e9d690dd555be8a7e486bb96.png"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 12.png"))); // NOI18N
         pHCappuccino.add(jLabel22);
         jLabel22.setBounds(20, 0, 150, 150);
 
         jLabel23.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel23.setText("1.5$");
+        jLabel23.setText("2.5$");
         pHCappuccino.add(jLabel23);
         jLabel23.setBounds(10, 180, 40, 16);
 
-        jLabel24.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel24.setText("Hot Cappuccino");
+        jLabel24.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 12)); // NOI18N
+        jLabel24.setText("Frappe Cappuccino");
         pHCappuccino.add(jLabel24);
-        jLabel24.setBounds(10, 160, 120, 16);
+        jLabel24.setBounds(10, 160, 130, 15);
 
         addHCappuccino.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         addHCappuccino.setText("ADD");
@@ -1597,23 +690,23 @@ public class GUI extends javax.swing.JFrame {
         pHCappuccino.add(qtyHCappuccino);
         qtyHCappuccino.setBounds(10, 200, 64, 20);
 
-        dContainer1.add(pHCappuccino);
+        dP2.add(pHCappuccino);
         pHCappuccino.setBounds(490, 90, 200, 240);
 
         pHGreenTea.setBackground(new java.awt.Color(255, 255, 255));
         pHGreenTea.setLayout(null);
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/73745cbf117bac2f7bd80a018767976b.png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 8.png"))); // NOI18N
         pHGreenTea.add(jLabel19);
         jLabel19.setBounds(20, 0, 150, 150);
 
         jLabel20.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel20.setText("1.5$");
+        jLabel20.setText("3$");
         pHGreenTea.add(jLabel20);
         jLabel20.setBounds(10, 180, 40, 16);
 
         jLabel21.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel21.setText("Hot Green Tea");
+        jLabel21.setText("Berry Smoothie");
         pHGreenTea.add(jLabel21);
         jLabel21.setBounds(10, 160, 120, 16);
 
@@ -1631,25 +724,25 @@ public class GUI extends javax.swing.JFrame {
         pHGreenTea.add(qtyHGreenTea);
         qtyHGreenTea.setBounds(10, 200, 64, 20);
 
-        dContainer1.add(pHGreenTea);
+        dP2.add(pHGreenTea);
         pHGreenTea.setBounds(30, 350, 200, 240);
 
         pHEspresso.setBackground(new java.awt.Color(255, 255, 255));
         pHEspresso.setLayout(null);
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/d6600f2db33c4ccad883a646531c8b23.png"))); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 6.png"))); // NOI18N
         pHEspresso.add(jLabel28);
         jLabel28.setBounds(20, 0, 150, 150);
 
         jLabel29.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel29.setText("1.0$");
+        jLabel29.setText("2.5$");
         pHEspresso.add(jLabel29);
         jLabel29.setBounds(10, 180, 40, 16);
 
         jLabel30.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
-        jLabel30.setText("Hot Espresso");
+        jLabel30.setText("Chocolate Frappe");
         pHEspresso.add(jLabel30);
-        jLabel30.setBounds(10, 160, 110, 16);
+        jLabel30.setBounds(10, 160, 120, 16);
 
         addHEspresso.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         addHEspresso.setText("ADD");
@@ -1665,12 +758,330 @@ public class GUI extends javax.swing.JFrame {
         pHEspresso.add(qtyHEspresso);
         qtyHEspresso.setBounds(10, 200, 64, 20);
 
-        dContainer1.add(pHEspresso);
+        dP2.add(pHEspresso);
         pHEspresso.setBounds(260, 90, 200, 240);
 
-        Drink.add(dContainer1, "card2");
+        Drink.add(dP2, "card2");
 
         body.add(Drink, "card2");
+
+        Cake.setLayout(new java.awt.CardLayout());
+
+        cP1.setBackground(new java.awt.Color(245, 245, 245));
+        cP1.setLayout(null);
+
+        jLabel62.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
+        jLabel62.setText("Cake");
+        cP1.add(jLabel62);
+        jLabel62.setBounds(30, 30, 70, 50);
+
+        pIChocolate2.setBackground(new java.awt.Color(255, 255, 255));
+        pIChocolate2.setLayout(null);
+
+        jLabel63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 5.png"))); // NOI18N
+        pIChocolate2.add(jLabel63);
+        jLabel63.setBounds(20, -10, 150, 150);
+
+        jLabel64.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel64.setText("1.5$");
+        pIChocolate2.add(jLabel64);
+        jLabel64.setBounds(10, 180, 40, 16);
+
+        jLabel65.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel65.setText("Iced Chocolate");
+        pIChocolate2.add(jLabel65);
+        jLabel65.setBounds(10, 160, 120, 16);
+
+        addIChocolate2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addIChocolate2.setText("ADD");
+        addIChocolate2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addIChocolate2ActionPerformed(evt);
+            }
+        });
+        pIChocolate2.add(addIChocolate2);
+        addIChocolate2.setBounds(130, 160, 60, 60);
+
+        qtyIChocolate2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pIChocolate2.add(qtyIChocolate2);
+        qtyIChocolate2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pIChocolate2);
+        pIChocolate2.setBounds(490, 610, 200, 240);
+
+        pIGreenTea2.setBackground(new java.awt.Color(255, 255, 255));
+        pIGreenTea2.setLayout(null);
+
+        jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 2.png"))); // NOI18N
+        pIGreenTea2.add(jLabel66);
+        jLabel66.setBounds(20, 0, 150, 150);
+
+        jLabel67.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel67.setText("1.5$");
+        pIGreenTea2.add(jLabel67);
+        jLabel67.setBounds(10, 180, 40, 16);
+
+        jLabel68.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel68.setText("Iced Green Tea");
+        pIGreenTea2.add(jLabel68);
+        jLabel68.setBounds(10, 160, 120, 16);
+
+        addIGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addIGreenTea2.setText("ADD");
+        addIGreenTea2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addIGreenTea2ActionPerformed(evt);
+            }
+        });
+        pIGreenTea2.add(addIGreenTea2);
+        addIGreenTea2.setBounds(130, 160, 60, 60);
+
+        qtyIGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pIGreenTea2.add(qtyIGreenTea2);
+        qtyIGreenTea2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pIGreenTea2);
+        pIGreenTea2.setBounds(260, 610, 200, 240);
+
+        pICappuccino2.setBackground(new java.awt.Color(255, 255, 255));
+        pICappuccino2.setLayout(null);
+
+        jLabel69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 4.png"))); // NOI18N
+        pICappuccino2.add(jLabel69);
+        jLabel69.setBounds(20, 0, 150, 150);
+
+        jLabel70.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel70.setText("2.0$");
+        pICappuccino2.add(jLabel70);
+        jLabel70.setBounds(10, 180, 40, 16);
+
+        jLabel71.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel71.setText("Iced Cappuccino");
+        pICappuccino2.add(jLabel71);
+        jLabel71.setBounds(10, 160, 120, 16);
+
+        addICappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addICappuccino2.setText("ADD");
+        addICappuccino2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addICappuccino2ActionPerformed(evt);
+            }
+        });
+        pICappuccino2.add(addICappuccino2);
+        addICappuccino2.setBounds(130, 160, 60, 60);
+
+        qtyICappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pICappuccino2.add(qtyICappuccino2);
+        qtyICappuccino2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pICappuccino2);
+        pICappuccino2.setBounds(30, 610, 200, 240);
+
+        pILatte2.setBackground(new java.awt.Color(255, 255, 255));
+        pILatte2.setLayout(null);
+
+        jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 1.png"))); // NOI18N
+        pILatte2.add(jLabel72);
+        jLabel72.setBounds(20, 0, 150, 150);
+
+        jLabel73.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel73.setText("2.0$");
+        pILatte2.add(jLabel73);
+        jLabel73.setBounds(10, 180, 40, 16);
+
+        jLabel74.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel74.setText("Iced Latte");
+        pILatte2.add(jLabel74);
+        jLabel74.setBounds(10, 160, 80, 16);
+
+        addILatte2.setText("ADD");
+        addILatte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addILatte2ActionPerformed(evt);
+            }
+        });
+        pILatte2.add(addILatte2);
+        addILatte2.setBounds(130, 160, 60, 60);
+
+        qtyILatte2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pILatte2.add(qtyILatte2);
+        qtyILatte2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pILatte2);
+        pILatte2.setBounds(260, 350, 200, 240);
+
+        pIAmericano2.setBackground(new java.awt.Color(255, 255, 255));
+        pIAmericano2.setLayout(null);
+
+        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/image 3.png"))); // NOI18N
+        pIAmericano2.add(jLabel75);
+        jLabel75.setBounds(20, 0, 150, 150);
+
+        jLabel76.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel76.setText("1.5$");
+        pIAmericano2.add(jLabel76);
+        jLabel76.setBounds(10, 180, 40, 16);
+
+        jLabel77.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel77.setText("Iced Americano");
+        pIAmericano2.add(jLabel77);
+        jLabel77.setBounds(10, 160, 110, 16);
+
+        addIAmericano2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addIAmericano2.setText("ADD");
+        addIAmericano2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addIAmericano2ActionPerformed(evt);
+            }
+        });
+        pIAmericano2.add(addIAmericano2);
+        addIAmericano2.setBounds(130, 160, 60, 60);
+
+        qtyIAmericano2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pIAmericano2.add(qtyIAmericano2);
+        qtyIAmericano2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pIAmericano2);
+        pIAmericano2.setBounds(490, 350, 200, 240);
+
+        pHLatte2.setBackground(new java.awt.Color(255, 255, 255));
+        pHLatte2.setLayout(null);
+
+        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/98d03bd7c2a93f2e4f9972efa9da61be.png"))); // NOI18N
+        pHLatte2.add(jLabel78);
+        jLabel78.setBounds(20, 0, 150, 150);
+
+        jLabel79.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel79.setText("1,5$");
+        pHLatte2.add(jLabel79);
+        jLabel79.setBounds(10, 180, 40, 16);
+
+        jLabel80.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel80.setText("Hot Latte");
+        pHLatte2.add(jLabel80);
+        jLabel80.setBounds(10, 160, 80, 16);
+
+        addHLatte2.setText("ADD");
+        addHLatte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHLatte2ActionPerformed(evt);
+            }
+        });
+        pHLatte2.add(addHLatte2);
+        addHLatte2.setBounds(130, 160, 60, 60);
+
+        qtyHLatte2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pHLatte2.add(qtyHLatte2);
+        qtyHLatte2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pHLatte2);
+        pHLatte2.setBounds(30, 90, 200, 240);
+
+        pHCappuccino2.setBackground(new java.awt.Color(255, 255, 255));
+        pHCappuccino2.setLayout(null);
+
+        jLabel81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/46e2af89e9d690dd555be8a7e486bb96.png"))); // NOI18N
+        pHCappuccino2.add(jLabel81);
+        jLabel81.setBounds(20, 0, 150, 150);
+
+        jLabel82.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel82.setText("1.5$");
+        pHCappuccino2.add(jLabel82);
+        jLabel82.setBounds(10, 180, 40, 16);
+
+        jLabel83.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel83.setText("Hot Cappuccino");
+        pHCappuccino2.add(jLabel83);
+        jLabel83.setBounds(10, 160, 120, 16);
+
+        addHCappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addHCappuccino2.setText("ADD");
+        addHCappuccino2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHCappuccino2ActionPerformed(evt);
+            }
+        });
+        pHCappuccino2.add(addHCappuccino2);
+        addHCappuccino2.setBounds(130, 160, 60, 60);
+
+        qtyHCappuccino2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pHCappuccino2.add(qtyHCappuccino2);
+        qtyHCappuccino2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pHCappuccino2);
+        pHCappuccino2.setBounds(490, 90, 200, 240);
+
+        pHGreenTea2.setBackground(new java.awt.Color(255, 255, 255));
+        pHGreenTea2.setLayout(null);
+
+        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/73745cbf117bac2f7bd80a018767976b.png"))); // NOI18N
+        pHGreenTea2.add(jLabel84);
+        jLabel84.setBounds(20, 0, 150, 150);
+
+        jLabel85.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel85.setText("1.5$");
+        pHGreenTea2.add(jLabel85);
+        jLabel85.setBounds(10, 180, 40, 16);
+
+        jLabel86.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel86.setText("Hot Green Tea");
+        pHGreenTea2.add(jLabel86);
+        jLabel86.setBounds(10, 160, 120, 16);
+
+        addHGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addHGreenTea2.setText("ADD");
+        addHGreenTea2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHGreenTea2ActionPerformed(evt);
+            }
+        });
+        pHGreenTea2.add(addHGreenTea2);
+        addHGreenTea2.setBounds(130, 160, 60, 60);
+
+        qtyHGreenTea2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pHGreenTea2.add(qtyHGreenTea2);
+        qtyHGreenTea2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pHGreenTea2);
+        pHGreenTea2.setBounds(30, 350, 200, 240);
+
+        pHEspresso2.setBackground(new java.awt.Color(255, 255, 255));
+        pHEspresso2.setLayout(null);
+
+        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/d6600f2db33c4ccad883a646531c8b23.png"))); // NOI18N
+        pHEspresso2.add(jLabel87);
+        jLabel87.setBounds(20, 0, 150, 150);
+
+        jLabel88.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel88.setText("1.0$");
+        pHEspresso2.add(jLabel88);
+        jLabel88.setBounds(10, 180, 40, 16);
+
+        jLabel89.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel89.setText("Hot Espresso");
+        pHEspresso2.add(jLabel89);
+        jLabel89.setBounds(10, 160, 110, 16);
+
+        addHEspresso2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        addHEspresso2.setText("ADD");
+        addHEspresso2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHEspresso2ActionPerformed(evt);
+            }
+        });
+        pHEspresso2.add(addHEspresso2);
+        addHEspresso2.setBounds(130, 160, 60, 60);
+
+        qtyHEspresso2.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pHEspresso2.add(qtyHEspresso2);
+        qtyHEspresso2.setBounds(10, 200, 64, 20);
+
+        cP1.add(pHEspresso2);
+        pHEspresso2.setBounds(260, 90, 200, 240);
+
+        Cake.add(cP1, "card2");
+
+        body.add(Cake, "card2");
 
         getContentPane().add(body);
         body.setBounds(160, 0, 750, 980);
@@ -1824,14 +1235,6 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lbTotalActionPerformed
 
-    private void addILatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatteActionPerformed
-        controller.addToCart("D05", qtyILatte);
-    }//GEN-LAST:event_addILatteActionPerformed
-
-    private void addICappuccinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccinoActionPerformed
-        controller.addToCart("D07", qtyICappuccino);
-    }//GEN-LAST:event_addICappuccinoActionPerformed
-
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int selectedRow = table.getSelectedRow();
@@ -1889,14 +1292,6 @@ public class GUI extends javax.swing.JFrame {
         currentOrder.setDiscount(discountPercentage);
     }//GEN-LAST:event_cbDiscountActionPerformed
 
-    private void addIAmericanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericanoActionPerformed
-        controller.addToCart("D07", qtyIAmericano);
-    }//GEN-LAST:event_addIAmericanoActionPerformed
-
-    private void addIGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTeaActionPerformed
-        controller.addToCart("D08", qtyIGreenTea);
-    }//GEN-LAST:event_addIGreenTeaActionPerformed
-
     private void addHGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTeaActionPerformed
         controller.addToCart("D04", qtyHGreenTea);
     }//GEN-LAST:event_addHGreenTeaActionPerformed
@@ -1942,30 +1337,6 @@ public class GUI extends javax.swing.JFrame {
         ad.setVisible(true);
     }//GEN-LAST:event_lbAdminMouseClicked
 
-    private void addIChocolateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolateActionPerformed
-        controller.addToCart("D09", qtyIChocolate);
-    }//GEN-LAST:event_addIChocolateActionPerformed
-
-    private void addIChocolate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addIChocolate1ActionPerformed
-
-    private void addIGreenTea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTea1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addIGreenTea1ActionPerformed
-
-    private void addICappuccino1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccino1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addICappuccino1ActionPerformed
-
-    private void addILatte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatte1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addILatte1ActionPerformed
-
-    private void addIAmericano1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericano1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addIAmericano1ActionPerformed
-
     private void addHLatte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatte1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addHLatte1ActionPerformed
@@ -1983,98 +1354,74 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addHEspresso1ActionPerformed
 
     private void btNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNextActionPerformed
-        body.removeAll();
-        body.add(dContainer1);
-        body.revalidate();
-        body.repaint();
+        Drink.removeAll();
+        Drink.add(dP2);
+        Drink.revalidate();
+        Drink.repaint();
     }//GEN-LAST:event_btNextActionPerformed
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
-        body.removeAll();
-        body.add(dContainer2);
-        body.revalidate();
-        body.repaint(); 
+        Drink.removeAll();
+        Drink.add(dP1);
+        Drink.revalidate();
+        Drink.repaint(); 
     }//GEN-LAST:event_btBackActionPerformed
 
-    private void btNext1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNext1ActionPerformed
+    private void addIAmericano1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericano1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btNext1ActionPerformed
+    }//GEN-LAST:event_addIAmericano1ActionPerformed
 
-    private void addIChocolate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate2ActionPerformed
+    private void addILatte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatte1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addIChocolate2ActionPerformed
+    }//GEN-LAST:event_addILatte1ActionPerformed
 
-    private void addIGreenTea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTea2ActionPerformed
+    private void addICappuccino1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccino1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addIGreenTea2ActionPerformed
+    }//GEN-LAST:event_addICappuccino1ActionPerformed
 
-    private void addICappuccino2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccino2ActionPerformed
+    private void addIGreenTea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTea1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addICappuccino2ActionPerformed
+    }//GEN-LAST:event_addIGreenTea1ActionPerformed
 
-    private void addILatte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatte2ActionPerformed
+    private void addIChocolate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addILatte2ActionPerformed
-
-    private void addIAmericano2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericano2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addIAmericano2ActionPerformed
-
-    private void addHLatte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatte2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addHLatte2ActionPerformed
-
-    private void addHCappuccino2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHCappuccino2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addHCappuccino2ActionPerformed
-
-    private void addHGreenTea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTea2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addHGreenTea2ActionPerformed
+    }//GEN-LAST:event_addIChocolate1ActionPerformed
 
     private void addHEspresso2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHEspresso2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addHEspresso2ActionPerformed
 
-    private void btBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBack1ActionPerformed
+    private void addHGreenTea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTea2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btBack1ActionPerformed
+    }//GEN-LAST:event_addHGreenTea2ActionPerformed
 
-    private void addIChocolate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate3ActionPerformed
+    private void addHCappuccino2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHCappuccino2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addIChocolate3ActionPerformed
+    }//GEN-LAST:event_addHCappuccino2ActionPerformed
 
-    private void addIGreenTea3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTea3ActionPerformed
+    private void addHLatte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatte2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addIGreenTea3ActionPerformed
+    }//GEN-LAST:event_addHLatte2ActionPerformed
 
-    private void addICappuccino3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccino3ActionPerformed
+    private void addIAmericano2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericano2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addICappuccino3ActionPerformed
+    }//GEN-LAST:event_addIAmericano2ActionPerformed
 
-    private void addILatte3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatte3ActionPerformed
+    private void addILatte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatte2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addILatte3ActionPerformed
+    }//GEN-LAST:event_addILatte2ActionPerformed
 
-    private void addIAmericano3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericano3ActionPerformed
+    private void addICappuccino2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccino2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addIAmericano3ActionPerformed
+    }//GEN-LAST:event_addICappuccino2ActionPerformed
 
-    private void addHLatte3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatte3ActionPerformed
+    private void addIGreenTea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTea2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addHLatte3ActionPerformed
+    }//GEN-LAST:event_addIGreenTea2ActionPerformed
 
-    private void addHCappuccino3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHCappuccino3ActionPerformed
+    private void addIChocolate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIChocolate2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addHCappuccino3ActionPerformed
-
-    private void addHGreenTea3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTea3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addHGreenTea3ActionPerformed
-
-    private void addHEspresso3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHEspresso3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addHEspresso3ActionPerformed
+    }//GEN-LAST:event_addIChocolate2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2117,82 +1464,38 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton addHCappuccino;
     private javax.swing.JButton addHCappuccino1;
     private javax.swing.JButton addHCappuccino2;
-    private javax.swing.JButton addHCappuccino3;
     private javax.swing.JButton addHEspresso;
     private javax.swing.JButton addHEspresso1;
     private javax.swing.JButton addHEspresso2;
-    private javax.swing.JButton addHEspresso3;
     private javax.swing.JButton addHGreenTea;
     private javax.swing.JButton addHGreenTea1;
     private javax.swing.JButton addHGreenTea2;
-    private javax.swing.JButton addHGreenTea3;
     private javax.swing.JButton addHLatte;
     private javax.swing.JButton addHLatte1;
     private javax.swing.JButton addHLatte2;
-    private javax.swing.JButton addHLatte3;
-    private javax.swing.JButton addIAmericano;
     private javax.swing.JButton addIAmericano1;
     private javax.swing.JButton addIAmericano2;
-    private javax.swing.JButton addIAmericano3;
-    private javax.swing.JButton addICappuccino;
     private javax.swing.JButton addICappuccino1;
     private javax.swing.JButton addICappuccino2;
-    private javax.swing.JButton addICappuccino3;
-    private javax.swing.JButton addIChocolate;
     private javax.swing.JButton addIChocolate1;
     private javax.swing.JButton addIChocolate2;
-    private javax.swing.JButton addIChocolate3;
-    private javax.swing.JButton addIGreenTea;
     private javax.swing.JButton addIGreenTea1;
     private javax.swing.JButton addIGreenTea2;
-    private javax.swing.JButton addIGreenTea3;
-    private javax.swing.JButton addILatte;
     private javax.swing.JButton addILatte1;
     private javax.swing.JButton addILatte2;
-    private javax.swing.JButton addILatte3;
     private javax.swing.JPanel body;
     private javax.swing.JButton btBack;
-    private javax.swing.JButton btBack1;
     private javax.swing.JButton btDelete;
     private javax.swing.JButton btExit;
     private javax.swing.JButton btNext;
-    private javax.swing.JButton btNext1;
     private javax.swing.JButton btSubtotal;
     private javax.swing.JButton btTotal;
+    private javax.swing.JPanel cP1;
     private javax.swing.JComboBox<String> cbDiscount;
-    private javax.swing.JPanel dContainer1;
-    private javax.swing.JPanel dContainer2;
-    private javax.swing.JPanel dContainer3;
-    private javax.swing.JPanel dContainer4;
+    private javax.swing.JPanel dP1;
+    private javax.swing.JPanel dP2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
-    private javax.swing.JLabel jLabel107;
-    private javax.swing.JLabel jLabel108;
-    private javax.swing.JLabel jLabel109;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel110;
-    private javax.swing.JLabel jLabel111;
-    private javax.swing.JLabel jLabel112;
-    private javax.swing.JLabel jLabel113;
-    private javax.swing.JLabel jLabel114;
-    private javax.swing.JLabel jLabel115;
-    private javax.swing.JLabel jLabel116;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -2208,9 +1511,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -2247,7 +1547,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
@@ -2258,7 +1557,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
@@ -2269,17 +1567,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
-    private javax.swing.JLabel jLabel94;
-    private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbAdmin;
@@ -2290,75 +1577,47 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel pHCappuccino;
     private javax.swing.JPanel pHCappuccino1;
     private javax.swing.JPanel pHCappuccino2;
-    private javax.swing.JPanel pHCappuccino3;
     private javax.swing.JPanel pHEspresso;
     private javax.swing.JPanel pHEspresso1;
     private javax.swing.JPanel pHEspresso2;
-    private javax.swing.JPanel pHEspresso3;
     private javax.swing.JPanel pHGreenTea;
     private javax.swing.JPanel pHGreenTea1;
     private javax.swing.JPanel pHGreenTea2;
-    private javax.swing.JPanel pHGreenTea3;
     private javax.swing.JPanel pHLatte;
     private javax.swing.JPanel pHLatte1;
     private javax.swing.JPanel pHLatte2;
-    private javax.swing.JPanel pHLatte3;
-    private javax.swing.JPanel pIAmericano;
     private javax.swing.JPanel pIAmericano1;
     private javax.swing.JPanel pIAmericano2;
-    private javax.swing.JPanel pIAmericano3;
-    private javax.swing.JPanel pICappuccino;
     private javax.swing.JPanel pICappuccino1;
     private javax.swing.JPanel pICappuccino2;
-    private javax.swing.JPanel pICappuccino3;
-    private javax.swing.JPanel pIChocolate;
     private javax.swing.JPanel pIChocolate1;
     private javax.swing.JPanel pIChocolate2;
-    private javax.swing.JPanel pIChocolate3;
-    private javax.swing.JPanel pIGreenTea;
     private javax.swing.JPanel pIGreenTea1;
     private javax.swing.JPanel pIGreenTea2;
-    private javax.swing.JPanel pIGreenTea3;
-    private javax.swing.JPanel pILatte;
     private javax.swing.JPanel pILatte1;
     private javax.swing.JPanel pILatte2;
-    private javax.swing.JPanel pILatte3;
     private javax.swing.JSpinner qtyHCappuccino;
     private javax.swing.JSpinner qtyHCappuccino1;
     private javax.swing.JSpinner qtyHCappuccino2;
-    private javax.swing.JSpinner qtyHCappuccino3;
     private javax.swing.JSpinner qtyHEspresso;
     private javax.swing.JSpinner qtyHEspresso1;
     private javax.swing.JSpinner qtyHEspresso2;
-    private javax.swing.JSpinner qtyHEspresso3;
     private javax.swing.JSpinner qtyHGreenTea;
     private javax.swing.JSpinner qtyHGreenTea1;
     private javax.swing.JSpinner qtyHGreenTea2;
-    private javax.swing.JSpinner qtyHGreenTea3;
     private javax.swing.JSpinner qtyHLatte;
     private javax.swing.JSpinner qtyHLatte1;
     private javax.swing.JSpinner qtyHLatte2;
-    private javax.swing.JSpinner qtyHLatte3;
-    private javax.swing.JSpinner qtyIAmericano;
     private javax.swing.JSpinner qtyIAmericano1;
     private javax.swing.JSpinner qtyIAmericano2;
-    private javax.swing.JSpinner qtyIAmericano3;
-    private javax.swing.JSpinner qtyICappuccino;
     private javax.swing.JSpinner qtyICappuccino1;
     private javax.swing.JSpinner qtyICappuccino2;
-    private javax.swing.JSpinner qtyICappuccino3;
-    private javax.swing.JSpinner qtyIChocolate;
     private javax.swing.JSpinner qtyIChocolate1;
     private javax.swing.JSpinner qtyIChocolate2;
-    private javax.swing.JSpinner qtyIChocolate3;
-    private javax.swing.JSpinner qtyIGreenTea;
     private javax.swing.JSpinner qtyIGreenTea1;
     private javax.swing.JSpinner qtyIGreenTea2;
-    private javax.swing.JSpinner qtyIGreenTea3;
-    private javax.swing.JSpinner qtyILatte;
     private javax.swing.JSpinner qtyILatte1;
     private javax.swing.JSpinner qtyILatte2;
-    private javax.swing.JSpinner qtyILatte3;
     private javax.swing.JPanel right;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JTable table;
