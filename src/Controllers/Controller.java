@@ -23,8 +23,7 @@ public class Controller {
         this.order = order;
     }
 
-    // --- LOGIC 1: ADD TO CART ---
-    public void addToCart(String pid, String name, JSpinner qtySpinner) {
+    public void addToCart(String pid, JSpinner qtySpinner) {
         // 1. Get Quantity
         int quantity = (Integer) qtySpinner.getValue();
 
@@ -33,24 +32,27 @@ public class Controller {
             return;
         }
 
-        // 2. FETCH PRICE FROM DATABASE
-        double currentPrice = getPriceFromDB(pid);
+        // 2. FETCH DETAILS FROM DB (Single source of truth)
+        // We need both Name and Price now
+        Product dbProduct = getProductDetails(pid);
 
-        if (currentPrice == 0.0) {
-            JOptionPane.showMessageDialog(view, "Error: Product ID " + pid + " not found or price is 0!");
+        if (dbProduct == null) {
+            JOptionPane.showMessageDialog(view, "Error: Product ID " + pid + " not found in database!");
             return;
         }
 
-        // 3. Open Customization Dialog
-        // Note: We pass 'view' as the parent Frame
+        String name = dbProduct.getName();
+        double currentPrice = dbProduct.getBasePrice();
+
+        // 3. Open Customization Dialog (Now using the fetched Name)
         DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, name, currentPrice);
         dialog.setVisible(true);
 
-        // 4. If Confirmed, Update Order and UI
+        // 4. If Confirmed...
         if (dialog.isConfirmed()) {
-            Product product = new Product(
+            Product finalProduct = new Product(
                 pid,
-                name,
+                name, // Use the name from DB
                 currentPrice,
                 quantity,
                 dialog.getDrinkSize(),
@@ -59,25 +61,21 @@ public class Controller {
                 dialog.hasExtraShot()
             );
 
-            // Add to Logic (Order object)
-            order.addProduct(product);
+            order.addProduct(finalProduct);
 
-            // Add to UI (Table) - Using the getter we created!
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             model.addRow(new Object[] {
-                product.getName(),
-                String.format("$%.2f", product.getUnitFinalPrice()), 
+                finalProduct.getName(),
+                String.format("$%.2f", finalProduct.getUnitFinalPrice()), 
                 quantity,
-                product.getCustomizationDetails(),
-                String.format("$%.2f", product.getTotal())
+                finalProduct.getCustomizationDetails(),
+                String.format("$%.2f", finalProduct.getTotal())
             });
-            
-            // Reset the spinner
+
             qtySpinner.setValue(0);
         }
     }
-
-    // --- LOGIC 2: SAVE TO DATABASE ---
+    
     public void saveOrderToDatabase(double finalTotal) {
         Connection con = null;
         PreparedStatement pst = null;
@@ -137,23 +135,24 @@ public class Controller {
             }
         }
     }
-
-    // Helper method (Private, only used by Controller)
-    private double getPriceFromDB(String pid) {
-        double price = 0.0;
+    
+    // Helper: Fetches Name and Price based on ID
+    private Product getProductDetails(String pid) {
+        Product p = null;
         try {
             Connection con = db.myCon();
-            String sql = "SELECT Price FROM Product WHERE PID = ?";
+            String sql = "SELECT Name, Price FROM Product WHERE PID = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, pid);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                price = rs.getDouble("Price");
+                // Create a temp product just to hold the DB data
+                p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Error fetching price: " + e.getMessage());
+            e.printStackTrace();
         }
-        return price;
+        return p;
     }
 }
