@@ -14,10 +14,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class Controller {
 
-    private GUI view;   // Reference to the UI
-    private Order order; // Reference to the Data Logic
+    private GUI view;   
+    private Order order; 
 
-    // Constructor: connect the View and Model
     public Controller(GUI view, Order order) {
         this.view = view;
         this.order = order;
@@ -32,8 +31,7 @@ public class Controller {
             return;
         }
 
-        // 2. FETCH DETAILS FROM DB (Single source of truth)
-        // We need both Name and Price now
+        // 2. FETCH DETAILS FROM DB
         Product dbProduct = getProductDetails(pid);
 
         if (dbProduct == null) {
@@ -43,24 +41,41 @@ public class Controller {
 
         String name = dbProduct.getName();
         double currentPrice = dbProduct.getBasePrice();
+        Product finalProduct = null;
+        
+        String tableCustomizationText = ""; 
 
-        // 3. Open Customization Dialog (Now using the fetched Name)
-        DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, name, currentPrice);
-        dialog.setVisible(true);
+        // 3. CHECK IF IT IS FOOD (S01, S02, S03)
+        boolean isFood = pid.equals("S01") || pid.equals("S02") || pid.equals("S03");
 
-        // 4. If Confirmed...
-        if (dialog.isConfirmed()) {
-            Product finalProduct = new Product(
-                pid,
-                name, // Use the name from DB
-                currentPrice,
-                quantity,
-                dialog.getDrinkSize(),
-                dialog.getSugarLevel(),
-                dialog.getIceLevel(),
-                dialog.hasExtraShot()
+        if (isFood) {
+            // PATH A: FOOD (Direct Add, Dummy Values)
+            finalProduct = new Product(
+                pid, name, currentPrice, quantity,
+                "Regular", "0%", "None", false // Dummies
             );
+            
+            tableCustomizationText = ""; // BLANK FOR UI
 
+        } else {
+            // PATH B: DRINK (Open Dialog)
+            DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, name, currentPrice);
+            dialog.setVisible(true);
+
+            if (dialog.isConfirmed()) {
+                finalProduct = new Product(
+                    pid, name, currentPrice, quantity,
+                    dialog.getDrinkSize(), dialog.getSugarLevel(), dialog.getIceLevel(), dialog.hasExtraShot()
+                );
+                
+                tableCustomizationText = finalProduct.getCustomizationDetails(); // ACTUAL TEXT FOR UI
+            } else {
+                return; 
+            }
+        }
+
+        // 4. ADD TO ORDER & UI
+        if (finalProduct != null) {
             order.addProduct(finalProduct);
 
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
@@ -68,7 +83,7 @@ public class Controller {
                 finalProduct.getName(),
                 String.format("$%.2f", finalProduct.getUnitFinalPrice()), 
                 quantity,
-                finalProduct.getCustomizationDetails(),
+                tableCustomizationText, // Blank if food
                 String.format("$%.2f", finalProduct.getTotal())
             });
 
@@ -82,7 +97,7 @@ public class Controller {
         ResultSet rs = null;
 
         try {
-            con = db.myCon(); // Use your existing DB connection class
+            con = db.myCon(); 
 
             // A. SAVE ORDER HEAD
             String sqlOrder = "INSERT INTO orders (total_price, order_date) VALUES (?, NOW())";
@@ -106,7 +121,17 @@ public class Controller {
                 pst.setString(3, p.getName());
                 pst.setInt(4, p.getQuantity());
                 pst.setDouble(5, p.getTotal());
-                pst.setString(6, p.getCustomizationDetails());
+                
+                // --- FIX FOR DATABASE SAVE ---
+                // Check if this specific item is food
+                boolean isFoodItem = p.getId().equals("S01") || p.getId().equals("S02") || p.getId().equals("S03");
+                
+                if (isFoodItem) {
+                    pst.setString(6, ""); // Save BLANK to DB
+                } else {
+                    pst.setString(6, p.getCustomizationDetails()); // Save Details to DB
+                }
+                
                 pst.addBatch();
             }
             pst.executeBatch();
@@ -114,10 +139,7 @@ public class Controller {
             // C. SUCCESS & CLEANUP
             JOptionPane.showMessageDialog(view, "Payment Successful!\nReceipt #" + newOrderId + " Saved.");
 
-            // Clear Logic
             order.clear(); 
-
-            // Clear UI using Getters
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             model.setRowCount(0); 
             view.getLbSubtotal().setText("");
@@ -136,7 +158,6 @@ public class Controller {
         }
     }
     
-    // Helper: Fetches Name and Price based on ID
     private Product getProductDetails(String pid) {
         Product p = null;
         try {
@@ -147,7 +168,6 @@ public class Controller {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                // Create a temp product just to hold the DB data
                 p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0);
             }
         } catch (Exception e) {
