@@ -1,4 +1,4 @@
-package OOP;
+package Models;
 
 public class Product {
     // 1. The Raw Data (The Blueprint)

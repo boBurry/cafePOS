@@ -1,6 +1,8 @@
-package OOP;
+package Views;
 
 import Controllers.Controller;
+import Models.Order;
+import Models.db;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
