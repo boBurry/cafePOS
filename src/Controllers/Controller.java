@@ -1,10 +1,10 @@
 package Controllers;
 
-import OOP.GUI;
-import OOP.Order;
-import OOP.Product;
-import OOP.DrinkCustomizationDialog;
-import OOP.db;
+import Views.GUI;
+import Models.Order;
+import Models.Product;
+import Views.DrinkCustomizationDialog;
+import Models.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
