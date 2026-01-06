@@ -45,7 +45,7 @@ public class Order {
         // Apply discount
         totalAmount = subtotal - (subtotal * (discount / 100)); 
         
-        // Rounding to 2 decimal places to avoid numbers like 10.500000001
+        // Rounding to 2 decimal places 
         totalAmount = Math.round(totalAmount * 100.0) / 100.0;
 
         return totalAmount;
@@ -57,7 +57,7 @@ public class Order {
     
     public void clear() {
         products.clear();         // 1. Clear the list
-        discount = 0.0;           // 2. Reset discount (FIXED NAME)
+        discount = 0.0;           // 2. Reset discount
         subtotal = 0.0;           // 3. Reset subtotal
         totalAmount = 0.0;        // 4. Reset total
     }

@@ -100,7 +100,8 @@ public class Admin extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // --- CONNECT TO CONTROLLER ---
-        new AdminController(this);
+        new AdminController(this); 
+        // Create a new Controller, and here is a reference to ME (Admin GUI) so you can talk to me later.
     }
 
     public JTextField getTfId() { return tfId; }

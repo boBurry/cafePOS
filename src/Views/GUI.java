@@ -959,42 +959,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lbTotalActionPerformed
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int selectedRow = table.getSelectedRow();
-
-        // 1. Check if the user actually clicked a row
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an item to delete.", "Delete Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // 2. Remove from the Logic (Order.java)
-        // IMPORTANT: This must happen while the indexes still match!
-        currentOrder.removeProduct(selectedRow);
-
-        // 3. Remove from the View (JTable)
-        model.removeRow(selectedRow);
-
-        // Optional: Clear the Total label since the previous total is now wrong
-        lbTotal.setText(""); 
+        controller.deleteItem();
     }//GEN-LAST:event_btDeleteActionPerformed
 
     private void btTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTotalActionPerformed
-        // 1. Ask Order logic for the final price (it automatically applies the discount)
+        // 1. Calculate Total
         double finalTotal = currentOrder.calculateTotal();
-
-        // 2. Display it
         lbTotal.setText(String.format("$%.2f", finalTotal));
 
-        // 3. Ask for Payment Confirmation
-        int choice = JOptionPane.showConfirmDialog(this, 
-                "Total Amount: " + String.format("$%.2f", finalTotal) + "\nProceed to payment?", 
-                "Checkout", 
-                JOptionPane.YES_NO_OPTION);
-
-        // 4. If Yes, Save to Database
-        if (choice == JOptionPane.YES_OPTION) {
-            controller.saveOrderToDatabase(finalTotal);
+        // 2. Start the Payment Process (Cash vs QR)
+        if (finalTotal > 0) {
+            controller.initiatePayment(finalTotal);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cart is empty!");
         }
     }//GEN-LAST:event_btTotalActionPerformed
 
