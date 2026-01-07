@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI extends javax.swing.JFrame {
 

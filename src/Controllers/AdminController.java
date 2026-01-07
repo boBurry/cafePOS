@@ -61,7 +61,7 @@ public class AdminController {
             refreshTable();
             clearFields();
             JOptionPane.showMessageDialog(view, "Product Added!");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }
@@ -89,7 +89,7 @@ public class AdminController {
             } else {
                 JOptionPane.showMessageDialog(view, "Product ID not found.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }
@@ -124,7 +124,7 @@ public class AdminController {
             } else {
                 JOptionPane.showMessageDialog(view, "Delete Failed: Information does not match database record.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }

@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -111,7 +112,7 @@ public class Controller {
             if (rs.next()) {
                 p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return p;
@@ -137,7 +138,7 @@ public class Controller {
         view.getLbTotal().setText("");
     }
     
-    // --- NEW PAYMENT LOGIC ---
+    // --- PAYMENT LOGIC ---
     public void initiatePayment(double total) {
         // 1. Ask User: Cash or QR?
         String[] options = {"Cash", "QR Code"};
@@ -276,7 +277,7 @@ public class Controller {
             view.getLbSubtotal().setText("");
             view.getLbTotal().setText("");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Database Error: " + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -284,7 +285,7 @@ public class Controller {
                 if (rs != null) rs.close();
                 if (pst != null) pst.close();
                 // We do NOT close 'con' here because your db.java uses a shared static connection
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
