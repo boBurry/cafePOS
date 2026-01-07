@@ -153,7 +153,6 @@ public class GUI extends javax.swing.JFrame {
         lbTotal = new javax.swing.JTextField();
         btTotal = new javax.swing.JButton();
         btDelete = new javax.swing.JButton();
-        btSubtotal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1512, 982));
@@ -890,7 +889,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         right.add(btTotal);
-        btTotal.setBounds(190, 620, 130, 40);
+        btTotal.setBounds(40, 590, 90, 40);
 
         btDelete.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btDelete.setText("Delete");
@@ -900,17 +899,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         right.add(btDelete);
-        btDelete.setBounds(430, 440, 130, 30);
-
-        btSubtotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        btSubtotal.setText("Subtotal");
-        btSubtotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSubtotalActionPerformed(evt);
-            }
-        });
-        right.add(btSubtotal);
-        btSubtotal.setBounds(40, 620, 130, 40);
+        btDelete.setBounds(430, 440, 130, 40);
 
         getContentPane().add(right);
         right.setBounds(910, 0, 600, 980);
@@ -1019,14 +1008,6 @@ public class GUI extends javax.swing.JFrame {
         return lbSubtotal;
     }
     
-    private void btSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSubtotalActionPerformed
-        // 1. Ask the Order logic to sum up the products
-        double sub = currentOrder.calculateSubtotal();
-
-        // 2. Update the Subtotal text field
-        lbSubtotal.setText(String.format("$%.2f", sub));
-    }//GEN-LAST:event_btSubtotalActionPerformed
-
     private void lbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdminMouseClicked
         Admin​ ad = new Admin();
         ad.setVisible(true);
@@ -1152,7 +1133,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btDelete;
     private javax.swing.JButton btExit;
     private javax.swing.JButton btNext;
-    private javax.swing.JButton btSubtotal;
     private javax.swing.JButton btTotal;
     private javax.swing.JComboBox<String> cbDiscount;
     private javax.swing.JPanel dP1;

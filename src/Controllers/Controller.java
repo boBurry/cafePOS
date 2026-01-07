@@ -141,7 +141,7 @@ public class Controller {
     // --- PAYMENT LOGIC ---
     public void initiatePayment(double total) {
         // 1. Ask User: Cash or QR?
-        String[] options = {"Cash", "QR Code"};
+        String[] options = {"Cash", "QR"};
         int choice = JOptionPane.showOptionDialog(view, 
                 "Select Payment Method", 
                 "Payment", 
@@ -153,7 +153,7 @@ public class Controller {
             // --- OPTION A: CASH ---
             handleCashPayment(total);
         } else if (choice == 1) {
-            // --- OPTION B: QR CODE ---
+            // --- OPTION B: QR ---
             handleQRPayment(total);
         }
     }
@@ -183,21 +183,19 @@ public class Controller {
         // 2. Save & Print
         saveOrderToDatabase(total, "Cash", cashGiven, change);
     }
-
+    
     private void handleQRPayment(double total) {
-        // 1. SET YOUR IMAGE PATH HERE
-        // Make sure to paste your actual QR image into your 'src/Image' folder
         String imagePath = "/Image/IMG_5467.jpg"; 
-
         java.net.URL imgURL = getClass().getResource(imagePath);
 
         if (imgURL != null) {
-            // Image Found: Show it in the popup
             ImageIcon qrIcon = new ImageIcon(imgURL);
-
-            // Optional: Resize if the image is too big
             Image img = qrIcon.getImage();
-            Image newImg = img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+
+            int newWidth = 340;
+            int newHeight = 480;
+
+            Image newImg = img.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
             qrIcon = new ImageIcon(newImg);
 
             JOptionPane.showMessageDialog(view, 
@@ -207,7 +205,6 @@ public class Controller {
                 qrIcon
             );
         } else {
-            // Image Not Found: Show text fallback
             JOptionPane.showMessageDialog(view, 
                 "QR Code image not found at: " + imagePath, 
                 "QR Payment", 
@@ -215,7 +212,7 @@ public class Controller {
             );
         }
 
-        // 2. Save & Print (Cash Given = Total, Change = 0)
+        // Save transaction
         saveOrderToDatabase(total, "QR Code", total, 0.0);
     }
 

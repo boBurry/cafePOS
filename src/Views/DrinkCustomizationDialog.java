@@ -182,4 +182,6 @@ public class DrinkCustomizationDialog extends JDialog {
     public String getIceLevel() { return iceLevel; }
     public boolean hasExtraShot() { return extraShot; }
     public boolean isConfirmed() { return confirmed; }
+   
 }
+

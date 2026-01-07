@@ -2,6 +2,8 @@ package Controllers;
 
 import Views.Admin;
 import Models.db;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,12 +18,46 @@ public class AdminController {
         this.connection = db.myCon();
         
         refreshTable();
-        
-        this.view.getBtnAdd().addActionListener(e -> addData());
-        this.view.getBtnUpdate().addActionListener(e -> updateData());
-        this.view.getBtnDelete().addActionListener(e -> deleteData());
-        this.view.getBtnClear().addActionListener(e -> clearFields());
-        this.view.getBtnBack().addActionListener(e -> view.dispose());
+      
+        // 1. ADD BUTTON
+        this.view.getBtnAdd().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addData();
+            }
+        });
+
+        // 2. UPDATE BUTTON
+        this.view.getBtnUpdate().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateData();
+            }
+        });
+
+        // 3. DELETE BUTTON
+        this.view.getBtnDelete().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteData();
+            }
+        });
+
+        // 4. CLEAR BUTTON
+        this.view.getBtnClear().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearFields();
+            }
+        });
+
+        // 5. BACK BUTTON
+        this.view.getBtnBack().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
+            }
+        });
     }
 
     private void refreshTable() {
