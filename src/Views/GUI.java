@@ -4,6 +4,10 @@ import Controllers.Controller;
 import Models.Order;
 import Models.db;
 import java.awt.Color;
+import java.awt.GraphicsConfiguration;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -22,7 +26,22 @@ public class GUI extends javax.swing.JFrame {
         
         controller = new Controller(this, currentOrder);
         con = db.myCon();
+        
+        // FLEXIBLE MAXIMIZE: This tells Windows to maximize but NOT cover the Taskbar
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+    
+        // Safety check: Ensure the window stays within the "usable" screen bounds
+        GraphicsConfiguration config = getGraphicsConfiguration();
+        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(config);
+        Rectangle bounds = config.getBounds();
+
+        // This manually calculates the area NOT covered by the taskbar
+        int x = bounds.x + insets.left;
+        int y = bounds.y + insets.top;
+        int width = bounds.width - (insets.left + insets.right);
+        int height = bounds.height - (insets.top + insets.bottom);
+
+        this.setMaximizedBounds(new Rectangle(0, 0, width, height));
     }
 
     /**
