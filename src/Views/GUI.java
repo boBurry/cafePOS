@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -172,6 +173,7 @@ public class GUI extends javax.swing.JFrame {
         lbTotal = new javax.swing.JTextField();
         btTotal = new javax.swing.JButton();
         btDelete = new javax.swing.JButton();
+        btClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1512, 982));
@@ -855,9 +857,9 @@ public class GUI extends javax.swing.JFrame {
         jPanel17.setLayout(null);
 
         jLabel3.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        jLabel3.setText("Discount: ");
+        jLabel3.setText("Discount");
         jPanel17.add(jLabel3);
-        jLabel3.setBounds(20, 60, 130, 30);
+        jLabel3.setBounds(20, 60, 130, 50);
 
         lbSubtotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
         lbSubtotal.addActionListener(new java.awt.event.ActionListener() {
@@ -866,12 +868,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel17.add(lbSubtotal);
-        lbSubtotal.setBounds(160, 10, 190, 30);
+        lbSubtotal.setBounds(160, 10, 190, 40);
 
         jLabel4.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        jLabel4.setText("Subtotal: ");
+        jLabel4.setText("Subtotal ");
         jPanel17.add(jLabel4);
-        jLabel4.setBounds(20, 10, 119, 30);
+        jLabel4.setBounds(20, 10, 119, 40);
 
         cbDiscount.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
         cbDiscount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0%", "30%", "50%", "70%" }));
@@ -881,12 +883,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel17.add(cbDiscount);
-        cbDiscount.setBounds(160, 60, 190, 30);
+        cbDiscount.setBounds(160, 60, 190, 40);
 
         jLabel5.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        jLabel5.setText("Total:");
+        jLabel5.setText("Total");
         jPanel17.add(jLabel5);
-        jLabel5.setBounds(20, 110, 59, 25);
+        jLabel5.setBounds(20, 110, 60, 40);
 
         lbTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
         lbTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -895,30 +897,46 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel17.add(lbTotal);
-        lbTotal.setBounds(160, 110, 190, 28);
+        lbTotal.setBounds(160, 110, 190, 40);
 
         right.add(jPanel17);
-        jPanel17.setBounds(20, 430, 370, 150);
+        jPanel17.setBounds(20, 430, 380, 170);
 
+        btTotal.setBackground(new java.awt.Color(102, 255, 102));
         btTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btTotal.setText("Total");
+        btTotal.setBorder(null);
         btTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btTotalActionPerformed(evt);
             }
         });
         right.add(btTotal);
-        btTotal.setBounds(40, 590, 90, 40);
+        btTotal.setBounds(40, 600, 130, 60);
 
+        btDelete.setBackground(new java.awt.Color(255, 102, 0));
         btDelete.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btDelete.setText("Delete");
+        btDelete.setBorder(null);
         btDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDeleteActionPerformed(evt);
             }
         });
         right.add(btDelete);
-        btDelete.setBounds(430, 440, 130, 40);
+        btDelete.setBounds(430, 440, 130, 50);
+
+        btClear.setBackground(new java.awt.Color(255, 51, 51));
+        btClear.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
+        btClear.setText("Clear");
+        btClear.setBorder(null);
+        btClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btClearActionPerformed(evt);
+            }
+        });
+        right.add(btClear);
+        btClear.setBounds(430, 500, 130, 50);
 
         getContentPane().add(right);
         right.setBounds(910, 0, 600, 980);
@@ -1094,22 +1112,30 @@ public class GUI extends javax.swing.JFrame {
         controller.addToCart("S01", qtyCroissant);
     }//GEN-LAST:event_addCroissantActionPerformed
 
+    private void btClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClearActionPerformed
+        currentOrder.clear(); 
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); 
+        lbSubtotal.setText("");
+        lbTotal.setText("");
+    }//GEN-LAST:event_btClearActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        // 1. MacOS Fix: Moves the menu bar to the top of the Mac screen
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-
-        // 2. High Resolution Fix: Makes text look sharp on 4K/Retina screens
-        System.setProperty("awt.useSystemAAFontSettings", "on");
-        System.setProperty("swing.aatext", "true");
-
         try {
-            // 3. SET SYSTEM LOOK AND FEEL
-            // This replaces the "Nimbus" loop and picks Windows style on Windows/Mac style on Mac
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
+            // 1. MacOS Menu Bar Fix (Optional, keeps Mac happy)
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+            // 2. SET THEME TO NIMBUS (Modern Look + Supports Colors)
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -1141,6 +1167,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton addSmoothie;
     private javax.swing.JPanel body;
     private javax.swing.JButton btBack;
+    private javax.swing.JButton btClear;
     private javax.swing.JButton btDelete;
     private javax.swing.JButton btExit;
     private javax.swing.JButton btNext;

@@ -4,19 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DrinkCustomizationDialog extends JDialog {
+    // Variables
     private String size = "Medium";
     private String sugarLevel = "100%";
     private String iceLevel = "Normal";
     private boolean extraShot = false;
     private boolean confirmed = false;
     
-    private double basePrice; // Store base price
+    private double basePrice; 
 
+    // UI Components
     private JComboBox<String> cbSize;
     private JComboBox<String> cbSugar;
     private JComboBox<String> cbIce;
     private JCheckBox chkExtraShot;
-    private JLabel lbPricePreview; // Show price preview
+    private JLabel lbPricePreview; 
 
     public DrinkCustomizationDialog(Frame parent, String drinkName, double basePrice) {
         super(parent, "Customize " + drinkName, true);
@@ -25,12 +27,13 @@ public class DrinkCustomizationDialog extends JDialog {
     }
 
     private void initComponents(String drinkName) {
+        // 1. Setup Window
         setLayout(new BorderLayout());
-        setSize(400, 400);
+        setSize(400, 480); // Taller height to fit dropdowns comfortably
         setLocationRelativeTo(getParent());
         setResizable(false);
 
-        // Main panel
+        // 2. Main Panel (White Background)
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -51,31 +54,32 @@ public class DrinkCustomizationDialog extends JDialog {
         mainPanel.add(lbPricePreview);
         mainPanel.add(Box.createVerticalStrut(20));
 
-        // Size selection with price info (REMOVED SMALL)
-        cbSize = new JComboBox<>(new String[]{"Medium (Base)", "Large (+$0.50)"});
-        cbSize.setSelectedItem("Medium (Base)");
+        // --- DROPDOWNS ---
+        
+        // Size
+        cbSize = new JComboBox<>(new String[]{"Medium", "Large ($+0.50)"});
+        cbSize.setSelectedItem("Medium");
         cbSize.addActionListener(e -> updatePricePreview());
         mainPanel.add(createOptionPanel("Size:", cbSize));
-        
         mainPanel.add(Box.createVerticalStrut(15));
 
-        // Sugar level
+        // Sugar
         cbSugar = new JComboBox<>(new String[]{"0%", "25%", "50%", "75%", "100%", "125%"});
         cbSugar.setSelectedItem("100%");
         mainPanel.add(createOptionPanel("Sugar Level:", cbSugar));
-        
         mainPanel.add(Box.createVerticalStrut(15));
 
-        // Ice level
+        // Ice
         cbIce = new JComboBox<>(new String[]{"No Ice", "Less Ice", "Normal", "Extra Ice"});
         cbIce.setSelectedItem("Normal");
         mainPanel.add(createOptionPanel("Ice Level:", cbIce));
-        
         mainPanel.add(Box.createVerticalStrut(15));
 
-        // Extra shot checkbox
+        // Extra Shot Checkbox
         JPanel extraPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         extraPanel.setBackground(Color.WHITE);
+        extraPanel.setMaximumSize(new Dimension(400, 40)); 
+        
         chkExtraShot = new JCheckBox("Add Extra Shot (+$0.50)");
         chkExtraShot.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 14));
         chkExtraShot.setBackground(Color.WHITE);
@@ -85,27 +89,22 @@ public class DrinkCustomizationDialog extends JDialog {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        // Button panel
+        // 3. Button Panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setBackground(Color.WHITE);
         
         JButton btnConfirm = new JButton("Confirm");
         btnConfirm.setPreferredSize(new Dimension(120, 40));
         btnConfirm.setFont(new Font(".AppleSystemUIFont", Font.BOLD, 14));
-        btnConfirm.setBackground(new Color(50, 36, 23));
+        btnConfirm.setBackground(new Color(50, 36, 23)); // Coffee Color
         btnConfirm.setForeground(Color.WHITE);
-        btnConfirm.setFocusPainted(false);
+        
+
+        
         btnConfirm.addActionListener(e -> {
-            // Updated logic to only check for Large (Default is Medium)
-            String selectedSize = (String) cbSize.getSelectedItem();
-            if (selectedSize.contains("Large")) {
-                size = "Large";
-            } else {
-                size = "Medium";
-            }
-            
+            size = (String) cbSize.getSelectedItem();
             sugarLevel = (String) cbSugar.getSelectedItem();
-            iceLevel = (String) cbIce.getSelectedItem();
+            iceLevel = cbIce.isEnabled() ? (String) cbIce.getSelectedItem() : "None";
             extraShot = chkExtraShot.isSelected();
             confirmed = true;
             dispose();
@@ -114,8 +113,6 @@ public class DrinkCustomizationDialog extends JDialog {
         JButton btnCancel = new JButton("Cancel");
         btnCancel.setPreferredSize(new Dimension(120, 40));
         btnCancel.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 14));
-        btnCancel.setBackground(Color.LIGHT_GRAY);
-        btnCancel.setFocusPainted(false);
         btnCancel.addActionListener(e -> {
             confirmed = false;
             dispose();
@@ -125,54 +122,41 @@ public class DrinkCustomizationDialog extends JDialog {
         buttonPanel.add(btnCancel);
         add(buttonPanel, BorderLayout.SOUTH);
         
-        // Updated Hot Drink logic (Removed code that added/removed "Small")
-        if (drinkName.equalsIgnoreCase("Hot Latte") || drinkName.equalsIgnoreCase("Hot Cappuccino")
-            || drinkName.equalsIgnoreCase("Hot Green Tea") || drinkName.equalsIgnoreCase("Hot Espresso")) {
-            // Disable the ice level customization for hot drinks
+        // 4. Hot Drink Logic
+        if (drinkName.toLowerCase().contains("hot")) {
             cbIce.setEnabled(false);
-            // Set the ice level to a default value
-            iceLevel = "None"; 
-        } else {
-            // Enable ice customization for cold drinks
-            cbIce.setEnabled(true);
+            cbIce.setSelectedItem("No Ice");
         }
     }
 
+    // Helper method to create clean rows
     private JPanel createOptionPanel(String label, JComboBox<String> comboBox) {
         JPanel panel = new JPanel(new BorderLayout(10, 0));
         panel.setBackground(Color.WHITE);
-        panel.setMaximumSize(new Dimension(350, 35));
-
-        JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 14));
-        lbl.setPreferredSize(new Dimension(100, 30));
+        panel.setMaximumSize(new Dimension(400, 40)); // Constrain height
         
+        JLabel lbl = new JLabel(label);
+        lbl.setPreferredSize(new Dimension(100, 30));
+        lbl.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 14));
+        
+        // Make the combobox white
+        comboBox.setBackground(Color.WHITE);
         comboBox.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 14));
-        comboBox.setPreferredSize(new Dimension(200, 30));
-
+        
         panel.add(lbl, BorderLayout.WEST);
         panel.add(comboBox, BorderLayout.CENTER);
-
         return panel;
     }
     
-    // Update price preview when size or extra shot changes
     private void updatePricePreview() {
         double price = basePrice;
         
-        // Add size adjustment (Removed logic for Small)
-        String selectedSize = (String) cbSize.getSelectedItem();
-        if (selectedSize != null) {
-            if (selectedSize.contains("Large")) {
-                price += 0.50;
-            }
+        if ("Large".equals(cbSize.getSelectedItem())) {
+            price += 0.50;
         }
-        
-        // Add extra shot
         if (chkExtraShot.isSelected()) {
             price += 0.50;
         }
-        
         lbPricePreview.setText(String.format("Price: $%.2f", price));
     }
 
@@ -182,6 +166,4 @@ public class DrinkCustomizationDialog extends JDialog {
     public String getIceLevel() { return iceLevel; }
     public boolean hasExtraShot() { return extraShot; }
     public boolean isConfirmed() { return confirmed; }
-   
 }
-
