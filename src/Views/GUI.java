@@ -43,8 +43,43 @@ public class GUI extends javax.swing.JFrame {
         int height = bounds.height - (insets.top + insets.bottom);
 
         this.setMaximizedBounds(new Rectangle(0, 0, width, height));
+        
+        setupCartTable();
     }
+    
+    // --- METHOD TO CONFIGURE THE SMART TABLE ---
+    private void setupCartTable() {
+        // 1. Install Custom Model
+        Views.CartTableModel model = new Views.CartTableModel(currentOrder);
+        table.setModel(model);
+        
+        // 2. IMPORTANT: Increase Row Height so buttons fit nicely
+        table.setRowHeight(40); 
+        
+        // --- NEW: DISABLE BLUE SELECTION HIGHLIGHT ---
+        table.setSelectionBackground(java.awt.Color.WHITE); // Selected row stays White
+        table.setSelectionForeground(java.awt.Color.BLACK); // Text stays Black
+        
+        // Optional: Remove the tiny border that appears around selected cells
+        table.setFocusable(false);
+        
+        // 3. APPLY THE NEW [-] 1 [+] STYLE (Column 2)
+        javax.swing.table.TableColumn qtyCol = table.getColumnModel().getColumn(2);
+        qtyCol.setCellRenderer(new QtyRenderer()); 
+        qtyCol.setCellEditor(new QtyEditor());     
+        qtyCol.setPreferredWidth(110); // Needs to be wider for 3 items
+        
+        // 4. APPLY THE RED 'X' LABEL (Column 5)
+        javax.swing.table.TableColumn actionCol = table.getColumnModel().getColumn(5);
+        actionCol.setCellRenderer(new ButtonRenderer()); // The Red Label Renderer
+        actionCol.setCellEditor(new ButtonEditor(new javax.swing.JCheckBox(), controller));
+        actionCol.setPreferredWidth(50);
 
+        // 5. Visual Polish (Widths)
+        table.getColumnModel().getColumn(0).setPreferredWidth(140); // Name
+        table.getColumnModel().getColumn(3).setPreferredWidth(100); // Custom
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,80 +104,74 @@ public class GUI extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         addIMocha = new javax.swing.JButton();
-        qtyIMocha = new javax.swing.JSpinner();
         jLabel34 = new javax.swing.JLabel();
         pIGreenTea = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         addIGreenTea = new javax.swing.JButton();
-        qtyIGreenTea = new javax.swing.JSpinner();
         pICappuccino = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         addICappuccino = new javax.swing.JButton();
-        qtyICappuccino = new javax.swing.JSpinner();
         pILatte = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         addILatte = new javax.swing.JButton();
-        qtyILatte = new javax.swing.JSpinner();
         pIAmericano = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         addIAmericano = new javax.swing.JButton();
-        qtyIAmericano = new javax.swing.JSpinner();
         pHLatte = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         addHLatte = new javax.swing.JButton();
-        qtyHLatte = new javax.swing.JSpinner();
         pHCappuccino = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         addHCappuccino = new javax.swing.JButton();
-        qtyHCappuccino = new javax.swing.JSpinner();
         pHGreenTea = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         addHGreenTea = new javax.swing.JButton();
-        qtyHGreenTea = new javax.swing.JSpinner();
         pHEspresso = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
         addHEspresso = new javax.swing.JButton();
-        qtyHEspresso = new javax.swing.JSpinner();
-        dP2 = new javax.swing.JPanel();
-        btBack = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         pFGreenTea = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         addFGreenTea = new javax.swing.JButton();
-        qtyFGreenTea = new javax.swing.JSpinner();
         pSmoothie = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         addSmoothie = new javax.swing.JButton();
-        qtySmoothie = new javax.swing.JSpinner();
         pFChocolate = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         addFChocolate = new javax.swing.JButton();
-        qtyFChocolate = new javax.swing.JSpinner();
+        dP2 = new javax.swing.JPanel();
+        btBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         Snack = new javax.swing.JPanel();
         sP1 = new javax.swing.JPanel();
         jLabel62 = new javax.swing.JLabel();
+        pCroissant1 = new javax.swing.JPanel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        addCroissant1 = new javax.swing.JButton();
+        qtyCroissant1 = new javax.swing.JSpinner();
         pCroissant = new javax.swing.JPanel();
         jLabel78 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
@@ -172,7 +201,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lbTotal = new javax.swing.JTextField();
         btTotal = new javax.swing.JButton();
-        btDelete = new javax.swing.JButton();
         btClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -212,7 +240,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sidePanel.add(lbCake);
-        lbCake.setBounds(0, 260, 160, 70);
+        lbCake.setBounds(0, 260, 150, 70);
 
         lbDrink.setBackground(new java.awt.Color(255, 255, 255));
         lbDrink.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 14)); // NOI18N
@@ -235,11 +263,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sidePanel.add(lbDrink);
-        lbDrink.setBounds(0, 180, 160, 70);
+        lbDrink.setBounds(0, 180, 150, 70);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo.png"))); // NOI18N
         sidePanel.add(jLabel6);
-        jLabel6.setBounds(20, 30, 120, 120);
+        jLabel6.setBounds(10, 30, 120, 120);
 
         lbAdmin.setBackground(new java.awt.Color(255, 255, 255));
         lbAdmin.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
@@ -255,10 +283,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sidePanel.add(lbAdmin);
-        lbAdmin.setBounds(0, 750, 160, 40);
+        lbAdmin.setBounds(0, 750, 140, 40);
 
         getContentPane().add(sidePanel);
-        sidePanel.setBounds(0, 0, 160, 980);
+        sidePanel.setBounds(0, 0, 150, 980);
 
         body.setBackground(new java.awt.Color(255, 255, 255));
         body.setLayout(new java.awt.CardLayout());
@@ -275,7 +303,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         dP1.add(btNext);
-        btNext.setBounds(610, 50, 78, 30);
+        btNext.setBounds(760, 50, 80, 30);
 
         jLabel31.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
         jLabel31.setText("Drink");
@@ -305,16 +333,12 @@ public class GUI extends javax.swing.JFrame {
         pIMocha.add(addIMocha);
         addIMocha.setBounds(130, 160, 60, 60);
 
-        qtyIMocha.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIMocha.add(qtyIMocha);
-        qtyIMocha.setBounds(10, 200, 64, 20);
-
         jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/mocha.png"))); // NOI18N
         pIMocha.add(jLabel34);
         jLabel34.setBounds(20, 0, 150, 150);
 
         dP1.add(pIMocha);
-        pIMocha.setBounds(490, 610, 200, 240);
+        pIMocha.setBounds(640, 340, 200, 240);
 
         pIGreenTea.setBackground(new java.awt.Color(255, 255, 255));
         pIGreenTea.setLayout(null);
@@ -343,12 +367,8 @@ public class GUI extends javax.swing.JFrame {
         pIGreenTea.add(addIGreenTea);
         addIGreenTea.setBounds(130, 160, 60, 60);
 
-        qtyIGreenTea.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIGreenTea.add(qtyIGreenTea);
-        qtyIGreenTea.setBounds(10, 200, 64, 20);
-
         dP1.add(pIGreenTea);
-        pIGreenTea.setBounds(260, 610, 200, 240);
+        pIGreenTea.setBounds(10, 590, 200, 240);
 
         pICappuccino.setBackground(new java.awt.Color(255, 255, 255));
         pICappuccino.setLayout(null);
@@ -377,12 +397,8 @@ public class GUI extends javax.swing.JFrame {
         pICappuccino.add(addICappuccino);
         addICappuccino.setBounds(130, 160, 60, 60);
 
-        qtyICappuccino.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pICappuccino.add(qtyICappuccino);
-        qtyICappuccino.setBounds(10, 200, 64, 20);
-
         dP1.add(pICappuccino);
-        pICappuccino.setBounds(30, 610, 200, 240);
+        pICappuccino.setBounds(430, 340, 200, 240);
 
         pILatte.setBackground(new java.awt.Color(255, 255, 255));
         pILatte.setLayout(null);
@@ -410,12 +426,8 @@ public class GUI extends javax.swing.JFrame {
         pILatte.add(addILatte);
         addILatte.setBounds(130, 160, 60, 60);
 
-        qtyILatte.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pILatte.add(qtyILatte);
-        qtyILatte.setBounds(10, 200, 64, 20);
-
         dP1.add(pILatte);
-        pILatte.setBounds(260, 350, 200, 240);
+        pILatte.setBounds(10, 340, 200, 240);
 
         pIAmericano.setBackground(new java.awt.Color(255, 255, 255));
         pIAmericano.setLayout(null);
@@ -444,12 +456,8 @@ public class GUI extends javax.swing.JFrame {
         pIAmericano.add(addIAmericano);
         addIAmericano.setBounds(130, 160, 60, 60);
 
-        qtyIAmericano.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pIAmericano.add(qtyIAmericano);
-        qtyIAmericano.setBounds(10, 200, 64, 20);
-
         dP1.add(pIAmericano);
-        pIAmericano.setBounds(490, 350, 200, 240);
+        pIAmericano.setBounds(220, 340, 200, 240);
 
         pHLatte.setBackground(new java.awt.Color(255, 255, 255));
         pHLatte.setLayout(null);
@@ -477,12 +485,8 @@ public class GUI extends javax.swing.JFrame {
         pHLatte.add(addHLatte);
         addHLatte.setBounds(130, 160, 60, 60);
 
-        qtyHLatte.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHLatte.add(qtyHLatte);
-        qtyHLatte.setBounds(10, 200, 64, 20);
-
         dP1.add(pHLatte);
-        pHLatte.setBounds(30, 90, 200, 240);
+        pHLatte.setBounds(10, 90, 200, 240);
 
         pHCappuccino.setBackground(new java.awt.Color(255, 255, 255));
         pHCappuccino.setLayout(null);
@@ -511,12 +515,8 @@ public class GUI extends javax.swing.JFrame {
         pHCappuccino.add(addHCappuccino);
         addHCappuccino.setBounds(130, 160, 60, 60);
 
-        qtyHCappuccino.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHCappuccino.add(qtyHCappuccino);
-        qtyHCappuccino.setBounds(10, 200, 64, 20);
-
         dP1.add(pHCappuccino);
-        pHCappuccino.setBounds(490, 90, 200, 240);
+        pHCappuccino.setBounds(430, 90, 200, 240);
 
         pHGreenTea.setBackground(new java.awt.Color(255, 255, 255));
         pHGreenTea.setLayout(null);
@@ -545,12 +545,8 @@ public class GUI extends javax.swing.JFrame {
         pHGreenTea.add(addHGreenTea);
         addHGreenTea.setBounds(130, 160, 60, 60);
 
-        qtyHGreenTea.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHGreenTea.add(qtyHGreenTea);
-        qtyHGreenTea.setBounds(10, 200, 64, 20);
-
         dP1.add(pHGreenTea);
-        pHGreenTea.setBounds(30, 350, 200, 240);
+        pHGreenTea.setBounds(640, 90, 200, 240);
 
         pHEspresso.setBackground(new java.awt.Color(255, 255, 255));
         pHEspresso.setLayout(null);
@@ -579,31 +575,8 @@ public class GUI extends javax.swing.JFrame {
         pHEspresso.add(addHEspresso);
         addHEspresso.setBounds(130, 160, 60, 60);
 
-        qtyHEspresso.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pHEspresso.add(qtyHEspresso);
-        qtyHEspresso.setBounds(10, 200, 64, 20);
-
         dP1.add(pHEspresso);
-        pHEspresso.setBounds(260, 90, 200, 240);
-
-        Drink.add(dP1, "card2");
-
-        dP2.setBackground(new java.awt.Color(245, 245, 245));
-        dP2.setLayout(null);
-
-        btBack.setText("Back");
-        btBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBackActionPerformed(evt);
-            }
-        });
-        dP2.add(btBack);
-        btBack.setBounds(610, 50, 78, 30);
-
-        jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
-        jLabel1.setText("Drink");
-        dP2.add(jLabel1);
-        jLabel1.setBounds(30, 30, 70, 50);
+        pHEspresso.setBounds(220, 90, 200, 240);
 
         pFGreenTea.setBackground(new java.awt.Color(255, 255, 255));
         pFGreenTea.setLayout(null);
@@ -631,12 +604,8 @@ public class GUI extends javax.swing.JFrame {
         pFGreenTea.add(addFGreenTea);
         addFGreenTea.setBounds(130, 160, 60, 60);
 
-        qtyFGreenTea.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pFGreenTea.add(qtyFGreenTea);
-        qtyFGreenTea.setBounds(10, 200, 64, 20);
-
-        dP2.add(pFGreenTea);
-        pFGreenTea.setBounds(30, 90, 200, 240);
+        dP1.add(pFGreenTea);
+        pFGreenTea.setBounds(220, 590, 200, 240);
 
         pSmoothie.setBackground(new java.awt.Color(255, 255, 255));
         pSmoothie.setLayout(null);
@@ -665,12 +634,8 @@ public class GUI extends javax.swing.JFrame {
         pSmoothie.add(addSmoothie);
         addSmoothie.setBounds(130, 160, 60, 60);
 
-        qtySmoothie.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pSmoothie.add(qtySmoothie);
-        qtySmoothie.setBounds(10, 200, 64, 20);
-
-        dP2.add(pSmoothie);
-        pSmoothie.setBounds(490, 90, 200, 240);
+        dP1.add(pSmoothie);
+        pSmoothie.setBounds(640, 590, 200, 240);
 
         pFChocolate.setBackground(new java.awt.Color(255, 255, 255));
         pFChocolate.setLayout(null);
@@ -699,12 +664,27 @@ public class GUI extends javax.swing.JFrame {
         pFChocolate.add(addFChocolate);
         addFChocolate.setBounds(130, 160, 60, 60);
 
-        qtyFChocolate.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        pFChocolate.add(qtyFChocolate);
-        qtyFChocolate.setBounds(10, 200, 64, 20);
+        dP1.add(pFChocolate);
+        pFChocolate.setBounds(430, 590, 200, 240);
 
-        dP2.add(pFChocolate);
-        pFChocolate.setBounds(260, 90, 200, 240);
+        Drink.add(dP1, "card2");
+
+        dP2.setBackground(new java.awt.Color(245, 245, 245));
+        dP2.setLayout(null);
+
+        btBack.setText("Back");
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
+        dP2.add(btBack);
+        btBack.setBounds(750, 50, 78, 30);
+
+        jLabel1.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
+        jLabel1.setText("Drink");
+        dP2.add(jLabel1);
+        jLabel1.setBounds(30, 30, 70, 50);
 
         Drink.add(dP2, "card2");
 
@@ -719,6 +699,39 @@ public class GUI extends javax.swing.JFrame {
         jLabel62.setText("Cake");
         sP1.add(jLabel62);
         jLabel62.setBounds(30, 30, 70, 50);
+
+        pCroissant1.setBackground(new java.awt.Color(255, 255, 255));
+        pCroissant1.setLayout(null);
+
+        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/croissant.png"))); // NOI18N
+        pCroissant1.add(jLabel84);
+        jLabel84.setBounds(20, 0, 150, 150);
+
+        jLabel85.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel85.setText("1,5$");
+        pCroissant1.add(jLabel85);
+        jLabel85.setBounds(10, 180, 40, 16);
+
+        jLabel86.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 13)); // NOI18N
+        jLabel86.setText("Croissant");
+        pCroissant1.add(jLabel86);
+        jLabel86.setBounds(10, 160, 80, 16);
+
+        addCroissant1.setText("ADD");
+        addCroissant1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCroissant1ActionPerformed(evt);
+            }
+        });
+        pCroissant1.add(addCroissant1);
+        addCroissant1.setBounds(130, 160, 60, 60);
+
+        qtyCroissant1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        pCroissant1.add(qtyCroissant1);
+        qtyCroissant1.setBounds(10, 200, 64, 20);
+
+        sP1.add(pCroissant1);
+        pCroissant1.setBounds(10, 90, 200, 240);
 
         pCroissant.setBackground(new java.awt.Color(255, 255, 255));
         pCroissant.setLayout(null);
@@ -751,7 +764,7 @@ public class GUI extends javax.swing.JFrame {
         qtyCroissant.setBounds(10, 200, 64, 20);
 
         sP1.add(pCroissant);
-        pCroissant.setBounds(30, 90, 200, 240);
+        pCroissant.setBounds(220, 90, 200, 240);
 
         pPainauChocolat.setBackground(new java.awt.Color(255, 255, 255));
         pPainauChocolat.setLayout(null);
@@ -785,7 +798,7 @@ public class GUI extends javax.swing.JFrame {
         qtyPainauChocolat.setBounds(10, 200, 64, 20);
 
         sP1.add(pPainauChocolat);
-        pPainauChocolat.setBounds(260, 90, 200, 240);
+        pPainauChocolat.setBounds(430, 90, 200, 240);
 
         pMatchaCake.setBackground(new java.awt.Color(255, 255, 255));
         pMatchaCake.setLayout(null);
@@ -819,14 +832,14 @@ public class GUI extends javax.swing.JFrame {
         qtyMatchaCake.setBounds(10, 200, 64, 20);
 
         sP1.add(pMatchaCake);
-        pMatchaCake.setBounds(490, 90, 200, 240);
+        pMatchaCake.setBounds(640, 90, 200, 240);
 
         Snack.add(sP1, "card2");
 
         body.add(Snack, "card2");
 
         getContentPane().add(body);
-        body.setBounds(160, 0, 750, 980);
+        body.setBounds(150, 0, 850, 980);
 
         right.setBackground(new java.awt.Color(255, 255, 255));
         right.setLayout(null);
@@ -851,7 +864,7 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(table);
 
         right.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 20, 580, 390);
+        jScrollPane2.setBounds(0, 0, 510, 410);
 
         jPanel17.setBackground(new java.awt.Color(255, 255, 255));
         jPanel17.setLayout(null);
@@ -900,11 +913,11 @@ public class GUI extends javax.swing.JFrame {
         lbTotal.setBounds(160, 110, 190, 40);
 
         right.add(jPanel17);
-        jPanel17.setBounds(20, 430, 380, 170);
+        jPanel17.setBounds(0, 420, 350, 170);
 
         btTotal.setBackground(new java.awt.Color(102, 255, 102));
         btTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        btTotal.setText("Total");
+        btTotal.setText("Order");
         btTotal.setBorder(null);
         btTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -912,19 +925,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         right.add(btTotal);
-        btTotal.setBounds(40, 600, 130, 60);
-
-        btDelete.setBackground(new java.awt.Color(255, 102, 0));
-        btDelete.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
-        btDelete.setText("Delete");
-        btDelete.setBorder(null);
-        btDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDeleteActionPerformed(evt);
-            }
-        });
-        right.add(btDelete);
-        btDelete.setBounds(430, 440, 130, 50);
+        btTotal.setBounds(370, 480, 130, 50);
 
         btClear.setBackground(new java.awt.Color(255, 51, 51));
         btClear.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
@@ -936,10 +937,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         right.add(btClear);
-        btClear.setBounds(430, 500, 130, 50);
+        btClear.setBounds(370, 430, 130, 50);
 
         getContentPane().add(right);
-        right.setBounds(910, 0, 600, 980);
+        right.setBounds(1000, 0, 510, 980);
 
         pack();
         setLocationRelativeTo(null);
@@ -983,10 +984,6 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lbTotalActionPerformed
 
-    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        controller.deleteItem();
-    }//GEN-LAST:event_btDeleteActionPerformed
-
     private void btTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTotalActionPerformed
         // 1. Calculate Total
         double finalTotal = currentOrder.calculateTotal();
@@ -1018,15 +1015,15 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cbDiscountActionPerformed
 
     private void addSmoothieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSmoothieActionPerformed
-        controller.addToCart("D12", qtySmoothie);
+        controller.addToCart("D12");
     }//GEN-LAST:event_addSmoothieActionPerformed
 
     private void addFGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFGreenTeaActionPerformed
-        controller.addToCart("D10", qtyFGreenTea);
+        controller.addToCart("D10");
     }//GEN-LAST:event_addFGreenTeaActionPerformed
 
     private void addFChocolateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFChocolateActionPerformed
-        controller.addToCart("D11", qtyFChocolate);
+        controller.addToCart("D11");
     }//GEN-LAST:event_addFChocolateActionPerformed
 
     private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
@@ -1051,19 +1048,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lbAdminMouseClicked
 
     private void addHLatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHLatteActionPerformed
-        controller.addToCart("D01", qtyHLatte);
+        controller.addToCart("D01");
     }//GEN-LAST:event_addHLatteActionPerformed
 
     private void addHCappuccinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHCappuccinoActionPerformed
-        controller.addToCart("D03", qtyHCappuccino);
+        controller.addToCart("D03");
     }//GEN-LAST:event_addHCappuccinoActionPerformed
 
     private void addHGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHGreenTeaActionPerformed
-        controller.addToCart("D04", qtyHGreenTea);
+        controller.addToCart("D04");
     }//GEN-LAST:event_addHGreenTeaActionPerformed
 
     private void addHEspressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHEspressoActionPerformed
-        controller.addToCart("D02", qtyHEspresso);
+        controller.addToCart("D02");
     }//GEN-LAST:event_addHEspressoActionPerformed
 
     private void btNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNextActionPerformed
@@ -1081,44 +1078,53 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void addIAmericanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIAmericanoActionPerformed
-        controller.addToCart("D06", qtyIAmericano);
+        controller.addToCart("D06");
     }//GEN-LAST:event_addIAmericanoActionPerformed
 
     private void addILatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addILatteActionPerformed
-        controller.addToCart("D05", qtyILatte);
+        controller.addToCart("D05");
     }//GEN-LAST:event_addILatteActionPerformed
 
     private void addICappuccinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addICappuccinoActionPerformed
-        controller.addToCart("D07", qtyICappuccino);
+        controller.addToCart("D07");
     }//GEN-LAST:event_addICappuccinoActionPerformed
 
     private void addIGreenTeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIGreenTeaActionPerformed
-        controller.addToCart("D08", qtyIGreenTea);
+        controller.addToCart("D08");
     }//GEN-LAST:event_addIGreenTeaActionPerformed
 
     private void addIMochaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIMochaActionPerformed
-        controller.addToCart("D09", qtyIMocha);
+        controller.addToCart("D09");
     }//GEN-LAST:event_addIMochaActionPerformed
 
     private void addMatchaCakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMatchaCakeActionPerformed
-        controller.addToCart("S03", qtyMatchaCake);
+        controller.addToCart("S03");
     }//GEN-LAST:event_addMatchaCakeActionPerformed
 
     private void addPainauChocolatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPainauChocolatActionPerformed
-        controller.addToCart("S02", qtyPainauChocolat);
+        controller.addToCart("S02");
     }//GEN-LAST:event_addPainauChocolatActionPerformed
 
     private void addCroissantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCroissantActionPerformed
-        controller.addToCart("S01", qtyCroissant);
+        controller.addToCart("S01");
+        controller.addToCart("S01");
     }//GEN-LAST:event_addCroissantActionPerformed
 
     private void btClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClearActionPerformed
+        // 1. Clear the actual data list
         currentOrder.clear(); 
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0); 
+
+        // 2. Tell the Smart Model to refresh (No casting to DefaultTableModel!)
+        ((Views.CartTableModel) table.getModel()).fireTableDataChanged();
+
+        // 3. Reset the price labels
         lbSubtotal.setText("");
         lbTotal.setText("");
     }//GEN-LAST:event_btClearActionPerformed
+
+    private void addCroissant1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCroissant1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCroissant1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1151,6 +1157,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel Drink;
     private javax.swing.JPanel Snack;
     private javax.swing.JButton addCroissant;
+    private javax.swing.JButton addCroissant1;
     private javax.swing.JButton addFChocolate;
     private javax.swing.JButton addFGreenTea;
     private javax.swing.JButton addHCappuccino;
@@ -1168,7 +1175,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel body;
     private javax.swing.JButton btBack;
     private javax.swing.JButton btClear;
-    private javax.swing.JButton btDelete;
     private javax.swing.JButton btExit;
     private javax.swing.JButton btNext;
     private javax.swing.JButton btTotal;
@@ -1224,6 +1230,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
@@ -1235,6 +1244,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField lbSubtotal;
     private javax.swing.JTextField lbTotal;
     private javax.swing.JPanel pCroissant;
+    private javax.swing.JPanel pCroissant1;
     private javax.swing.JPanel pFChocolate;
     private javax.swing.JPanel pFGreenTea;
     private javax.swing.JPanel pHCappuccino;
@@ -1250,23 +1260,201 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel pPainauChocolat;
     private javax.swing.JPanel pSmoothie;
     private javax.swing.JSpinner qtyCroissant;
-    private javax.swing.JSpinner qtyFChocolate;
-    private javax.swing.JSpinner qtyFGreenTea;
-    private javax.swing.JSpinner qtyHCappuccino;
-    private javax.swing.JSpinner qtyHEspresso;
-    private javax.swing.JSpinner qtyHGreenTea;
-    private javax.swing.JSpinner qtyHLatte;
-    private javax.swing.JSpinner qtyIAmericano;
-    private javax.swing.JSpinner qtyICappuccino;
-    private javax.swing.JSpinner qtyIGreenTea;
-    private javax.swing.JSpinner qtyILatte;
-    private javax.swing.JSpinner qtyIMocha;
+    private javax.swing.JSpinner qtyCroissant1;
     private javax.swing.JSpinner qtyMatchaCake;
     private javax.swing.JSpinner qtyPainauChocolat;
-    private javax.swing.JSpinner qtySmoothie;
     private javax.swing.JPanel right;
     private javax.swing.JPanel sP1;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
+}
+
+// =========================================================
+//              HELPER CLASSES FOR THE SMART TABLE
+// =========================================================
+
+// =========================================================
+//            NEW HELPER CLASSES FOR [-] 1 [+]
+// =========================================================
+// 1. THE PANEL: Defines how the cell looks (Button - Number - Button)
+class QtyPanel extends javax.swing.JPanel {
+    public final javax.swing.JButton btnMinus;
+    public final javax.swing.JButton btnPlus;
+    public final javax.swing.JTextField txtValue;
+
+    public QtyPanel() {
+        // USE GRIDBAGLAYOUT -> Centers content perfectly in the cell
+        setLayout(new java.awt.GridBagLayout()); 
+        setOpaque(true);
+        setBackground(java.awt.Color.WHITE);
+
+        btnMinus = new javax.swing.JButton("-");
+        btnPlus = new javax.swing.JButton("+");
+        txtValue = new javax.swing.JTextField("1", 2); 
+
+        // --- BUTTON STYLING ---
+        // Force margins to zero so the symbol fits
+        java.awt.Insets zeroMargin = new java.awt.Insets(0, 0, 0, 0);
+        btnMinus.setMargin(zeroMargin);
+        btnPlus.setMargin(zeroMargin);
+        
+        // --- REMOVING THE BORDERS ---
+        btnMinus.setBorder(null); // Removes the line border
+        btnPlus.setBorder(null);
+        
+        btnMinus.setBorderPainted(false); // Tells Java: "Don't draw the button outline"
+        btnPlus.setBorderPainted(false);
+        
+        // Size
+        java.awt.Dimension btnSize = new java.awt.Dimension(28, 28); 
+        btnMinus.setPreferredSize(btnSize);
+        btnPlus.setPreferredSize(btnSize);
+        
+        // Font
+        java.awt.Font btnFont = new java.awt.Font("Monospaced", java.awt.Font.BOLD, 16);
+        btnMinus.setFont(btnFont);
+        btnPlus.setFont(btnFont);
+
+        btnMinus.setFocusable(false);
+        btnPlus.setFocusable(false);
+        
+        // Modern Flat Look
+        btnMinus.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.LIGHT_GRAY));
+        btnPlus.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.LIGHT_GRAY));
+        btnMinus.setBackground(new java.awt.Color(240, 240, 240));
+        btnPlus.setBackground(new java.awt.Color(240, 240, 240));
+
+        // --- TEXT FIELD STYLING ---
+        txtValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtValue.setEditable(false); 
+        txtValue.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5)); 
+        txtValue.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 14));
+        txtValue.setBackground(java.awt.Color.WHITE);
+
+        // --- ADDING COMPONENTS ---
+        // GridBag adds them to the center by default
+        add(btnMinus);
+        add(txtValue);
+        add(btnPlus);
+    }
+    
+    public void setQty(int qty) {
+        txtValue.setText(String.valueOf(qty));
+    }
+    
+    public int getQty() {
+        try {
+            return Integer.parseInt(txtValue.getText());
+        } catch (NumberFormatException e) {
+            return 1;
+        }
+    }
+}
+// 2. THE RENDERER: Displays the buttons when you aren't clicking them
+class QtyRenderer implements javax.swing.table.TableCellRenderer {
+    private final QtyPanel panel = new QtyPanel();
+
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+        
+        int qty = (Integer) value;
+        panel.setQty(qty);
+
+        // Keep the background white so it looks clean
+        panel.setBackground(java.awt.Color.WHITE);
+        
+        return panel;
+    }
+}
+
+// 3. THE EDITOR: Handles the clicks on [-] and [+]
+class QtyEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
+    private final QtyPanel panel;
+
+    public QtyEditor() {
+        panel = new QtyPanel();
+
+        // LOGIC: Click Minus
+        panel.btnMinus.addActionListener(e -> {
+            int current = panel.getQty();
+            if (current > 1) { 
+                panel.setQty(current - 1);
+                stopCellEditing(); // Commit change
+            }
+        });
+
+        // LOGIC: Click Plus
+        panel.btnPlus.addActionListener(e -> {
+            panel.setQty(panel.getQty() + 1);
+            stopCellEditing(); // Commit change
+        });
+    }
+
+    @Override
+    public Object getCellEditorValue() {
+        return panel.getQty(); // Returns the Integer to the Table Model
+    }
+
+    @Override
+    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, int row, int column) {
+        int qty = (Integer) value;
+        panel.setQty(qty);
+        return panel;
+    }
+}
+
+// 2. LABEL RENDERER: Draws a red label with "X" instead of a button
+class ButtonRenderer extends javax.swing.JLabel implements javax.swing.table.TableCellRenderer {
+    public ButtonRenderer() {
+        setOpaque(true); // Crucial for JLabel background color to show
+        setText("X");
+        setHorizontalAlignment(javax.swing.SwingConstants.CENTER); // Center the text
+        setBackground(new java.awt.Color(255, 102, 102)); // Light Red background
+        setForeground(java.awt.Color.WHITE); // White text font
+        setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 14)); // Nice bold font
+    }
+    
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+        // Optional: Makes it look interactive by slightly darkening when the row is selected
+        if (isSelected) {
+             setBackground(new java.awt.Color(220, 80, 80)); 
+        } else {
+             setBackground(new java.awt.Color(255, 102, 102));
+        }
+        return this;
+    }
+}
+
+// 3. BUTTON EDITOR: Handles the click on the "X" button
+class ButtonEditor extends javax.swing.DefaultCellEditor {
+    private javax.swing.JButton button;
+    private Controllers.Controller controller;
+    private int currentRow;
+
+    public ButtonEditor(javax.swing.JCheckBox checkBox, Controllers.Controller controller) {
+        super(checkBox);
+        this.controller = controller;
+        button = new javax.swing.JButton();
+        button.setOpaque(true);
+        button.addActionListener(e -> {
+            fireEditingStopped(); // Stop editing mode
+            controller.deleteItem(currentRow); // Call Controller to remove item
+        });
+    }
+
+    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, int row, int column) {
+        this.currentRow = row;
+        button.setText("X");
+        button.setBackground(new java.awt.Color(255, 102, 102));
+        button.setForeground(java.awt.Color.WHITE);
+        return button;
+    }
+
+    public Object getCellEditorValue() { return "X"; }
 }

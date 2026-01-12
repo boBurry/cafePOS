@@ -13,7 +13,7 @@ public class Product {
     private String iceLevel;   
     private boolean extraShot; 
 
-    // 2. The Constructor (Just saves the data, doesn't do math yet)
+    // 2. The Constructor (Just saves the data)
     public Product(String id, String name, double basePrice, int quantity, 
                    String size, String sugarLevel, String iceLevel, boolean extraShot) {
         this.id = id;
@@ -56,15 +56,31 @@ public class Product {
         return getUnitFinalPrice() * quantity;
     }
 
-    // 4. Formatting for the Table/Database
-    public String getCustomizationDetails() {
-        if (size == null || size.isEmpty()) {
-            return "N/A";
-        }
-        String shotStr = extraShot ? ", +Shot" : "";
-        return String.format("%s, %s Sugar, %s Ice%s", size, sugarLevel, iceLevel, shotStr);
+    public String getShortCustomization() {
+        if (size == null || size.isEmpty()) return "";
+
+        // Convert "Medium" -> "M", "Large" -> "L"
+        String s = size.substring(0, 1); 
+
+        // Clean up Sugar (remove " Sugar" text if exists, or just keep number)
+        String sugar = sugarLevel.replace(" Sugar", "").replace("%", "%");
+
+        // Clean up Ice
+        String ice = iceLevel.replace(" Ice", "").replace("Normal", "Norm");
+
+        String shot = extraShot ? "+Shot" : "";
+
+        return String.format("%s, %s, %s %s", s, sugar, ice, shot).trim();
     }
 
+    public String getCustomizationDetails() {
+         // If it's food (empty size), return blank
+         if (size == null || size.isEmpty()) return "";
+         
+         String shotText = extraShot ? ", Extra Shot" : "";
+         return String.format("%s, %s Sugar, %s Ice%s", size, sugarLevel, iceLevel, shotText);
+    }
+    
     // 5. Standard Getters
     public String getId() { return id; }
     public String getName() { return name; }
@@ -74,4 +90,8 @@ public class Product {
     public String getSugarLevel() { return sugarLevel; }
     public String getIceLevel() { return iceLevel; }
     public boolean hasExtraShot() { return extraShot; }
+    
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

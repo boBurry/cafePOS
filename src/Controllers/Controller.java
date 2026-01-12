@@ -4,18 +4,13 @@ import Views.GUI;
 import Models.Order;
 import Models.Product;
 import Views.DrinkCustomizationDialog;
+import Views.CartTableModel; 
 import Models.db;
-import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
 
 public class Controller {
 
@@ -27,20 +22,12 @@ public class Controller {
         this.order = order;
     }
 
-    public void addToCart(String pid, JSpinner qtySpinner) {
-        // 1. Get Quantity
-        int quantity = (Integer) qtySpinner.getValue();
-
-        if (quantity <= 0) {
-            JOptionPane.showMessageDialog(view, "Please select a quantity > 0", "Invalid", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // 2. FETCH DETAILS FROM DB
+    // --- MAIN ADD LOGIC ---
+    public void addToCart(String pid) {
+        // 1. Fetch Base Details from DB
         Product dbProduct = getProductDetails(pid);
-
         if (dbProduct == null) {
-            JOptionPane.showMessageDialog(view, "Error: Product ID " + pid + " not found in database!");
+            JOptionPane.showMessageDialog(view, "Error: Product ID " + pid + " not found!");
             return;
         }
 
@@ -48,58 +35,97 @@ public class Controller {
         double currentPrice = dbProduct.getBasePrice();
         Product finalProduct = null;
         
-        String tableCustomizationText = ""; 
-
-        // 3. CHECK IF IT IS FOOD (S01, S02, S03)
-        boolean isFood = pid.equals("S01") || pid.equals("S02") || pid.equals("S03");
+        // 2. Determine if Food or Drink
+        // (Assuming IDs starting with 'S' are Snacks/Food)
+        boolean isFood = pid.startsWith("S"); 
 
         if (isFood) {
-            // PATH A: FOOD (Direct Add, Dummy Values)
-            finalProduct = new Product(
-                pid, name, currentPrice, quantity,
-                "Regular", "0%", "None", false
-            );
-            
-            tableCustomizationText = ""; // Blank For UI
-
+            // FOOD: Add 1 immediately. Fast.
+            // (Pass empty strings for customization fields if your constructor requires them)
+            finalProduct = new Product(pid, name, currentPrice, 1);
         } else {
-            // PATH B: DRINK (Open Dialog)
+            // DRINK: Open Customization Dialog
             DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, name, currentPrice);
-            dialog.setVisible(true);
+            dialog.setVisible(true); // Logic pauses here until dialog closes
 
             if (dialog.isConfirmed()) {
+                // --- FIX: Get Quantity from Dialog ---
+                int qty = dialog.getSelectedQuantity(); 
+
                 finalProduct = new Product(
-                    pid, name, currentPrice, quantity,
-                    dialog.getDrinkSize(), dialog.getSugarLevel(), dialog.getIceLevel(), dialog.hasExtraShot()
+                    pid, name, currentPrice, qty, // Use the selected quantity
+                    dialog.getDrinkSize(), 
+                    dialog.getSugarLevel(), 
+                    dialog.getIceLevel(), 
+                    dialog.hasExtraShot()
                 );
-                
-                tableCustomizationText = finalProduct.getCustomizationDetails();
             } else {
-                return; 
+                return; // User Cancelled
             }
         }
 
-        // 4. ADD TO ORDER & UI
+        // 3. SMART MERGE: Check for Duplicates
         if (finalProduct != null) {
-            order.addProduct(finalProduct);
-
-            DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-            model.addRow(new Object[] {
-                finalProduct.getName(),
-                String.format("$%.2f", finalProduct.getUnitFinalPrice()), 
-                quantity,
-                tableCustomizationText, // Blank if food
-                String.format("$%.2f", finalProduct.getTotal())
-            });
-
-            qtySpinner.setValue(0);
+            boolean found = false;
             
-            // Auto Display Subtotal
-            double newSubtotal = order.calculateSubtotal();
-            view.getLbSubtotal().setText(String.format("$%.2f", newSubtotal));
+            for (Product p : order.getProducts()) {
+                // Check if ID matches AND all Customizations match
+                if (p.getId().equals(finalProduct.getId()) &&
+                    p.getSize().equals(finalProduct.getSize()) &&
+                    p.getSugarLevel().equals(finalProduct.getSugarLevel()) &&
+                    p.getIceLevel().equals(finalProduct.getIceLevel()) &&
+                    p.hasExtraShot() == finalProduct.hasExtraShot()) {
+                    
+                    // FOUND IDENTICAL ITEM: Combine Quantities
+                    int newQty = p.getQuantity() + finalProduct.getQuantity();
+                    p.setQuantity(newQty);
+                    
+                    found = true;
+                    break; 
+                }
+            }
+
+            // If not found, add as a new row
+            if (!found) {
+                order.addProduct(finalProduct);
+            }
+
+            // 4. REFRESH UI
+            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
+            
+            // REMOVED: qtySpinner.setValue(0); (It doesn't exist anymore)
+            
+            updateSubtotal();
         }
     }
     
+    // --- DELETE LOGIC ---
+    public void deleteItem(int index) {
+        if (index >= 0 && index < order.getProducts().size()) {
+            order.removeProduct(index);
+            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
+            updateSubtotal();
+        }
+    }
+    
+    // Fallback Delete
+    public void deleteItem() {
+        int selectedRow = view.getTable().getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(view, "Select a row first.");
+            return;
+        }
+        deleteItem(selectedRow); 
+    }
+
+    // --- HELPER: Update Subtotal Label ---
+    public void updateSubtotal() {
+        double newSubtotal = order.calculateSubtotal();
+        // Assuming your GUI has a getter for the label
+        view.getLbSubtotal().setText(String.format("$%.2f", newSubtotal));
+    }
+
+    // --- DB HELPER ---
     private Product getProductDetails(String pid) {
         Product p = null;
         try {
@@ -110,137 +136,62 @@ public class Controller {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
+                // Returns a dummy product just to hold Name/Price
                 p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0);
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return p;
     }
     
-    public void deleteItem() {
-        javax.swing.JTable table = view.getTable();
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int selectedRow = table.getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(view, "Please select an item to delete.", "Delete Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        order.removeProduct(selectedRow);
-
-        model.removeRow(selectedRow);
-
-        double newSubtotal = order.calculateSubtotal();
-        view.getLbSubtotal().setText(String.format("$%.2f", newSubtotal));
-
-        view.getLbTotal().setText("");
-    }
-    
     // --- PAYMENT LOGIC ---
     public void initiatePayment(double total) {
-        // 1. Ask User: Cash or QR?
         String[] options = {"Cash", "QR"};
-        int choice = JOptionPane.showOptionDialog(view, 
-                "Select Payment Method", 
-                "Payment", 
-                JOptionPane.DEFAULT_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE, 
-                null, options, options[0]);
+        int choice = JOptionPane.showOptionDialog(view, "Select Payment Method", "Payment", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-        if (choice == 0) {
-            // --- OPTION A: CASH ---
-            handleCashPayment(total);
-        } else if (choice == 1) {
-            // --- OPTION B: QR ---
-            handleQRPayment(total);
-        }
+        if (choice == 0) handleCashPayment(total);
+        else if (choice == 1) handleQRPayment(total);
     }
 
     private void handleCashPayment(double total) {
-        // 1. Ask for Cash Input
         String cashInput = JOptionPane.showInputDialog(view, "Total: $" + String.format("%.2f", total) + "\nEnter Cash Amount:", "0.00");
-
-        // If they cancel, stop
         if (cashInput == null) return; 
 
-        double cashGiven = 0.0;
         try {
-            cashGiven = Double.parseDouble(cashInput);
+            double cashGiven = Double.parseDouble(cashInput);
+            if (cashGiven < total) {
+                JOptionPane.showMessageDialog(view, "Insufficient Cash!");
+                return;
+            }
+            saveOrderToDatabase(total, "Cash", cashGiven, cashGiven - total);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(view, "Invalid Amount");
-            return;
         }
-
-        if (cashGiven < total) {
-            JOptionPane.showMessageDialog(view, "Insufficient Cash!");
-            return;
-        }
-
-        double change = cashGiven - total;
-
-        // 2. Save & Print
-        saveOrderToDatabase(total, "Cash", cashGiven, change);
     }
     
     private void handleQRPayment(double total) {
-        String imagePath = "/Image/IMG_5467.jpg"; 
-        java.net.URL imgURL = getClass().getResource(imagePath);
-
-        if (imgURL != null) {
-            ImageIcon qrIcon = new ImageIcon(imgURL);
-            Image img = qrIcon.getImage();
-
-            int newWidth = 340;
-            int newHeight = 480;
-
-            Image newImg = img.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
-            qrIcon = new ImageIcon(newImg);
-
-            JOptionPane.showMessageDialog(view, 
-                "", 
-                "Scan to Pay: $" + String.format("%.2f", total), 
-                JOptionPane.PLAIN_MESSAGE, 
-                qrIcon
-            );
-        } else {
-            JOptionPane.showMessageDialog(view, 
-                "QR Code image not found at: " + imagePath, 
-                "QR Payment", 
-                JOptionPane.WARNING_MESSAGE
-            );
-        }
-
-        // Save transaction
         saveOrderToDatabase(total, "QR Code", total, 0.0);
     }
 
-    // FINAL DB SAVE METHOD
+    // --- SAVE TO DB ---
     private void saveOrderToDatabase(double finalTotal, String payType, double cashGiven, double change) {
-        Connection con = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
         try {
-            con = db.myCon();
-
-            // 1. INSERT INTO ORDERS TABLE
-            // We added 'payment_type' to the SQL query
+            Connection con = db.myCon();
+            // 1. Insert Order
             String sqlOrder = "INSERT INTO orders (total_price, payment_type, order_date) VALUES (?, ?, NOW())";
-            pst = con.prepareStatement(sqlOrder, java.sql.Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement(sqlOrder, java.sql.Statement.RETURN_GENERATED_KEYS);
             pst.setDouble(1, finalTotal);
-            pst.setString(2, payType); // Saves "Cash" or "QR Code"
+            pst.setString(2, payType);
             pst.executeUpdate();
 
-            // 2. GET THE NEW ORDER ID (For the receipt)
-            rs = pst.getGeneratedKeys();
+            ResultSet rs = pst.getGeneratedKeys();
             int newOrderId = 0;
-            if (rs.next()) {
-                newOrderId = rs.getInt(1);
-            }
+            if (rs.next()) newOrderId = rs.getInt(1);
 
-            // 3. INSERT INTO ORDER_ITEMS TABLE
+            // 2. Insert Items
             String sqlItem = "INSERT INTO order_items (order_id, product_pid, product_name, quantity, price, customization) VALUES (?, ?, ?, ?, ?, ?)";
             pst = con.prepareStatement(sqlItem);
 
@@ -250,79 +201,28 @@ public class Controller {
                 pst.setString(3, p.getName());
                 pst.setInt(4, p.getQuantity());
                 pst.setDouble(5, p.getTotal());
-
-                // Check if it is Food (S01, S02, S03)
-                boolean isFoodItem = p.getId().equals("S01") || p.getId().equals("S02") || p.getId().equals("S03");
-
-                if (isFoodItem) {
-                    pst.setString(6, ""); // Save BLANK for food
-                } else {
-                    pst.setString(6, p.getCustomizationDetails()); // Save DETAILS for drinks
-                }
-
+                pst.setString(6, p.getCustomizationDetails());
                 pst.addBatch();
             }
             pst.executeBatch();
 
-            // 4. SHOW RECEIPT POPUP
+            // 3. Receipt & Cleanup
             printReceipt(newOrderId, finalTotal, payType, cashGiven, change);
-
-            // 5. CLEANUP (Reset the app for the next customer)
+            
             order.clear(); 
-            DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-            model.setRowCount(0); 
-            view.getLbSubtotal().setText("");
-            view.getLbTotal().setText("");
+            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
+            updateSubtotal();
+            
+            con.close();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Database Error: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                // We do NOT close 'con' here because your db.java uses a shared static connection
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
-    
-    // Updated Receipt Method
+
     private void printReceipt(int orderId, double total, String payType, double cashGiven, double change) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("       MINI POS RECEIPT       \n");
-        sb.append("       Order ID: ").append(orderId).append("\n");
-        sb.append("------------------------------\n");
-
-        for (Product p : order.getProducts()) {
-            String lineItem = String.format("%-18s x%d  $%.2f\n", 
-                p.getName(), 
-                p.getQuantity(), 
-                p.getTotal()
-            );
-            sb.append(lineItem);
-        }
-
-        sb.append("------------------------------\n");
-        sb.append(String.format("TOTAL : $%.2f\n", total));
-        sb.append("TYPE  : ").append(payType).append("\n"); // Shows Cash or QR
-
-        if (payType.equals("Cash")) {
-            sb.append(String.format("CASH  : $%.2f\n", cashGiven));
-            sb.append(String.format("CHANGE: $%.2f\n", change));
-        }
-
-        sb.append("------------------------------\n");
-        sb.append("    THANK YOU! COME AGAIN     \n");
-
-        JTextArea textArea = new JTextArea(sb.toString());
-        textArea.setFont(new java.awt.Font("Monospaced", java.awt.Font.BOLD, 14));
-        textArea.setEditable(false);
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new java.awt.Dimension(300, 400));
-
-        JOptionPane.showMessageDialog(view, scrollPane, "Receipt", JOptionPane.PLAIN_MESSAGE);
+        // You can add your receipt printing logic here
+        JOptionPane.showMessageDialog(view, "Payment Successful!\nOrder ID: " + orderId);
     }
-}
+}   

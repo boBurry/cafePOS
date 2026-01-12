@@ -19,7 +19,6 @@ public class AdminController {
         
         refreshTable();
       
-        // 1. ADD BUTTON
         this.view.getBtnAdd().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,7 +26,6 @@ public class AdminController {
             }
         });
 
-        // 2. UPDATE BUTTON
         this.view.getBtnUpdate().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +33,6 @@ public class AdminController {
             }
         });
 
-        // 3. DELETE BUTTON
         this.view.getBtnDelete().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +40,6 @@ public class AdminController {
             }
         });
 
-        // 4. CLEAR BUTTON
         this.view.getBtnClear().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +47,6 @@ public class AdminController {
             }
         });
 
-        // 5. BACK BUTTON
         this.view.getBtnBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
