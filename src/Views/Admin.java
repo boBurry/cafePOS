@@ -6,21 +6,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class Admin extends JFrame {
+public class Admin extends JDialog {
     
     // 1. Components defined at class level so Controller can access them
     private JTextField tfId, tfName, tfPrice;
     private JTable table;
     private DefaultTableModel model;
     private JButton btnAdd, btnUpdate, btnDelete, btnClear, btnBack;
+    private JComboBox<String> cbType;
+    private JTextField tfSearch;
 
-    public Admin() {
-        setTitle("Admin Panel");
+
+    public Admin(JFrame parent) {
+        super(parent, "Admin Panel", true); // TRUE = modal (blocks everything)
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        // --- MAIN LAYOUT ---
         setLayout(new BorderLayout(10, 10));
 
         // --- TOP CONTAINER (Holds Header + Inputs + Buttons) ---
@@ -41,6 +43,21 @@ public class Admin extends JFrame {
         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         headerPanel.add(btnBack);
+        
+        // --- SEARCH & FILTER PANEL ---
+JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+filterPanel.setBorder(new EmptyBorder(0, 20, 10, 20));
+
+tfSearch = new JTextField(15);
+cbType = new JComboBox<>(new String[]{
+    "All", "Hot", "Iced", "Frappe", "Smoothie", "Cake"
+});
+
+filterPanel.add(new JLabel("Search:"));
+filterPanel.add(tfSearch);
+filterPanel.add(new JLabel("Type:"));
+filterPanel.add(cbType);
+
         
         // B. Input Fields Panel
         JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
@@ -73,14 +90,17 @@ public class Admin extends JFrame {
         buttonPanel.add(btnClear);
 
         // Add everything to Top Container
-        topContainer.add(headerPanel);
-        topContainer.add(inputPanel);
-        topContainer.add(buttonPanel);
+topContainer.add(headerPanel);
+topContainer.add(filterPanel);   
+topContainer.add(inputPanel);
+topContainer.add(buttonPanel);
+
         
         add(topContainer, BorderLayout.NORTH);
 
         // --- BOTTOM SECTION: Data Table ---
-        model = new DefaultTableModel(new String[]{"ID", "Name", "Price"}, 0);
+        // Updated to include Category column
+        model = new DefaultTableModel(new String[]{"ID", "Name", "Type", "Price"}, 0);              
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(0, 20, 20, 20));
@@ -92,7 +112,11 @@ public class Admin extends JFrame {
                 if (row != -1) {
                     tfId.setText(model.getValueAt(row, 0).toString());
                     tfName.setText(model.getValueAt(row, 1).toString());
-                    tfPrice.setText(model.getValueAt(row, 2).toString());
+                    tfId.setText(model.getValueAt(row, 0).toString());
+                    tfName.setText(model.getValueAt(row, 1).toString());
+                    cbType.setSelectedItem(model.getValueAt(row, 2).toString());
+                    tfPrice.setText(model.getValueAt(row, 3).toString());
+
                 }
             }
         });
@@ -113,8 +137,8 @@ public class Admin extends JFrame {
     public JButton getBtnDelete() { return btnDelete; }
     public JButton getBtnClear() { return btnClear; }
     public JButton getBtnBack() { return btnBack; }
+public JComboBox<String> getCbType() { return cbType; }
+public JTextField getTfSearch() { return tfSearch; }
 
-    public static void main(String[] args) {
-        new Admin().setVisible(true);
-    }
+    
 }

@@ -1046,7 +1046,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     private void lbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdminMouseClicked
-        Admin​ ad = new Admin();
+        Admin​ ad = new Admin(this);
         ad.setVisible(true);
     }//GEN-LAST:event_lbAdminMouseClicked
 
