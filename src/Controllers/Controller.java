@@ -146,6 +146,50 @@ public class Controller {
         return p;
     }
     
+    // --- EDIT LOGIC ---
+    public void editSelectedItem() {
+        // 1. Check if a row is selected
+        int selectedRow = view.getTable().getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(view, "Please select an item to edit.");
+            return;
+        }
+
+        // 2. Get the Product from the Order
+        Product p = order.getProducts().get(selectedRow);
+
+        // 3. Open Dialog (Pre-filled)
+        DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, p.getName(), p.getBasePrice());
+        
+        // LOAD DATA INTO DIALOG
+        dialog.setInitialValues(
+            p.getSize(), 
+            p.getSugarLevel(), 
+            p.getIceLevel(), 
+            p.hasExtraShot(), 
+            p.getQuantity()
+        );
+        
+        dialog.setVisible(true); // Wait for user...
+
+        // 4. Save Changes if Confirmed
+        if (dialog.isConfirmed()) {
+            // Update the SAME product object directly
+            p.setSize(dialog.getDrinkSize());
+            p.setSugarLevel(dialog.getSugarLevel());
+            p.setIceLevel(dialog.getIceLevel());
+            p.setExtraShot(dialog.hasExtraShot());
+            p.setQuantity(dialog.getSelectedQuantity());
+            
+            // Recalculate that product's total price logic (if you have logic for size upgrades)
+            // p.updateTotal(); <--- Ensure your Product class calculates total based on these new fields
+
+            // Refresh Table & Total
+            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
+            updateSubtotal();
+        }
+    }
+    
     // --- PAYMENT LOGIC ---
     public void initiatePayment(double total) {
         String[] options = {"Cash", "QR"};

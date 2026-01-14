@@ -1,9 +1,10 @@
 package Controllers;
 
 import Views.Admin;
+import Views.AddProductDialog;
 import Models.db;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,153 +17,146 @@ public class AdminController {
     public AdminController(Admin view) {
         this.view = view;
         this.connection = db.myCon();
-        
-        refreshTable();
-      
-        this.view.getBtnAdd().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addData();
-            }
-        });
+        loadData(""); 
 
-        this.view.getBtnUpdate().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateData();
-            }
-        });
+        // Actions
+        this.view.getBtnAdd().addActionListener(e -> showAddDialog());
+        this.view.getBtnUpdate().addActionListener(e -> showUpdateDialog());
+        this.view.getBtnDelete().addActionListener(e -> deleteData());
+        this.view.getBtnBack().addActionListener(e -> view.dispose());
 
-        this.view.getBtnDelete().addActionListener(new ActionListener() {
+        // Search
+        this.view.getTfSearch().addKeyListener(new KeyAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteData();
-            }
+            public void keyReleased(KeyEvent e) { filterData(); }
         });
-
-        this.view.getBtnClear().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearFields();
-            }
-        });
-
-        this.view.getBtnBack().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-            }
-        });
+        this.view.getCbTypeFilter().addActionListener(e -> filterData());
     }
 
-    private void refreshTable() {
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        try {
-            model.setRowCount(0);
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM product");
-            while(rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("PID"), 
-                    rs.getString("Name"), 
-                    rs.getDouble("Price")
-                });
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    // --- LOGIC TO OPEN POPUP FOR ADDING ---
+    private void showAddDialog() {
+        AddProductDialog dialog = new AddProductDialog(view, "Add New Product");
+        dialog.setVisible(true); // Waits here until closed
+
+        if (dialog.isConfirmed()) {
+            insertProduct(dialog);
         }
     }
 
-    private void addData() {
-        String id = view.getTfId().getText();
-        String name = view.getTfName().getText();
-        String price = view.getTfPrice().getText();
-
-        if(id.isEmpty() || name.isEmpty() || price.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Please fill in all fields.");
+    // --- LOGIC TO OPEN POPUP FOR UPDATING ---
+    private void showUpdateDialog() {
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Please select a product to update.");
             return;
         }
+        
+        // 1. Get data from selected row
+        String id = view.getTable().getValueAt(row, 0).toString();
+        String name = view.getTable().getValueAt(row, 1).toString();
+        String cat = view.getTable().getValueAt(row, 2).toString();
+        String type = view.getTable().getValueAt(row, 3).toString();
+        String price = view.getTable().getValueAt(row, 4).toString();
+
+        // 2. Open Dialog & Fill Data
+        AddProductDialog dialog = new AddProductDialog(view, "Update Product");
+        dialog.setProductData(id, name, cat, type, price);
+        dialog.setVisible(true);
+
+        // 3. Save if confirmed
+        if (dialog.isConfirmed()) {
+            updateProduct(dialog);
+        }
+    }
+
+    // --- DATABASE ACTIONS ---
+    private void insertProduct(AddProductDialog dialog) {
         try {
-            PreparedStatement p = connection.prepareStatement("INSERT INTO product VALUES(?,?,?)");
-            p.setString(1, id);
-            p.setString(2, name);
-            p.setDouble(3, Double.parseDouble(price));
+            PreparedStatement p = connection.prepareStatement("INSERT INTO product VALUES(?,?,?,?,?)");
+            p.setString(1, dialog.getId());
+            p.setString(2, dialog.getName());
+            p.setString(3, dialog.getCategory());
+            p.setString(4, dialog.getProductType());
+            p.setDouble(5, Double.parseDouble(dialog.getPrice()));
             p.executeUpdate();
             
-            refreshTable();
-            clearFields();
-            JOptionPane.showMessageDialog(view, "Product Added!");
-        } catch (SQLException e) {
+            filterData();
+            JOptionPane.showMessageDialog(view, "Added Successfully!");
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }
 
-    private void updateData() {
-        String id = view.getTfId().getText();
-        String name = view.getTfName().getText();
-        String price = view.getTfPrice().getText();
-
-        if(id.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Enter Product ID to update.");
-            return;
-        }
+    private void updateProduct(AddProductDialog dialog) {
         try {
-            PreparedStatement p = connection.prepareStatement("UPDATE product SET Name=?, Price=? WHERE PID=?");
-            p.setString(1, name);
-            p.setDouble(2, Double.parseDouble(price));
-            p.setString(3, id);
+            PreparedStatement p = connection.prepareStatement(
+                "UPDATE product SET name=?, category=?, type=?, price=? WHERE pid=?");
+            p.setString(1, dialog.getName());
+            p.setString(2, dialog.getCategory());
+            p.setString(3, dialog.getProductType());
+            p.setDouble(4, Double.parseDouble(dialog.getPrice()));
+            p.setString(5, dialog.getId()); // ID is the WHERE condition
             
-            int rows = p.executeUpdate();
-            if(rows > 0) {
-                refreshTable();
-                clearFields();
-                JOptionPane.showMessageDialog(view, "Product Updated!");
-            } else {
-                JOptionPane.showMessageDialog(view, "Product ID not found.");
-            }
-        } catch (SQLException e) {
+            p.executeUpdate();
+            filterData();
+            JOptionPane.showMessageDialog(view, "Updated Successfully!");
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }
 
     private void deleteData() {
-        String inputId = view.getTfId().getText();
-        String inputName = view.getTfName().getText();
-        String inputPrice = view.getTfPrice().getText();
-
-        if (inputId.isEmpty() || inputName.isEmpty() || inputPrice.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "STRICT DELETE: You must enter ID, Name, AND Price to delete.");
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Select a row to delete.");
             return;
         }
-
-        try {
-            // 1. Verify exact match first
-            PreparedStatement check = connection.prepareStatement("SELECT * FROM product WHERE PID=? AND Name=? AND Price=?");
-            check.setString(1, inputId);
-            check.setString(2, inputName);
-            check.setDouble(3, Double.parseDouble(inputPrice));
-            
-            ResultSet rs = check.executeQuery();
-            
-            if (rs.next()) {
-                PreparedStatement del = connection.prepareStatement("DELETE FROM product WHERE PID=?");
-                del.setString(1, inputId);
-                del.executeUpdate();
-                
-                refreshTable();
-                clearFields();
-                JOptionPane.showMessageDialog(view, "Product Deleted Successfully.");
-            } else {
-                JOptionPane.showMessageDialog(view, "Delete Failed: Information does not match database record.");
+        
+        String id = view.getTable().getValueAt(row, 0).toString();
+        int confirm = JOptionPane.showConfirmDialog(view, "Delete Product " + id + "?");
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                PreparedStatement p = connection.prepareStatement("DELETE FROM product WHERE pid=?");
+                p.setString(1, id);
+                p.executeUpdate();
+                filterData();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
         }
     }
 
-    private void clearFields() {
-        view.getTfId().setText("");
-        view.getTfName().setText("");
-        view.getTfPrice().setText("");
+    private void filterData() {
+        String search = view.getTfSearch().getText();
+        String type = view.getCbTypeFilter().getSelectedItem().toString();
+        String sql = "SELECT * FROM product WHERE (pid LIKE ? OR name LIKE ?)";
+        
+        if (!type.equals("All")) sql += " AND type = '" + type + "'";
+        loadData(sql, "%" + search + "%");
+    }
+
+    private void loadData(String query, String... params) {
+        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+        model.setRowCount(0);
+        try {
+            PreparedStatement p;
+            if (query.isEmpty()) p = connection.prepareStatement("SELECT * FROM product");
+            else {
+                p = connection.prepareStatement(query);
+                for(int i=0; i<params.length; i++) {
+                    p.setString(i+1, params[i]);
+                    if(params.length==1 && query.contains("OR")) p.setString(2, params[i]);
+                }
+            }
+            ResultSet rs = p.executeQuery();
+            while(rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("pid"), rs.getString("name"),
+                    rs.getString("category"), rs.getString("type"),
+                    rs.getDouble("price")
+                });
+            }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

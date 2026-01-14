@@ -8,113 +8,107 @@ import java.awt.*;
 
 public class Admin extends JFrame {
     
-    // 1. Components defined at class level so Controller can access them
-    private JTextField tfId, tfName, tfPrice;
+    // Only Search, Filter, Buttons, and Table remain
+    private JTextField tfSearch;
+    private JComboBox<String> cbTypeFilter;
     private JTable table;
     private DefaultTableModel model;
     private JButton btnAdd, btnUpdate, btnDelete, btnClear, btnBack;
 
     public Admin() {
         setTitle("Admin Panel");
-        setSize(800, 600);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        initComponents();
+        new AdminController(this); 
+    }
 
-        // --- MAIN LAYOUT ---
-        setLayout(new BorderLayout(10, 10));
+    private void initComponents() {
+        setLayout(new BorderLayout());
 
-        // --- TOP CONTAINER (Holds Header + Inputs + Buttons) ---
+        // --- TOP PANEL (Header + Search + Action Buttons) ---
         JPanel topContainer = new JPanel();
         topContainer.setLayout(new BoxLayout(topContainer, BoxLayout.Y_AXIS));
-        
-        // A. Header Panel (Top Left Back Button)
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        headerPanel.setBackground(new Color(245, 245, 245)); // Light gray background
-        
-        btnBack = new JButton("⬅"); // Unicode Arrow
-        btnBack.setFont(new Font("SansSerif", Font.BOLD, 16));
-        btnBack.setToolTipText("Back to POS");
-        btnBack.setForeground(new Color(50, 36, 23)); // Coffee color
+        topContainer.setBackground(new Color(245, 245, 245));
+        topContainer.setBorder(new EmptyBorder(15, 20, 15, 20));
+
+        // 1. Header (Back + Title)
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        headerPanel.setOpaque(false);
+        btnBack = new JButton("⬅");
+        btnBack.setContentAreaFilled(false);
         btnBack.setBorderPainted(false);
-        btnBack.setContentAreaFilled(false); // Transparent background
-        btnBack.setFocusPainted(false);
-        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnBack.setFont(new Font("SansSerif", Font.BOLD, 14));
+        
+        JLabel lblTitle = new JLabel("  Product Management");
+        lblTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
         
         headerPanel.add(btnBack);
-        
-        // B. Input Fields Panel
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        inputPanel.setBorder(new EmptyBorder(10, 20, 10, 20)); // Margin
-        
-        tfId = new JTextField();
-        tfName = new JTextField();
-        tfPrice = new JTextField();
+        headerPanel.add(lblTitle);
 
-        inputPanel.add(new JLabel("Product ID:"));
-        inputPanel.add(tfId);
-        inputPanel.add(new JLabel("Product Name:"));
-        inputPanel.add(tfName);
-        inputPanel.add(new JLabel("Price:"));
-        inputPanel.add(tfPrice);
+        // 2. Toolbar (Search Left, Buttons Right)
+        JPanel toolbar = new JPanel(new BorderLayout());
+        toolbar.setOpaque(false);
+        toolbar.setBorder(new EmptyBorder(15, 0, 0, 0));
 
-        // C. Action Buttons Panel (Add, Update, Delete, Clear)
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10)); // 1 Row, 4 Columns
-        buttonPanel.setBorder(new EmptyBorder(0, 20, 20, 20)); // Margin bottom
+        // Search Side
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        searchPanel.setOpaque(false);
+        searchPanel.add(new JLabel("Search:"));
+        tfSearch = new JTextField(15);
+        searchPanel.add(tfSearch);
+        searchPanel.add(new JLabel("Filter:"));
+        cbTypeFilter = new JComboBox<>(new String[]{"All", "Hot", "Iced", "Frappe", "Smoothie", "Cake"});
+        searchPanel.add(cbTypeFilter);
 
-        // Initialize Buttons
+        // Button Side
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+        btnPanel.setOpaque(false);
         btnAdd = new JButton("Add");
         btnUpdate = new JButton("Update");
         btnDelete = new JButton("Delete");
         btnClear = new JButton("Clear");
-
-        buttonPanel.add(btnAdd);
-        buttonPanel.add(btnUpdate);
-        buttonPanel.add(btnDelete);
-        buttonPanel.add(btnClear);
-
-        // Add everything to Top Container
-        topContainer.add(headerPanel);
-        topContainer.add(inputPanel);
-        topContainer.add(buttonPanel);
         
+        btnPanel.add(btnAdd);
+        btnPanel.add(btnUpdate);
+        btnPanel.add(btnDelete);
+        btnPanel.add(btnClear);
+
+        toolbar.add(searchPanel, BorderLayout.WEST);
+        toolbar.add(btnPanel, BorderLayout.EAST);
+
+        topContainer.add(headerPanel);
+        topContainer.add(toolbar);
         add(topContainer, BorderLayout.NORTH);
 
-        // --- BOTTOM SECTION: Data Table ---
-        model = new DefaultTableModel(new String[]{"ID", "Name", "Price"}, 0);
+        // --- CENTER: TABLE ---
+        String[] columns = {"ID", "Name", "Category", "Type", "Price"};
+        model = new DefaultTableModel(columns, 0);
         table = new JTable(model);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(new EmptyBorder(0, 20, 20, 20));
+        table.setRowHeight(30);
         
-        // View Logic: When user clicks a row, fill the text fields
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int row = table.getSelectedRow();
-                if (row != -1) {
-                    tfId.setText(model.getValueAt(row, 0).toString());
-                    tfName.setText(model.getValueAt(row, 1).toString());
-                    tfPrice.setText(model.getValueAt(row, 2).toString());
-                }
-            }
-        });
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.getViewport().setBackground(Color.WHITE);
 
-        add(scrollPane, BorderLayout.CENTER);
-
-        // --- CONNECT TO CONTROLLER ---
-        new AdminController(this); 
-        // Create a new Controller, and here is a reference to ME (Admin GUI) so you can talk to me later.
+        JPanel tableWrapper = new JPanel(new BorderLayout());
+        tableWrapper.setBackground(new Color(245, 245, 245));
+        tableWrapper.setBorder(new EmptyBorder(0, 20, 40, 20)); 
+        tableWrapper.add(scrollPane);
+        
+        add(tableWrapper, BorderLayout.CENTER);
     }
 
-    public JTextField getTfId() { return tfId; }
-    public JTextField getTfName() { return tfName; }
-    public JTextField getTfPrice() { return tfPrice; }
+    public JTextField getTfSearch() { return tfSearch; }
+    public JComboBox<String> getCbTypeFilter() { return cbTypeFilter; }
     public JTable getTable() { return table; }
     public JButton getBtnAdd() { return btnAdd; }
     public JButton getBtnUpdate() { return btnUpdate; }
     public JButton getBtnDelete() { return btnDelete; }
-    public JButton getBtnClear() { return btnClear; }
     public JButton getBtnBack() { return btnBack; }
-
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) { 
         new Admin().setVisible(true);
     }
 }

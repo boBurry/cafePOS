@@ -178,6 +178,27 @@ public class DrinkCustomizationDialog extends JDialog {
         if (chkExtraShot.isSelected()) price += 0.50;
         lbPricePreview.setText(String.format("Price: $%.2f", price));
     }
+    
+    public void setInitialValues(String currentSize, String currentSugar, String currentIce, boolean hasShot, int currentQty) {
+        // 1. Set Dropdowns
+        cbSize.setSelectedItem(currentSize);
+        cbSugar.setSelectedItem(currentSugar);
+        
+        // Only set ice if the box is enabled (i.e., not a Hot drink)
+        if (cbIce.isEnabled()) {
+            cbIce.setSelectedItem(currentIce);
+        }
+        
+        // 2. Set Checkbox
+        chkExtraShot.setSelected(hasShot);
+        
+        // 3. Set Quantity Panel
+        qtyPanel.setQty(currentQty);
+        this.selectedQty = currentQty;
+        
+        // 4. Update the Price Preview immediately
+        updatePricePreview();
+    }
 
     public String getDrinkSize() { return size; }
     public String getSugarLevel() { return sugarLevel; }
