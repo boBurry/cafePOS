@@ -46,13 +46,9 @@ public class GUI extends javax.swing.JFrame {
         
         setupCartTable();
         
-        // --- NEW CODE: LOAD DEFAULT VIEW (DRINKS) ON STARTUP ---
-        // This simulates clicking the "Drink" button immediately
         body.removeAll();
         body.add(Drink); 
 
-        // Use the method we created earlier to load the initial list
-        // Make sure to use the correct method signature you decided on
         loadProducts("Drink", dP1, lbtitle,""); 
 
         body.revalidate();
@@ -95,6 +91,11 @@ public class GUI extends javax.swing.JFrame {
 
         try {
             // 3. Database Query
+            if (con == null || con.isClosed()) {
+                System.out.println("ERROR: Database Connection is NULL or CLOSED!");
+                return;
+            }
+            
             String sql = "SELECT * FROM product WHERE Category = ? AND Name LIKE ?";
             pst = con.prepareStatement(sql);
             pst.setString(1, category);
@@ -126,6 +127,7 @@ public class GUI extends javax.swing.JFrame {
             targetPanel.setPreferredSize(new java.awt.Dimension(800, newHeight));
 
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -135,53 +137,65 @@ public class GUI extends javax.swing.JFrame {
     }
     
     private javax.swing.JPanel createProductPanel(String pid, String name, double price, String category) {
-    javax.swing.JPanel panel = new javax.swing.JPanel();
-    // 1. REDUCE WIDTH to 180 (Height stays 240)
-    panel.setPreferredSize(new java.awt.Dimension(180, 240)); 
-    panel.setBackground(java.awt.Color.WHITE);
-    panel.setLayout(null);
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setPreferredSize(new java.awt.Dimension(180, 240)); 
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(null);
 
-    // Image (Centered: 180 width - 150 image = 30 margin / 2 = 15 x)
-    javax.swing.JLabel imgLabel = new javax.swing.JLabel();
-    imgLabel.setBounds(15, 0, 150, 150); // Changed x to 15
-    try {
-        String path = "/Image/" + pid.toLowerCase() + ".png";
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            imgLabel.setIcon(new javax.swing.ImageIcon(imgURL));
-        } else {
-            imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo.png")));
+        // Image (Centered: 180 width - 150 image = 30 margin / 2 = 15 x)
+        javax.swing.JLabel imgLabel = new javax.swing.JLabel();
+        imgLabel.setBounds(15, 0, 150, 150); // Changed x to 15
+        try {
+            // 1. Try to find the Product Image
+            String path = "/Image/" + pid.toLowerCase() + ".png";
+            java.net.URL imgURL = getClass().getResource(path);
+
+            if (imgURL != null) {
+                // Success: Found the product image
+                imgLabel.setIcon(new javax.swing.ImageIcon(imgURL));
+            } else {
+                // Fail 1: Product image missing -> Try to find Logo
+                java.net.URL logoURL = getClass().getResource("/Image/logo.png");
+
+                if (logoURL != null) {
+                    imgLabel.setIcon(new javax.swing.ImageIcon(logoURL));
+                } else {
+                    // Fail 2: Both missing -> Just show text (Prevents Crash)
+                    imgLabel.setText("No Image");
+                }
+            }
+        } catch (Exception e) {
+            // 2. Extra Safety: If anything else goes wrong, don't crash
+            imgLabel.setText("Error");
+            System.err.println("Image Error for PID " + pid + ": " + e.getMessage());
         }
-    } catch (Exception e) {
-        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo.png")));
+        panel.add(imgLabel);
+
+        // Name Label
+        javax.swing.JLabel nameLabel = new javax.swing.JLabel(name);
+        nameLabel.setBounds(10, 160, 100, 16); // Reduced width slightly
+        panel.add(nameLabel);
+
+        // Price Label
+        javax.swing.JLabel priceLabel = new javax.swing.JLabel("$" + price);
+        priceLabel.setBounds(10, 180, 50, 16);
+        panel.add(priceLabel);
+
+        // ADD Button (Shifted Left to fit in 180px)
+        javax.swing.JButton addButton = new javax.swing.JButton("ADD");
+        // Previous x=130. New x=110 (110 + 60 width = 170, leaving 10px margin)
+        addButton.setBounds(110, 160, 60, 60); 
+        addButton.addActionListener(e -> {
+            if ("Drink".equals(category)) {
+                 controller.addToCart(pid);
+            } else {
+                 controller.addToCart(pid);
+            }
+        });
+        panel.add(addButton);
+
+        return panel;
     }
-    panel.add(imgLabel);
-
-    // Name Label
-    javax.swing.JLabel nameLabel = new javax.swing.JLabel(name);
-    nameLabel.setBounds(10, 160, 100, 16); // Reduced width slightly
-    panel.add(nameLabel);
-
-    // Price Label
-    javax.swing.JLabel priceLabel = new javax.swing.JLabel("$" + price);
-    priceLabel.setBounds(10, 180, 50, 16);
-    panel.add(priceLabel);
-
-    // ADD Button (Shifted Left to fit in 180px)
-    javax.swing.JButton addButton = new javax.swing.JButton("ADD");
-    // Previous x=130. New x=110 (110 + 60 width = 170, leaving 10px margin)
-    addButton.setBounds(110, 160, 60, 60); 
-    addButton.addActionListener(e -> {
-        if ("Drink".equals(category)) {
-             controller.addToCart(pid);
-        } else {
-             controller.addToCart(pid);
-        }
-    });
-    panel.add(addButton);
-
-    return panel;
-}
     
     /**
      * This method is called from within the constructor to initialize the form.
