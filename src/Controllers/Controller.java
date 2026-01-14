@@ -6,11 +6,15 @@ import Models.Product;
 import Views.DrinkCustomizationDialog;
 import Views.CartTableModel; 
 import Models.db;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Controller {
 
@@ -158,7 +162,7 @@ public class Controller {
         // 2. Get the Product from the Order
         Product p = order.getProducts().get(selectedRow);
 
-        // 3. Open Dialog (Pre-filled)
+        // 3. Open Dialog 
         DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, p.getName(), p.getBasePrice());
         
         // LOAD DATA INTO DIALOG
@@ -170,7 +174,7 @@ public class Controller {
             p.getQuantity()
         );
         
-        dialog.setVisible(true); // Wait for user...
+        dialog.setVisible(true);
 
         // 4. Save Changes if Confirmed
         if (dialog.isConfirmed()) {
@@ -217,6 +221,34 @@ public class Controller {
     }
     
     private void handleQRPayment(double total) {
+        String imagePath = "/Image/IMG_5467.jpg"; 
+        java.net.URL imgURL = getClass().getResource(imagePath);
+
+        if (imgURL != null) {
+            ImageIcon qrIcon = new ImageIcon(imgURL);
+            Image img = qrIcon.getImage();
+
+            int newWidth = 340;
+            int newHeight = 480;
+
+            Image newImg = img.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
+            qrIcon = new ImageIcon(newImg);
+
+            JOptionPane.showMessageDialog(view, 
+                "", 
+                "Scan to Pay: $" + String.format("%.2f", total), 
+                JOptionPane.PLAIN_MESSAGE, 
+                qrIcon
+            );
+        } else {
+            JOptionPane.showMessageDialog(view, 
+                "QR Code image not found at: " + imagePath, 
+                "QR Payment", 
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+
+        // Save transaction
         saveOrderToDatabase(total, "QR Code", total, 0.0);
     }
 
@@ -256,8 +288,6 @@ public class Controller {
             order.clear(); 
             ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
             updateSubtotal();
-            
-            con.close();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Database Error: " + e.getMessage());
@@ -265,8 +295,41 @@ public class Controller {
         }
     }
 
+    // Receipt Method
     private void printReceipt(int orderId, double total, String payType, double cashGiven, double change) {
-        // You can add your receipt printing logic here
-        JOptionPane.showMessageDialog(view, "Payment Successful!\nOrder ID: " + orderId);
+        StringBuilder sb = new StringBuilder();
+        sb.append("       MINI POS RECEIPT       \n");
+        sb.append("       Order ID: ").append(orderId).append("\n");
+        sb.append("------------------------------\n");
+
+        for (Product p : order.getProducts()) {
+            String lineItem = String.format("%-18s x%d  $%.2f\n", 
+                p.getName(), 
+                p.getQuantity(), 
+                p.getTotal()
+            );
+            sb.append(lineItem);
+        }
+
+        sb.append("------------------------------\n");
+        sb.append(String.format("TOTAL : $%.2f\n", total));
+        sb.append("TYPE  : ").append(payType).append("\n"); // Shows Cash or QR
+
+        if (payType.equals("Cash")) {
+            sb.append(String.format("CASH  : $%.2f\n", cashGiven));
+            sb.append(String.format("CHANGE: $%.2f\n", change));
+        }
+
+        sb.append("------------------------------\n");
+        sb.append("    THANK YOU! COME AGAIN     \n");
+
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setFont(new java.awt.Font("Monospaced", java.awt.Font.BOLD, 14));
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new java.awt.Dimension(300, 400));
+
+        JOptionPane.showMessageDialog(view, scrollPane, "Receipt", JOptionPane.PLAIN_MESSAGE);
     }
 }   

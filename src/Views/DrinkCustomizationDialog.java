@@ -115,7 +115,7 @@ public class DrinkCustomizationDialog extends JDialog {
         btnConfirm.setPreferredSize(new Dimension(120, 40));
         btnConfirm.setFont(new Font("SansSerif", Font.BOLD, 14));
         btnConfirm.setBackground(new Color(50, 36, 23)); 
-        btnConfirm.setForeground(Color.WHITE);
+        btnConfirm.setForeground(Color.BLACK);
         btnConfirm.setFocusPainted(false); 
         
         btnConfirm.addActionListener(e -> {
@@ -132,6 +132,7 @@ public class DrinkCustomizationDialog extends JDialog {
         btnCancel.setPreferredSize(new Dimension(120, 40));
         btnCancel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         btnCancel.setFocusPainted(false);
+        btnCancel.setForeground(Color.BLACK);
         btnCancel.addActionListener(e -> {
             confirmed = false;
             dispose();
@@ -147,15 +148,12 @@ public class DrinkCustomizationDialog extends JDialog {
         }
     }
     
-    // --- UPDATED HELPER: Increased Width and Gap ---
     private JPanel createGenericRow(String label, JComponent component) {
-        // Increased gap from 10 to 15
         JPanel panel = new JPanel(new BorderLayout(15, 0)); 
         panel.setBackground(Color.WHITE);
         panel.setMaximumSize(new Dimension(450, 40)); 
         
         JLabel lbl = new JLabel(label);
-        // INCREASED WIDTH: 100 -> 140 (Pushes inputs to the right)
         lbl.setPreferredSize(new Dimension(140, 30)); 
         lbl.setFont(new Font("SansSerif", Font.PLAIN, 14));
         
@@ -180,23 +178,18 @@ public class DrinkCustomizationDialog extends JDialog {
     }
     
     public void setInitialValues(String currentSize, String currentSugar, String currentIce, boolean hasShot, int currentQty) {
-        // 1. Set Dropdowns
         cbSize.setSelectedItem(currentSize);
         cbSugar.setSelectedItem(currentSugar);
         
-        // Only set ice if the box is enabled (i.e., not a Hot drink)
         if (cbIce.isEnabled()) {
             cbIce.setSelectedItem(currentIce);
         }
         
-        // 2. Set Checkbox
         chkExtraShot.setSelected(hasShot);
         
-        // 3. Set Quantity Panel
         qtyPanel.setQty(currentQty);
         this.selectedQty = currentQty;
         
-        // 4. Update the Price Preview immediately
         updatePricePreview();
     }
 
@@ -237,8 +230,8 @@ public class DrinkCustomizationDialog extends JDialog {
             
             btnMinus.setBorder(null);
             btnPlus.setBorder(null);
-            btnMinus.setBorderPainted(false);
-            btnPlus.setBorderPainted(false);
+            btnMinus.setBorderPainted(true);
+            btnPlus.setBorderPainted(true);
             btnMinus.setContentAreaFilled(true);
             btnPlus.setContentAreaFilled(true);
             

@@ -17,6 +17,7 @@ public class GUI extends javax.swing.JFrame {
 
     private Order currentOrder = new Order();
     private Controller controller;
+    private String role;
     
     java.sql.Connection con = null;
     ResultSet rs = null;
@@ -54,7 +55,18 @@ public class GUI extends javax.swing.JFrame {
         body.revalidate();
         body.repaint();
     }
-    // --- METHOD TO CONFIGURE THE SMART TABLE ---
+    
+    public GUI(String role) {
+        this();
+        
+        this.role = role;
+        
+        if (!"Admin".equalsIgnoreCase(role)) {
+            lbAdmin.setVisible(false); 
+        }
+    }
+    
+    // --- CONFIGURE THE SMART TABLE ---
     private void setupCartTable() {
         Views.CartTableModel model = new Views.CartTableModel(currentOrder);
         table.setModel(model);
@@ -301,7 +313,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo.png"))); // NOI18N
         sidePanel.add(jLabel6);
-        jLabel6.setBounds(10, 30, 120, 120);
+        jLabel6.setBounds(20, 30, 120, 120);
 
         lbAdmin.setBackground(new java.awt.Color(255, 255, 255));
         lbAdmin.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 12)); // NOI18N
@@ -317,7 +329,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         sidePanel.add(lbAdmin);
-        lbAdmin.setBounds(0, 750, 140, 40);
+        lbAdmin.setBounds(0, 750, 150, 40);
 
         getContentPane().add(sidePanel);
         sidePanel.setBounds(0, 0, 150, 980);
@@ -336,20 +348,23 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         header.add(txtSearch);
-        txtSearch.setBounds(620, 20, 160, 30);
+        txtSearch.setBounds(620, 10, 160, 40);
 
         lbtitle.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
         lbtitle.setText("Drink");
         header.add(lbtitle);
         lbtitle.setBounds(20, 20, 80, 30);
 
+        btRefresh.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        btRefresh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btRefresh.setText("⟳");
         btRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btRefreshMouseClicked(evt);
             }
         });
         header.add(btRefresh);
-        btRefresh.setBounds(790, 20, 40, 30);
+        btRefresh.setBounds(780, 10, 50, 40);
 
         getContentPane().add(header);
         header.setBounds(150, 0, 850, 60);
@@ -462,6 +477,7 @@ public class GUI extends javax.swing.JFrame {
         btTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btTotal.setText("Order");
         btTotal.setBorder(null);
+        btTotal.setOpaque(true);
         btTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btTotalActionPerformed(evt);
@@ -474,6 +490,7 @@ public class GUI extends javax.swing.JFrame {
         btClear.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btClear.setText("Clear");
         btClear.setBorder(null);
+        btClear.setOpaque(true);
         btClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btClearActionPerformed(evt);
@@ -486,6 +503,7 @@ public class GUI extends javax.swing.JFrame {
         btEdit.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btEdit.setText("Edit");
         btEdit.setBorder(null);
+        btEdit.setOpaque(true);
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditActionPerformed(evt);
@@ -635,25 +653,10 @@ public class GUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        try {
-            // 1. MacOS Menu Bar Fix (Optional, keeps Mac happy)
-            System.setProperty("apple.laf.useScreenMenuBar", "true");
-
-            // 2. SET THEME TO NIMBUS (Modern Look + Supports Colors)
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                new Views.Login().setVisible(true);
             }
         });
     }
