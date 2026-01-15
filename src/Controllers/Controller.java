@@ -38,33 +38,33 @@ public class Controller {
         String name = dbProduct.getName();
         double currentPrice = dbProduct.getBasePrice();
         Product finalProduct = null;
-        
-        // 2. Determine if Food or Drink
-        // (Assuming IDs starting with 'S' are Snacks/Food)
-        boolean isFood = pid.startsWith("S"); 
+        String category = dbProduct.getCategory(); 
+        String type = dbProduct.getType();     
+
+        // 2. CHECK IF FOOD (Based on Database, not ID!)
+        // If the database says "Snack", we skip the customization dialog.
+        boolean isFood = "Snack".equalsIgnoreCase(category); 
 
         if (isFood) {
-            // FOOD: Add 1 immediately. Fast.
-            // (Pass empty strings for customization fields if your constructor requires them)
-            finalProduct = new Product(pid, name, currentPrice, 1);
+            // Add immediately using DB category/type
+            finalProduct = new Product(pid, name, currentPrice, 1, category, type);
         } else {
             // DRINK: Open Customization Dialog
             DrinkCustomizationDialog dialog = new DrinkCustomizationDialog(view, name, currentPrice);
-            dialog.setVisible(true); // Logic pauses here until dialog closes
+            dialog.setVisible(true); 
 
             if (dialog.isConfirmed()) {
-                // --- FIX: Get Quantity from Dialog ---
                 int qty = dialog.getSelectedQuantity(); 
 
                 finalProduct = new Product(
-                    pid, name, currentPrice, qty, // Use the selected quantity
+                    pid, name, currentPrice, qty,category, type,
                     dialog.getDrinkSize(), 
                     dialog.getSugarLevel(), 
                     dialog.getIceLevel(), 
                     dialog.hasExtraShot()
                 );
             } else {
-                return; // User Cancelled
+                return;
             }
         }
 
@@ -95,10 +95,7 @@ public class Controller {
             }
 
             // 4. REFRESH UI
-            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
-            
-            // REMOVED: qtySpinner.setValue(0); (It doesn't exist anymore)
-            
+            ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();            
             updateSubtotal();
         }
     }
@@ -134,14 +131,15 @@ public class Controller {
         Product p = null;
         try {
             Connection con = db.myCon();
-            String sql = "SELECT Name, Price FROM Product WHERE PID = ?";
+            System.out.println("DEBUG: Connected to database -> " + con.getCatalog());
+            String sql = "SELECT * FROM product WHERE PID = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, pid);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
                 // Returns a dummy product just to hold Name/Price
-                p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0);
+                p = new Product(pid, rs.getString("Name"), rs.getDouble("Price"), 0, rs.getString("Category"), rs.getString("Type"));
             }
             
         } catch (SQLException e) {

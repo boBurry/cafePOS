@@ -2,7 +2,7 @@ package Controllers;
 
 import Views.Admin;
 import Views.AddProductDialog;
-import Models.db;
+import Models.db; // Assuming 'db' is your connection class
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -17,33 +17,83 @@ public class AdminController {
     public AdminController(Admin view) {
         this.view = view;
         this.connection = db.myCon();
-        loadData(""); 
 
-        // Actions
+        loadData(""); 
+        loadHistoryData("");
+
         this.view.getBtnAdd().addActionListener(e -> showAddDialog());
         this.view.getBtnUpdate().addActionListener(e -> showUpdateDialog());
         this.view.getBtnDelete().addActionListener(e -> deleteData());
-        this.view.getBtnBack().addActionListener(e -> view.dispose());
 
-        // Search
         this.view.getTfSearch().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) { filterData(); }
         });
         this.view.getCbTypeFilter().addActionListener(e -> filterData());
+
+        this.view.getBtnHistorySearch().addActionListener(e -> {
+            String date = view.getTfHistoryDate().getText().trim();
+            loadHistoryData(date);
+        });
+        
+        this.view.getBtnHistoryRefresh().addActionListener(e -> {
+            view.getTfHistoryDate().setText(""); 
+            loadHistoryData("");
+        });
     }
 
-    // --- LOGIC TO OPEN POPUP FOR ADDING ---
+    private void loadHistoryData(String dateFilter) {
+        DefaultTableModel model = (DefaultTableModel) view.getHistoryTable().getModel();
+        model.setRowCount(0); 
+        
+        double totalRev = 0;
+        int orderCount = 0;
+        String sql;
+
+        try {
+            PreparedStatement p;
+            
+            if (dateFilter.isEmpty()) {
+                sql = "SELECT * FROM orders ORDER BY order_date DESC LIMIT 50";
+                p = connection.prepareStatement(sql);
+            } else {
+                sql = "SELECT * FROM orders WHERE DATE(order_date) = ? ORDER BY order_date DESC";
+                p = connection.prepareStatement(sql);
+                p.setString(1, dateFilter);
+            }
+
+            ResultSet rs = p.executeQuery();
+
+            while(rs.next()) {
+                String id = rs.getString("order_id");
+                String date = rs.getString("order_date");
+                double price = rs.getDouble("total_price");
+                String type = rs.getString("payment_type");
+
+                model.addRow(new Object[]{ id, date, String.format("$%.2f", price), type });
+                
+                totalRev += price;
+                orderCount++;
+            }
+            
+            // Update Summary Labels
+            view.getLbHistoryTotal().setText(String.format("Total: $%.2f", totalRev));
+            view.getLbHistoryCount().setText("Orders: " + orderCount);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void showAddDialog() {
         AddProductDialog dialog = new AddProductDialog(view, "Add New Product");
-        dialog.setVisible(true); // Waits here until closed
+        dialog.setVisible(true); 
 
         if (dialog.isConfirmed()) {
             insertProduct(dialog);
         }
     }
 
-    // --- LOGIC TO OPEN POPUP FOR UPDATING ---
     private void showUpdateDialog() {
         int row = view.getTable().getSelectedRow();
         if (row == -1) {
@@ -51,25 +101,21 @@ public class AdminController {
             return;
         }
         
-        // 1. Get data from selected row
         String id = view.getTable().getValueAt(row, 0).toString();
         String name = view.getTable().getValueAt(row, 1).toString();
         String cat = view.getTable().getValueAt(row, 2).toString();
         String type = view.getTable().getValueAt(row, 3).toString();
         String price = view.getTable().getValueAt(row, 4).toString();
 
-        // 2. Open Dialog & Fill Data
         AddProductDialog dialog = new AddProductDialog(view, "Update Product");
         dialog.setProductData(id, name, cat, type, price);
         dialog.setVisible(true);
 
-        // 3. Save if confirmed
         if (dialog.isConfirmed()) {
             updateProduct(dialog);
         }
     }
 
-    // --- DATABASE ACTIONS ---
     private void insertProduct(AddProductDialog dialog) {
         try {
             PreparedStatement p = connection.prepareStatement("INSERT INTO product VALUES(?,?,?,?,?)");
@@ -95,7 +141,7 @@ public class AdminController {
             p.setString(2, dialog.getCategory());
             p.setString(3, dialog.getProductType());
             p.setDouble(4, Double.parseDouble(dialog.getPrice()));
-            p.setString(5, dialog.getId()); // ID is the WHERE condition
+            p.setString(5, dialog.getId()); 
             
             p.executeUpdate();
             filterData();

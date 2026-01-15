@@ -52,7 +52,7 @@ public class LoginController {
         String role = null;
         
         try {
-            String sql = "SELECT role FROM users WHERE username = ? AND password = ?";
+            String sql = "SELECT role FROM users WHERE username = ? AND Binary password = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, password);

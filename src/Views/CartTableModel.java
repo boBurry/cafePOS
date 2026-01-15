@@ -4,6 +4,7 @@ import Models.Order;
 import Models.Product;
 import javax.swing.table.AbstractTableModel;
 
+
 public class CartTableModel extends AbstractTableModel {
     
     private final Order order;
@@ -74,4 +75,60 @@ public class CartTableModel extends AbstractTableModel {
             fireTableRowsUpdated(rowIndex, rowIndex);
         }
     }
+}
+
+// =========================================================
+//              HELPER CLASSES FOR THE SMART TABLE
+// =========================================================
+// 1. LABEL RENDERER: X
+class ButtonRenderer extends javax.swing.JLabel implements javax.swing.table.TableCellRenderer {
+    public ButtonRenderer() {
+        setOpaque(true);
+        setText("X");
+        setHorizontalAlignment(javax.swing.SwingConstants.CENTER); 
+        setBackground(new java.awt.Color(255, 102, 102));
+        setForeground(java.awt.Color.WHITE); 
+        setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 14));
+    }
+
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+        // Optional: Makes it look interactive by slightly darkening when the row is selected
+        if (isSelected) {
+             setBackground(new java.awt.Color(220, 80, 80)); 
+        } else {
+             setBackground(new java.awt.Color(255, 102, 102));
+        }
+        return this;
+    }
+}
+
+// 2. BUTTON EDITOR: Handles the click on the "X" button
+class ButtonEditor extends javax.swing.DefaultCellEditor {
+    private javax.swing.JButton button;
+    private Controllers.Controller controller;
+    private int currentRow;
+
+    public ButtonEditor(javax.swing.JCheckBox checkBox, Controllers.Controller controller) {
+        super(checkBox);
+        this.controller = controller;
+        button = new javax.swing.JButton();
+        button.setOpaque(true);
+        button.addActionListener(e -> {
+            fireEditingStopped(); // Stop editing mode
+            controller.deleteItem(currentRow); // Call Controller to remove item
+        });
+    }
+
+    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, int row, int column) {
+        this.currentRow = row;
+        button.setText("X");
+        button.setBackground(new java.awt.Color(255, 102, 102));
+        button.setForeground(java.awt.Color.WHITE);
+        return button;
+    }
+
+    public Object getCellEditorValue() { return "X"; }
 }

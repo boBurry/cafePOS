@@ -71,7 +71,7 @@ public class Login extends JFrame {
         btnExit.setForeground(Color.WHITE);
         btnExit.setBorder(null);
         btnExit.setFocusPainted(false);
-        btnExit.setOpaque(true);
+        btnExit.setOpaque(false);
         btnExit.addActionListener(e -> System.exit(0));
         card.add(btnExit);
     }

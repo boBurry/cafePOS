@@ -4,14 +4,9 @@ import Controllers.Controller;
 import Models.Order;
 import Models.db;
 import java.awt.Color;
-import java.awt.GraphicsConfiguration;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -29,28 +24,28 @@ public class GUI extends javax.swing.JFrame {
         controller = new Controller(this, currentOrder);
         con = db.myCon();
         
-        // FLEXIBLE MAXIMIZE: This tells Windows to maximize but NOT cover the Taskbar
-        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-    
-        // Safety check: Ensure the window stays within the "usable" screen bounds
-        GraphicsConfiguration config = getGraphicsConfiguration();
-        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(config);
-        Rectangle bounds = config.getBounds();
-
-        // This manually calculates the area NOT covered by the taskbar
-        int x = bounds.x + insets.left;
-        int y = bounds.y + insets.top;
-        int width = bounds.width - (insets.left + insets.right);
-        int height = bounds.height - (insets.top + insets.bottom);
-
-        this.setMaximizedBounds(new Rectangle(0, 0, width, height));
+//        // FLEXIBLE MAXIMIZE: This tells Windows to maximize but NOT cover the Taskbar
+//        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+//    
+//        // Safety check: Ensure the window stays within the "usable" screen bounds
+//        GraphicsConfiguration config = getGraphicsConfiguration();
+//        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(config);
+//        Rectangle bounds = config.getBounds();
+//
+//        // This manually calculates the area NOT covered by the taskbar
+//        int x = bounds.x + insets.left;
+//        int y = bounds.y + insets.top;
+//        int width = bounds.width - (insets.left + insets.right);
+//        int height = bounds.height - (insets.top + insets.bottom);
+//
+//        this.setMaximizedBounds(new Rectangle(0, 0, width, height));
         
         setupCartTable();
         
         body.removeAll();
         body.add(Drink); 
 
-        loadProducts("Drink", dP1, lbtitle,""); 
+        loadProducts("DRINK", dP1, lbtitle,""); 
 
         body.revalidate();
         body.repaint();
@@ -71,38 +66,45 @@ public class GUI extends javax.swing.JFrame {
         Views.CartTableModel model = new Views.CartTableModel(currentOrder);
         table.setModel(model);
 
-        // Standard Table Settings
-        table.setRowHeight(35); 
-        table.setSelectionBackground(new java.awt.Color(51, 153, 255)); // Blue Selection
+        // 1. General Table Styling
+        table.setRowHeight(35);
+        table.setSelectionBackground(new java.awt.Color(51, 153, 255));
         table.setSelectionForeground(java.awt.Color.WHITE);
-        
-        // --- COLUMN 2: QUANTITY (Just Centered Text now) ---
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(160); 
+
+        table.getColumnModel().getColumn(1).setPreferredWidth(70);
+
         javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(2).setMaxWidth(40); 
+        table.getColumnModel().getColumn(2).setPreferredWidth(40);
 
-        // --- COLUMN 5: ACTION (Keep your Red X) ---
+        table.getColumnModel().getColumn(3).setPreferredWidth(230);
+
+        table.getColumnModel().getColumn(4).setPreferredWidth(70);
+
         javax.swing.table.TableColumn actionCol = table.getColumnModel().getColumn(5);
-        actionCol.setCellRenderer(new ButtonRenderer()); // Keeping this ✅
-        actionCol.setCellEditor(new ButtonEditor(new javax.swing.JCheckBox(), controller)); // Keeping this ✅
+
+        actionCol.setCellRenderer(new ButtonRenderer());
+        actionCol.setCellEditor(new ButtonEditor(new javax.swing.JCheckBox(), controller)); 
+
+        actionCol.setMinWidth(50);
+        actionCol.setMaxWidth(50);
         actionCol.setPreferredWidth(50);
-        
-        // Adjust other widths if needed
-        table.getColumnModel().getColumn(0).setPreferredWidth(140);
     }
     
     private void loadProducts(String category, javax.swing.JPanel targetPanel, javax.swing.JLabel titleLabel, String searchQuery) {
-        // 1. Update Title
+        // Title
         titleLabel.setText(category);
 
-        // 2. Clear & Set Layout [ALIGNMENT FIX #1]
+        // Clear & Set Layout
         targetPanel.removeAll();
-        // FlowLayout.LEFT makes items start from the left side.
-        // 20, 20 are the horizontal and vertical gaps between items.
-        targetPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
+        targetPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20)); // Gap Left Right 20,20
 
         try {
-            // 3. Database Query
+            // Database Query
             if (con == null || con.isClosed()) {
                 System.out.println("ERROR: Database Connection is NULL or CLOSED!");
                 return;
@@ -124,10 +126,7 @@ public class GUI extends javax.swing.JFrame {
                 targetPanel.add(createProductPanel(pid, name, price, cat));
                 count++;
             }
-
-            // 4. Calculate Height [ALIGNMENT FIX #2]
-            // The ScrollPane won't scroll unless we tell it how tall the panel is.
-            // We assume 3 items fit in one row (approx 220px width per item).
+           
             int itemsPerRow = 3; 
             int rows = (int) Math.ceil((double)count / itemsPerRow);
 
@@ -135,7 +134,7 @@ public class GUI extends javax.swing.JFrame {
             // Card is 240px tall, Gap is 20px
             int newHeight = (rows * 260) + 40; 
 
-            // Force the panel size so items "flow" down instead of getting cut off
+            // Force the panel size so items flow down
             targetPanel.setPreferredSize(new java.awt.Dimension(800, newHeight));
 
         } catch (Exception e) {
@@ -154,55 +153,46 @@ public class GUI extends javax.swing.JFrame {
         panel.setBackground(java.awt.Color.WHITE);
         panel.setLayout(null);
 
-        // Image (Centered: 180 width - 150 image = 30 margin / 2 = 15 x)
+        // --- 1. IMAGE ---
         javax.swing.JLabel imgLabel = new javax.swing.JLabel();
-        imgLabel.setBounds(15, 0, 150, 150); // Changed x to 15
+        imgLabel.setBounds(15, 0, 150, 150); 
         try {
-            // 1. Try to find the Product Image
             String path = "/Image/" + pid.toLowerCase() + ".png";
             java.net.URL imgURL = getClass().getResource(path);
-
             if (imgURL != null) {
-                // Success: Found the product image
                 imgLabel.setIcon(new javax.swing.ImageIcon(imgURL));
             } else {
-                // Fail 1: Product image missing -> Try to find Logo
                 java.net.URL logoURL = getClass().getResource("/Image/logo.png");
-
-                if (logoURL != null) {
-                    imgLabel.setIcon(new javax.swing.ImageIcon(logoURL));
-                } else {
-                    // Fail 2: Both missing -> Just show text (Prevents Crash)
-                    imgLabel.setText("No Image");
-                }
+                if (logoURL != null) imgLabel.setIcon(new javax.swing.ImageIcon(logoURL));
+                else imgLabel.setText("No Image");
             }
         } catch (Exception e) {
-            // 2. Extra Safety: If anything else goes wrong, don't crash
             imgLabel.setText("Error");
-            System.err.println("Image Error for PID " + pid + ": " + e.getMessage());
         }
         panel.add(imgLabel);
 
-        // Name Label
-        javax.swing.JLabel nameLabel = new javax.swing.JLabel(name);
-        nameLabel.setBounds(10, 160, 100, 16); // Reduced width slightly
+        // --- 2. NAME LABEL ---
+        javax.swing.JLabel nameLabel = new javax.swing.JLabel("<html>" + name + "</html>");
+        nameLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 12)); 
+        nameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP); 
+        nameLabel.setBounds(10, 155, 105, 35); 
         panel.add(nameLabel);
 
-        // Price Label
+        // --- 3. PRICE LABEL ---
         javax.swing.JLabel priceLabel = new javax.swing.JLabel("$" + price);
-        priceLabel.setBounds(10, 180, 50, 16);
+        priceLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.PLAIN, 12));
+        priceLabel.setBounds(10, 190, 80, 20); 
         panel.add(priceLabel);
 
-        // ADD Button (Shifted Left to fit in 180px)
-        javax.swing.JButton addButton = new javax.swing.JButton("ADD");
-        // Previous x=130. New x=110 (110 + 60 width = 170, leaving 10px margin)
-        addButton.setBounds(110, 160, 60, 60); 
+        // --- 4. ADD BUTTON ---
+        javax.swing.JButton addButton = new javax.swing.JButton("Add");
+        addButton.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 11)); 
+        addButton.setMargin(new java.awt.Insets(0,0,0,0)); 
+
+        addButton.setBounds(120, 175, 50, 50); 
+        
         addButton.addActionListener(e -> {
-            if ("Drink".equals(category)) {
-                 controller.addToCart(pid);
-            } else {
-                 controller.addToCart(pid);
-            }
+            controller.addToCart(pid);
         });
         panel.add(addButton);
 
@@ -353,7 +343,7 @@ public class GUI extends javax.swing.JFrame {
         lbtitle.setFont(new java.awt.Font(".AppleSystemUIFont", 1, 24)); // NOI18N
         lbtitle.setText("Drink");
         header.add(lbtitle);
-        lbtitle.setBounds(20, 20, 80, 30);
+        lbtitle.setBounds(20, 20, 100, 30);
 
         btRefresh.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         btRefresh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -446,7 +436,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel17.add(jLabel4);
         jLabel4.setBounds(20, 10, 119, 40);
 
-        cbDiscount.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
+        cbDiscount.setEditable(true);
+        cbDiscount.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         cbDiscount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0%", "30%", "50%", "70%" }));
         cbDiscount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -477,7 +468,6 @@ public class GUI extends javax.swing.JFrame {
         btTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btTotal.setText("Order");
         btTotal.setBorder(null);
-        btTotal.setOpaque(true);
         btTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btTotalActionPerformed(evt);
@@ -490,7 +480,6 @@ public class GUI extends javax.swing.JFrame {
         btClear.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btClear.setText("Clear");
         btClear.setBorder(null);
-        btClear.setOpaque(true);
         btClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btClearActionPerformed(evt);
@@ -503,7 +492,6 @@ public class GUI extends javax.swing.JFrame {
         btEdit.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
         btEdit.setText("Edit");
         btEdit.setBorder(null);
-        btEdit.setOpaque(true);
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditActionPerformed(evt);
@@ -522,7 +510,7 @@ public class GUI extends javax.swing.JFrame {
     private void lbSnackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSnackMouseClicked
         body.removeAll();
         body.add(Snack);
-        loadProducts("Snack", sP1, lbtitle,"");
+        loadProducts("SNACK", sP1, lbtitle,"");
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_lbSnackMouseClicked
@@ -530,7 +518,7 @@ public class GUI extends javax.swing.JFrame {
     private void lbDrinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDrinkMouseClicked
         body.removeAll();
         body.add(Drink);
-        loadProducts("Drink", dP1, lbtitle,"");
+        loadProducts("DRINK", dP1, lbtitle,"");
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_lbDrinkMouseClicked
@@ -573,22 +561,49 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btTotalActionPerformed
 
     private void cbDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDiscountActionPerformed
-        // Get the selected discount percentage from the ComboBox
-        String selectedDiscount = (String)cbDiscount.getSelectedItem();
+        Object selectedItem = cbDiscount.getSelectedItem();
+        if (selectedItem == null) return;
 
-        double discountPercentage;
-            // Adjust based on selection
-            discountPercentage = switch (selectedDiscount) {
-                case "0%"  -> 0.0;
-                case "30%" -> 30.0;
-                case "50%" -> 50.0;
-                case "70%" -> 70.0;
-                default -> 0.0;
-            };
-        // Set the discount for the current order
-        currentOrder.setDiscount(discountPercentage);
+        String text = selectedItem.toString().trim();
+        if (text.isEmpty()) {
+            currentOrder.setDiscount(0, false);
+            updateTotalLabel();
+            return;
+        }
+        try {
+            double value;
+            boolean isPercentage;
+
+            if (text.contains("%")) {
+                String cleanText = text.replace("%", "").trim();
+                value = Double.parseDouble(cleanText);
+                isPercentage = true;
+            } 
+            else if (text.contains("$")) {
+                String cleanText = text.replace("$", "").trim();
+                value = Double.parseDouble(cleanText);
+                isPercentage = false;
+            } 
+            else {
+                value = Double.parseDouble(text);
+                isPercentage = false; 
+            }
+
+            currentOrder.setDiscount(value, isPercentage);
+            
+            updateTotalLabel();
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Invalid Discount Format.\nUse '10%' or '$5'");
+            cbDiscount.setSelectedItem("0%");
+        }
     }//GEN-LAST:event_cbDiscountActionPerformed
 
+    private void updateTotalLabel() {
+        double newTotal = currentOrder.calculateTotal();
+        lbTotal.setText(String.format("$%.2f", newTotal));
+    }
+    
     private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btExitActionPerformed
@@ -649,18 +664,15 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btRefreshMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Views.Login().setVisible(true);
-            }
+                public void run() {
+                    // Explicitly start at the Login screen
+                    new Views.Login().setVisible(true);
+                }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Drink;
     private javax.swing.JPanel Snack;
@@ -695,58 +707,5 @@ public class GUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-// =========================================================
-//              HELPER CLASSES FOR THE SMART TABLE
-// =========================================================
-// 1. LABEL RENDERER: Draws a red label with "X" instead of a button
-class ButtonRenderer extends javax.swing.JLabel implements javax.swing.table.TableCellRenderer {
-    public ButtonRenderer() {
-        setOpaque(true); // Crucial for JLabel background color to show
-        setText("X");
-        setHorizontalAlignment(javax.swing.SwingConstants.CENTER); // Center the text
-        setBackground(new java.awt.Color(255, 102, 102)); // Light Red background
-        setForeground(java.awt.Color.WHITE); // White text font
-        setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 14)); // Nice bold font
-    }
-    
-    @Override
-    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        // Optional: Makes it look interactive by slightly darkening when the row is selected
-        if (isSelected) {
-             setBackground(new java.awt.Color(220, 80, 80)); 
-        } else {
-             setBackground(new java.awt.Color(255, 102, 102));
-        }
-        return this;
-    }
-}
 
-// 2. BUTTON EDITOR: Handles the click on the "X" button
-class ButtonEditor extends javax.swing.DefaultCellEditor {
-    private javax.swing.JButton button;
-    private Controllers.Controller controller;
-    private int currentRow;
 
-    public ButtonEditor(javax.swing.JCheckBox checkBox, Controllers.Controller controller) {
-        super(checkBox);
-        this.controller = controller;
-        button = new javax.swing.JButton();
-        button.setOpaque(true);
-        button.addActionListener(e -> {
-            fireEditingStopped(); // Stop editing mode
-            controller.deleteItem(currentRow); // Call Controller to remove item
-        });
-    }
-
-    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value,
-            boolean isSelected, int row, int column) {
-        this.currentRow = row;
-        button.setText("X");
-        button.setBackground(new java.awt.Color(255, 102, 102));
-        button.setForeground(java.awt.Color.WHITE);
-        return button;
-    }
-
-    public Object getCellEditorValue() { return "X"; }
-}
