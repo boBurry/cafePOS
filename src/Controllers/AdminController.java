@@ -24,6 +24,10 @@ public class AdminController {
         this.view.getBtnAdd().addActionListener(e -> showAddDialog());
         this.view.getBtnUpdate().addActionListener(e -> showUpdateDialog());
         this.view.getBtnDelete().addActionListener(e -> deleteData());
+        this.view.getBtnClear().addActionListener(e-> {
+            view.clear();
+            loadData("");
+        });
 
         this.view.getTfSearch().addKeyListener(new KeyAdapter() {
             @Override

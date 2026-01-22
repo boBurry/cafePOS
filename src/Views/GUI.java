@@ -58,7 +58,7 @@ public class GUI extends javax.swing.JFrame {
         
         if (!"Admin".equalsIgnoreCase(role)) {
             lbAdmin.setVisible(false); 
-        }
+        }   
     }
     
     // --- CONFIGURE THE SMART TABLE ---

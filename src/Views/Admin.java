@@ -193,6 +193,7 @@ public class Admin extends JFrame {
     public JButton getBtnAdd() { return btnAdd; }
     public JButton getBtnUpdate() { return btnUpdate; }
     public JButton getBtnDelete() { return btnDelete; }
+    public JButton getBtnClear() { return btnClear; }
     public JButton getBtnBack() { return btnBack; }
     
     // History Getters
@@ -202,6 +203,10 @@ public class Admin extends JFrame {
     public JTable getHistoryTable() { return historyTable; }
     public JLabel getLbHistoryTotal() { return lbHistoryTotal; }
     public JLabel getLbHistoryCount() { return lbHistoryCount; }
+    
+    public void clear() {
+        tfSearch.setText("");
+    }
 
     public static void main(String[] args) { 
         new Admin().setVisible(true);
