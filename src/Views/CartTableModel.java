@@ -107,10 +107,10 @@ class ButtonRenderer extends javax.swing.JLabel implements javax.swing.table.Tab
 // 2. BUTTON EDITOR: Handles the click on the "X" button
 class ButtonEditor extends javax.swing.DefaultCellEditor {
     private javax.swing.JButton button;
-    private Controllers.Controller controller;
+    private Controllers.POSController controller;
     private int currentRow;
 
-    public ButtonEditor(javax.swing.JCheckBox checkBox, Controllers.Controller controller) {
+    public ButtonEditor(javax.swing.JCheckBox checkBox, Controllers.POSController controller) {
         super(checkBox);
         this.controller = controller;
         button = new javax.swing.JButton();

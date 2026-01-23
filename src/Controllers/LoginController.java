@@ -1,7 +1,7 @@
 package Controllers;
 
-import Views.Login;
-import Views.GUI;
+import Views.LoginView;
+import Views.POSView;
 import Models.db;
 import java.sql.*;
 import java.awt.event.ActionEvent;
@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 
 public class LoginController {
     
-    private Login view;
+    private LoginView view;
 
-    public LoginController(Login view) {
+    public LoginController(LoginView view) {
         this.view = view;
         
         this.view.getBtnLogin().addActionListener(new ActionListener() {
@@ -41,7 +41,7 @@ public class LoginController {
             view.dispose();
             
            
-            new GUI(role).setVisible(true); 
+            new POSView(role).setVisible(true); 
         } else {
             JOptionPane.showMessageDialog(view, "Invalid Username or Password.");
         }

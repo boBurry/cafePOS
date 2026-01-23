@@ -4,13 +4,13 @@ import Controllers.LoginController;
 import java.awt.*;
 import javax.swing.*;
 
-public class Login extends JFrame {
+public class LoginView extends JFrame {
 
     private JTextField tfUsername;
     private JPasswordField pfPassword;
     private JButton btnLogin;
 
-    public Login() {
+    public LoginView() {
         initComponents();
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -103,7 +103,7 @@ public class Login extends JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     // Explicitly start at the Login screen
-                    new Login().setVisible(true);
+                    new LoginView().setVisible(true);
                 }
         });
     }

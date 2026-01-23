@@ -1,26 +1,60 @@
 package Controllers;
 
-import Views.Admin;
+import Models.Ingredient;
+import Models.db;
+import Views.AdminView;
 import Views.AddProductDialog;
-import Models.db; // Assuming 'db' is your connection class
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class AdminController {
 
-    private Admin view;
+    private AdminView view;
     private Connection connection;
 
-    public AdminController(Admin view) {
+    public AdminController(AdminView view) {
         this.view = view;
         this.connection = db.myCon();
 
         loadData(""); 
         loadHistoryData("");
+        loadInventory();
+        
+        // Ingredient
+        this.view.getTblIngredient().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = view.getTblIngredient().getSelectedRow();
+                if(row >= 0) {
+                    // Get data from table and fill text fields
+                    view.getTfIngName().setText(view.getTblIngredient().getValueAt(row, 1).toString());
+                    view.getCbIngCategory().setSelectedItem(view.getTblIngredient().getValueAt(row, 2).toString());
+                    view.getTfIngQty().setText(view.getTblIngredient().getValueAt(row, 3).toString());
+                    
+                    // Remove "$" from price for editing
+                    String priceStr = view.getTblIngredient().getValueAt(row, 4).toString().replace("$", "");
+                    view.getTfIngPrice().setText(priceStr);
+                    
+                    view.getTfIngBought().setText(view.getTblIngredient().getValueAt(row, 6).toString());
+                    
+                    // Handle Expiry (check for null)
+                    Object expiry = view.getTblIngredient().getValueAt(row, 7);
+                    view.getTfIngExpiry().setText(expiry != null ? expiry.toString() : "");
+                }
+            }
+        });
 
+        this.view.getBtnIngAdd().addActionListener(e -> addInventoryItem());
+        this.view.getBtnIngUpdate().addActionListener(e -> updateInventoryItem()); // NEW
+        this.view.getBtnIngDelete().addActionListener(e -> deleteInventoryItem()); // NEW
+        this.view.getBtnIngClear().addActionListener(e -> clearInventoryForm());
+
+        // Product
         this.view.getBtnAdd().addActionListener(e -> showAddDialog());
         this.view.getBtnUpdate().addActionListener(e -> showUpdateDialog());
         this.view.getBtnDelete().addActionListener(e -> deleteData());
@@ -35,6 +69,7 @@ public class AdminController {
         });
         this.view.getCbTypeFilter().addActionListener(e -> filterData());
 
+        // History 
         this.view.getBtnHistorySearch().addActionListener(e -> {
             String date = view.getTfHistoryDate().getText().trim();
             loadHistoryData(date);
@@ -45,7 +80,8 @@ public class AdminController {
             loadHistoryData("");
         });
     }
-
+    
+    // History 
     private void loadHistoryData(String dateFilter) {
         DefaultTableModel model = (DefaultTableModel) view.getHistoryTable().getModel();
         model.setRowCount(0); 
@@ -89,6 +125,7 @@ public class AdminController {
         }
     }
     
+    // Product
     private void showAddDialog() {
         AddProductDialog dialog = new AddProductDialog(view, "Add New Product");
         dialog.setVisible(true); 
@@ -129,6 +166,13 @@ public class AdminController {
             p.setString(4, dialog.getProductType());
             p.setDouble(5, Double.parseDouble(dialog.getPrice()));
             p.executeUpdate();
+            
+            if (dialog.getSelectedImage() != null) {
+                System.out.println("DEBUG: Image found! Saving now...");
+                saveImage(dialog.getSelectedImage(), dialog.getId());
+            } else {
+                System.out.println("DEBUG: No image was selected.");
+            }
             
             filterData();
             JOptionPane.showMessageDialog(view, "Added Successfully!");
@@ -185,6 +229,39 @@ public class AdminController {
         if (!type.equals("All")) sql += " AND type = '" + type + "'";
         loadData(sql, "%" + search + "%");
     }
+    
+    // --- SAVE IMAGE ---
+    private void saveImage(File source, String pid) {
+        try {
+            // 1. Get the path and print it
+            String projectPath = System.getProperty("user.dir"); 
+            // Project Path is: /Users/sunsovisal/NetBeansProjects/ITC-I3
+            
+            // 2. Define the folder
+            File folder = new File(projectPath + File.separator + "product_images");
+            // Target Folder: /Users/sunsovisal/NetBeansProjects/ITC-I3/product_images
+            
+            // 3. Create it if missing (with check)
+            if (!folder.exists()) {
+                boolean created = folder.mkdirs(); 
+                System.out.println("DEBUG: Folder did not exist. Created? " + created);
+            } else {
+                System.out.println("DEBUG: Folder already exists.");
+            } 
+            
+            // 4. Clean ID and define destination
+            String cleanId = pid.trim().toUpperCase();
+            File dest = new File(folder, cleanId + ".png");
+            
+            // 5. Copy
+            Files.copy(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            // Image saved to: /Users/sunsovisal/NetBeansProjects/ITC-I3/product_images/D13.png
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Failed to save image: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     private void loadData(String query, String... params) {
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
@@ -208,5 +285,163 @@ public class AdminController {
                 });
             }
         } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    // --- INVENTORY ---
+    private void loadInventory() {
+        DefaultTableModel model = (DefaultTableModel) view.getTblIngredient().getModel();
+        model.setRowCount(0); 
+
+        try {
+            // Sort by Expiry Date so you see expiring items first!
+            String sql = "SELECT * FROM ingredient ORDER BY expiry_date ASC";
+            PreparedStatement p = connection.prepareStatement(sql);
+            ResultSet rs = p.executeQuery();
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("category"),
+                    rs.getInt("stock_qty"),
+                    String.format("$%.2f", rs.getDouble("unit_price")),
+                    String.format("$%.2f", rs.getDouble("total_value")),
+                    rs.getDate("bought_date"),
+                    rs.getDate("expiry_date")
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addInventoryItem() {
+        try {
+            String name = view.getTfIngName().getText();
+            String cat = view.getCbIngCategory().getSelectedItem().toString();
+            String qtyStr = view.getTfIngQty().getText();
+            String priceStr = view.getTfIngPrice().getText();
+            String boughtStr = view.getTfIngBought().getText();
+            String expiryStr = view.getTfIngExpiry().getText();
+
+            if (name.isEmpty() || qtyStr.isEmpty() || priceStr.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Please fill in Name, Qty, and Price.");
+                return;
+            }
+
+            int qty = Integer.parseInt(qtyStr);
+            double price = Double.parseDouble(priceStr);
+            double total = qty * price; // Auto-calculate total value
+            
+            java.sql.Date boughtDate = null;
+            java.sql.Date expiryDate = null;
+            try {
+                boughtDate = java.sql.Date.valueOf(boughtStr); // Must be YYYY-MM-DD
+                if (!expiryStr.isEmpty()) {
+                    expiryDate = java.sql.Date.valueOf(expiryStr);
+                }
+            } catch (IllegalArgumentException ie) {
+                 JOptionPane.showMessageDialog(view, "Date Format Error! Use YYYY-MM-DD.");
+                 return;
+            }
+
+            // 4. Insert into DB
+            String sql = "INSERT INTO ingredient (name, category, stock_qty, unit_price, total_value, bought_date, expiry_date) VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement p = connection.prepareStatement(sql);
+            
+            p.setString(1, name);
+            p.setString(2, cat);
+            p.setInt(3, qty);
+            p.setDouble(4, price);
+            p.setDouble(5, total);
+            p.setDate(6, boughtDate);
+            p.setDate(7, expiryDate);
+            
+            p.executeUpdate();
+            
+            JOptionPane.showMessageDialog(view, "Inventory Added!");
+            clearInventoryForm();
+            loadInventory();
+
+        } catch (NumberFormatException ne) {
+            JOptionPane.showMessageDialog(view, "Quantity and Price must be numbers!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
+        }
+    }
+    
+    private void clearInventoryForm() {
+        view.getTfIngName().setText("");
+        view.getTfIngQty().setText("");
+        view.getTfIngPrice().setText("");
+        view.getTfIngExpiry().setText("");
+        view.getTfIngBought().setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
+    }
+    
+    private void updateInventoryItem() {
+        int row = view.getTblIngredient().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Please select an item to edit first!");
+            return;
+        }
+
+        try {
+            int id = (int) view.getTblIngredient().getValueAt(row, 0);
+
+            String name = view.getTfIngName().getText();
+            String cat = view.getCbIngCategory().getSelectedItem().toString();
+            int qty = Integer.parseInt(view.getTfIngQty().getText());
+            double price = Double.parseDouble(view.getTfIngPrice().getText());
+            double total = qty * price;
+            
+            java.sql.Date bought = java.sql.Date.valueOf(view.getTfIngBought().getText());
+            java.sql.Date expiry = view.getTfIngExpiry().getText().isEmpty() ? null : java.sql.Date.valueOf(view.getTfIngExpiry().getText());
+
+            String sql = "UPDATE ingredient SET name=?, category=?, stock_qty=?, unit_price=?, total_value=?, bought_date=?, expiry_date=? WHERE id=?";
+            PreparedStatement p = connection.prepareStatement(sql);
+            p.setString(1, name);
+            p.setString(2, cat);
+            p.setInt(3, qty);
+            p.setDouble(4, price);
+            p.setDouble(5, total);
+            p.setDate(6, bought);
+            p.setDate(7, expiry);
+            p.setInt(8, id);
+
+            p.executeUpdate();
+            
+            JOptionPane.showMessageDialog(view, "Item Updated!");
+            loadInventory();
+            clearInventoryForm();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Error Updating: " + e.getMessage());
+        }
+    }
+
+    private void deleteInventoryItem() {
+        int row = view.getTblIngredient().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Please select an item to delete!");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete this item?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                int id = (int) view.getTblIngredient().getValueAt(row, 0);
+                
+                String sql = "DELETE FROM ingredient WHERE id=?";
+                PreparedStatement p = connection.prepareStatement(sql);
+                p.setInt(1, id);
+                p.executeUpdate();
+
+                loadInventory();
+                clearInventoryForm();
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(view, "Error Deleting: " + e.getMessage());
+            }
+        }
     }
 }

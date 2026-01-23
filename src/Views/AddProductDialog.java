@@ -3,16 +3,22 @@ package Views;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File; 
 
 public class AddProductDialog extends JDialog {
 
     private JTextField tfId, tfName, tfPrice;
     private JComboBox<String> cbCategory, cbType;
-    private boolean confirmed = false; // Did user click Save?
+    
+    // --- FIELDS FOR IMAGE BROWSING ---
+    private JLabel lbImageName; 
+    private File selectedImageFile = null; 
+    
+    private boolean confirmed = false;
 
     public AddProductDialog(Frame parent, String title) {
-        super(parent, title, true); // true = Modal (blocks main window)
-        setSize(400, 350);
+        super(parent, title, true); 
+        setSize(400, 450); 
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
@@ -58,6 +64,30 @@ public class AddProductDialog extends JDialog {
         tfPrice = new JTextField(15);
         formPanel.add(tfPrice, gbc);
 
+        // --- BROWSE IMAGE SECTION ---
+        gbc.gridx = 0; gbc.gridy = 5;
+        formPanel.add(new JLabel("Image:"), gbc);
+
+        gbc.gridx = 1;
+        JPanel imgPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        
+        JButton btnBrowse = new JButton("Browse");
+        lbImageName = new JLabel(" No image selected");
+        
+        // Logic to open file chooser
+        btnBrowse.addActionListener(e -> {
+            JFileChooser ch = new JFileChooser();
+            int opt = ch.showOpenDialog(this);
+            if (opt == JFileChooser.APPROVE_OPTION) {
+                selectedImageFile = ch.getSelectedFile();
+                lbImageName.setText(" " + selectedImageFile.getName());
+            }
+        });
+
+        imgPanel.add(btnBrowse);
+        imgPanel.add(lbImageName);
+        formPanel.add(imgPanel, gbc);
+
         add(formPanel, BorderLayout.CENTER);
 
         // --- BUTTON PANEL ---
@@ -97,4 +127,6 @@ public class AddProductDialog extends JDialog {
     public String getCategory() { return cbCategory.getSelectedItem().toString(); }
     public String getProductType() { return cbType.getSelectedItem().toString(); }
     public String getPrice() { return tfPrice.getText(); }
+    
+    public File getSelectedImage() { return selectedImageFile; }
 }

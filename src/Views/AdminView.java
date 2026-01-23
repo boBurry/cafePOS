@@ -6,28 +6,40 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class Admin extends JFrame {
+public class AdminView extends JFrame {
     
     private CardLayout cardLayout;
     private JPanel mainContainer;
+    
     private JPanel productPanel;
     private JPanel historyPanel;
+    private JPanel ingredientPanel; 
 
+    // --- PRODUCT COMPONENTS ---
     private JTextField tfSearch;
     private JComboBox<String> cbTypeFilter;
     private JTable productTable;
     private DefaultTableModel productModel;
     private JButton btnAdd, btnUpdate, btnDelete, btnClear, btnBack;
 
+    // --- HISTORY COMPONENTS ---
     private JTextField tfHistoryDate;
     private JButton btnHistorySearch, btnHistoryRefresh;
     private JLabel lbHistoryTotal, lbHistoryCount;
     private JTable historyTable;
     private DefaultTableModel historyModel;
+    
+    // --- INGREDIENT COMPONENTS ---
+    private JTable ingredientTable; 
+    private DefaultTableModel ingredientModel; 
+    
+    private JTextField tfIngName, tfIngQty, tfIngPrice, tfIngBought, tfIngExpiry;
+    private JComboBox<String> cbIngCategory;
+    private JButton btnIngAdd, btnIngUpdate, btnIngDelete, btnIngClear, btnIngRefresh;
 
-    public Admin() {
+    public AdminView() {
         setTitle("Admin Dashboard");
-        setSize(1000, 650);
+        setSize(1100, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -38,9 +50,11 @@ public class Admin extends JFrame {
 
         initProductPanel(); 
         initHistoryPanel();
+        initIngredientPanel(); 
 
         mainContainer.add(productPanel, "Product");
         mainContainer.add(historyPanel, "History");
+        mainContainer.add(ingredientPanel, "Ingredient");
 
         add(mainContainer);
 
@@ -54,7 +68,11 @@ public class Admin extends JFrame {
         JMenuItem itemProd = new JMenuItem("Product Inventory");
         itemProd.addActionListener(e -> cardLayout.show(mainContainer, "Product"));
         menuManage.add(itemProd);
-
+        
+        JMenuItem itemIngre = new JMenuItem("Ingredient Inventory");
+        itemIngre.addActionListener(e -> cardLayout.show(mainContainer, "Ingredient"));
+        menuManage.add(itemIngre);
+        
         JMenu menuReport = new JMenu("Reports");
         JMenuItem itemHist = new JMenuItem("Sales History");
         itemHist.addActionListener(e -> cardLayout.show(mainContainer, "History"));
@@ -63,7 +81,6 @@ public class Admin extends JFrame {
         JMenu menuSystem = new JMenu("System"); 
         JMenuItem itemExit = new JMenuItem("Exit Application");
         itemExit.addActionListener(e -> this.dispose());
-        
         
         menuSystem.add(itemExit);
         menuBar.add(menuManage);
@@ -176,7 +193,6 @@ public class Admin extends JFrame {
         JScrollPane scrollPane = new JScrollPane(historyTable);
         scrollPane.getViewport().setBackground(Color.WHITE); 
 
-        
         JPanel tableWrapper = new JPanel(new BorderLayout());
         tableWrapper.setBackground(new Color(245, 245, 245));
         tableWrapper.setBorder(new EmptyBorder(0, 20, 20, 20));
@@ -184,7 +200,143 @@ public class Admin extends JFrame {
 
         historyPanel.add(tableWrapper, BorderLayout.CENTER);
     }
+    
+    // --- INGREDIENT PANEL ---
+    private void initIngredientPanel() {
+        ingredientPanel = new JPanel(new BorderLayout());
+        ingredientPanel.setBackground(new Color(245, 245, 245));
 
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(10, 10, 10, 10),
+                BorderFactory.createTitledBorder("Add Inventory Item")
+        ));
+        formPanel.setPreferredSize(new Dimension(300, 0));
+        formPanel.setBackground(Color.WHITE);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0; gbc.gridy = 0;
+
+        formPanel.add(new JLabel("Item Name:"), gbc);
+        gbc.gridy++;
+        tfIngName = new JTextField(15);
+        formPanel.add(tfIngName, gbc);
+        
+        // Category 
+        gbc.gridy++;
+        formPanel.add(new JLabel("Category:"), gbc);
+        gbc.gridy++;
+        cbIngCategory = new JComboBox<>(new String[]{
+            "Coffee & Tea", 
+            "Dairy & Cream", 
+            "Syrups & Sauces", 
+            "Bakery & Pastry", 
+            "Toppings & Dry", 
+            "Packaging"
+        });
+        formPanel.add(cbIngCategory, gbc);
+
+        // Quantity
+        gbc.gridy++;
+        formPanel.add(new JLabel("Quantity:"), gbc);
+        gbc.gridy++;
+        tfIngQty = new JTextField(15);
+        formPanel.add(tfIngQty, gbc);
+
+        // Unit Price
+        gbc.gridy++;
+        formPanel.add(new JLabel("Unit Price ($):"), gbc);
+        gbc.gridy++;
+        tfIngPrice = new JTextField(15);
+        formPanel.add(tfIngPrice, gbc);
+
+        // Bought Date
+        gbc.gridy++;
+        formPanel.add(new JLabel("Bought Date (YYYY-MM-DD):"), gbc);
+        gbc.gridy++;
+        String today = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        tfIngBought = new JTextField(today);
+        formPanel.add(tfIngBought, gbc);
+
+        // Expiry Date
+        gbc.gridy++;
+        formPanel.add(new JLabel("Expiry Date (YYYY-MM-DD):"), gbc);
+        gbc.gridy++;
+        tfIngExpiry = new JTextField(15);
+        formPanel.add(tfIngExpiry, gbc);
+
+        // Buttons 
+        gbc.gridy++;
+        JPanel btnPanel = new JPanel(new GridLayout(1, 4, 5, 0));
+        btnPanel.setBackground(Color.WHITE);
+        
+        btnIngAdd = new JButton("Add");
+        btnIngAdd.setBackground(new Color(0, 153, 76));
+        btnIngAdd.setForeground(Color.WHITE);
+        
+        btnIngUpdate = new JButton("Edit");
+        btnIngUpdate.setBackground(new Color(255, 128, 0)); 
+        btnIngUpdate.setForeground(Color.WHITE);
+
+        btnIngDelete = new JButton("Del");
+        btnIngDelete.setBackground(new Color(204, 0, 0));
+        btnIngDelete.setForeground(Color.WHITE);
+
+        btnIngClear = new JButton("Clear");
+        
+        btnPanel.add(btnIngAdd);
+        btnPanel.add(btnIngUpdate);
+        btnPanel.add(btnIngDelete);
+        btnPanel.add(btnIngClear);
+        
+        formPanel.add(btnPanel, gbc);
+
+        JPanel rightPanel = new JPanel(new BorderLayout()); 
+        rightPanel.setBackground(new Color(245, 245, 245));
+
+        JPanel tableTopBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        tableTopBar.setBackground(new Color(245, 245, 245));
+        
+        btnIngRefresh = new JButton("Refresh Data");
+        tableTopBar.add(btnIngRefresh);
+        
+        String[] cols = {"ID", "Name", "Category", "Qty", "Unit $", "Total $", "Bought", "Expires"};
+        ingredientModel = new DefaultTableModel(cols, 0);
+        ingredientTable = new JTable(ingredientModel);
+        ingredientTable.setRowHeight(25);
+        
+        ingredientTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+        ingredientTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+        ingredientTable.getColumnModel().getColumn(0).setMaxWidth(50); 
+
+        ingredientTable.getColumnModel().getColumn(1).setPreferredWidth(250);
+
+        ingredientTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+
+        ingredientTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+        ingredientTable.getColumnModel().getColumn(3).setMaxWidth(60);
+
+        ingredientTable.getColumnModel().getColumn(4).setPreferredWidth(80);
+        ingredientTable.getColumnModel().getColumn(5).setPreferredWidth(80);
+
+        ingredientTable.getColumnModel().getColumn(6).setPreferredWidth(100);
+        ingredientTable.getColumnModel().getColumn(6).setMinWidth(90); 
+        
+        ingredientTable.getColumnModel().getColumn(7).setPreferredWidth(100);
+        ingredientTable.getColumnModel().getColumn(7).setMinWidth(90); 
+        
+        JScrollPane scrollPane = new JScrollPane(ingredientTable);
+        scrollPane.getViewport().setBackground(Color.WHITE);
+
+        rightPanel.add(tableTopBar, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
+
+        ingredientPanel.add(formPanel, BorderLayout.WEST);
+        ingredientPanel.add(rightPanel, BorderLayout.CENTER);
+    }
     
     // Product Getters
     public JTextField getTfSearch() { return tfSearch; }
@@ -204,11 +356,29 @@ public class Admin extends JFrame {
     public JLabel getLbHistoryTotal() { return lbHistoryTotal; }
     public JLabel getLbHistoryCount() { return lbHistoryCount; }
     
+    // Ingredient Getters
+    public JTable getTblIngredient() { return ingredientTable; }
+    public JTextField getTfIngName() { return tfIngName; }
+    public JTextField getTfIngQty() { return tfIngQty; }
+    public JTextField getTfIngPrice() { return tfIngPrice; }
+    public JTextField getTfIngBought() { return tfIngBought; }
+    public JTextField getTfIngExpiry() { return tfIngExpiry; }
+    public JComboBox<String> getCbIngCategory() { return cbIngCategory; }
+    
+    public JButton getBtnIngAdd() { return btnIngAdd; }
+    public JButton getBtnIngClear() { return btnIngClear; }
+    public JButton getBtnIngRefresh() { return btnIngRefresh; }
+    public JButton getBtnIngUpdate() { return btnIngUpdate; }
+    public JButton getBtnIngDelete() { return btnIngDelete; }
+    
     public void clear() {
         tfSearch.setText("");
     }
 
     public static void main(String[] args) { 
-        new Admin().setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {}
+        new AdminView().setVisible(true);
     }
 }

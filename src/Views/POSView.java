@@ -1,6 +1,6 @@
 package Views;
 
-import Controllers.Controller;
+import Controllers.POSController;
 import Models.Order;
 import Models.db;
 import java.awt.Color;
@@ -8,50 +8,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-public class GUI extends javax.swing.JFrame {
+public class POSView extends javax.swing.JFrame {
 
     private Order currentOrder = new Order();
-    private Controller controller;
+    private POSController controller;
     private String role;
     
     java.sql.Connection con = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
     
-    public GUI() {
+    public POSView() {
         initComponents(); 
-        
-        controller = new Controller(this, currentOrder);
         con = db.myCon();
         
-//        // FLEXIBLE MAXIMIZE: This tells Windows to maximize but NOT cover the Taskbar
-//        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-//    
-//        // Safety check: Ensure the window stays within the "usable" screen bounds
-//        GraphicsConfiguration config = getGraphicsConfiguration();
-//        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(config);
-//        Rectangle bounds = config.getBounds();
-//
-//        // This manually calculates the area NOT covered by the taskbar
-//        int x = bounds.x + insets.left;
-//        int y = bounds.y + insets.top;
-//        int width = bounds.width - (insets.left + insets.right);
-//        int height = bounds.height - (insets.top + insets.bottom);
-//
-//        this.setMaximizedBounds(new Rectangle(0, 0, width, height));
-        
+        controller = new POSController(this, currentOrder);
+    
         setupCartTable();
         
+        // Initial Load
         body.removeAll();
         body.add(Drink); 
-
         loadProducts("DRINK", dP1, lbtitle,""); 
-
         body.revalidate();
         body.repaint();
     }
     
-    public GUI(String role) {
+    public POSView(String role) {
         this();
         
         this.role = role;
@@ -61,7 +44,7 @@ public class GUI extends javax.swing.JFrame {
         }   
     }
     
-    // --- CONFIGURE THE SMART TABLE ---
+    // --- SMART TABLE ---
     private void setupCartTable() {
         Views.CartTableModel model = new Views.CartTableModel(currentOrder);
         table.setModel(model);
@@ -95,7 +78,71 @@ public class GUI extends javax.swing.JFrame {
         actionCol.setPreferredWidth(50);
     }
     
-    private void loadProducts(String category, javax.swing.JPanel targetPanel, javax.swing.JLabel titleLabel, String searchQuery) {
+    private javax.swing.JPanel createProductPanel(String pid, String name, double price, String category) {
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setPreferredSize(new java.awt.Dimension(180, 240)); 
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(null);
+
+        // --- IMAGE FINDER ---
+        javax.swing.JLabel imgLabel = new javax.swing.JLabel();
+        imgLabel.setBounds(15, 0, 150, 150); 
+
+        try {
+            String projectPath = System.getProperty("user.dir");
+            String s = java.io.File.separator; 
+
+            // Build path: ITC-I3/product_images/D01.png
+            String externalPath = projectPath + s + "product_images" + s + pid + ".png";
+            java.io.File externalFile = new java.io.File(externalPath);
+
+            if (externalFile.exists()) {
+                javax.swing.ImageIcon icon = new javax.swing.ImageIcon(externalPath);
+                java.awt.Image scaled = icon.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
+                imgLabel.setIcon(new javax.swing.ImageIcon(scaled));
+            } 
+            else {
+                // /Image/D01.png
+                String internalPath = "/Image/" + pid.toLowerCase() + ".png";
+                java.net.URL imgURL = getClass().getResource(internalPath);
+
+                if (imgURL != null) {
+                    imgLabel.setIcon(new javax.swing.ImageIcon(imgURL));
+                } else {
+                    java.net.URL logoURL = getClass().getResource("/Image/logo.png");
+                    if (logoURL != null) imgLabel.setIcon(new javax.swing.ImageIcon(logoURL));
+                    else imgLabel.setText("No Image");
+                }
+            }
+        } catch (Exception e) {
+            imgLabel.setText("Error");
+        }
+        panel.add(imgLabel);
+
+        javax.swing.JLabel nameLabel = new javax.swing.JLabel("<html>" + name + "</html>");
+        nameLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 12)); 
+        nameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP); 
+        nameLabel.setBounds(10, 155, 105, 35); 
+        panel.add(nameLabel);
+
+        javax.swing.JLabel priceLabel = new javax.swing.JLabel("$" + price);
+        priceLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.PLAIN, 12));
+        priceLabel.setBounds(10, 190, 80, 20); 
+        panel.add(priceLabel);
+
+        javax.swing.JButton addButton = new javax.swing.JButton("Add");
+        addButton.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 11)); 
+        addButton.setMargin(new java.awt.Insets(0,0,0,0)); 
+        addButton.setBounds(120, 175, 50, 50); 
+        addButton.addActionListener(e -> {
+            controller.addToCart(pid);
+        });
+        panel.add(addButton);
+
+        return panel;
+    }  
+    
+     private void loadProducts(String category, javax.swing.JPanel targetPanel, javax.swing.JLabel titleLabel, String searchQuery) {
         // Title
         titleLabel.setText(category);
 
@@ -146,59 +193,7 @@ public class GUI extends javax.swing.JFrame {
         targetPanel.revalidate();
         targetPanel.repaint();
     }
-    
-    private javax.swing.JPanel createProductPanel(String pid, String name, double price, String category) {
-        javax.swing.JPanel panel = new javax.swing.JPanel();
-        panel.setPreferredSize(new java.awt.Dimension(180, 240)); 
-        panel.setBackground(java.awt.Color.WHITE);
-        panel.setLayout(null);
-
-        // --- 1. IMAGE ---
-        javax.swing.JLabel imgLabel = new javax.swing.JLabel();
-        imgLabel.setBounds(15, 0, 150, 150); 
-        try {
-            String path = "/Image/" + pid.toLowerCase() + ".png";
-            java.net.URL imgURL = getClass().getResource(path);
-            if (imgURL != null) {
-                imgLabel.setIcon(new javax.swing.ImageIcon(imgURL));
-            } else {
-                java.net.URL logoURL = getClass().getResource("/Image/logo.png");
-                if (logoURL != null) imgLabel.setIcon(new javax.swing.ImageIcon(logoURL));
-                else imgLabel.setText("No Image");
-            }
-        } catch (Exception e) {
-            imgLabel.setText("Error");
-        }
-        panel.add(imgLabel);
-
-        // --- 2. NAME LABEL ---
-        javax.swing.JLabel nameLabel = new javax.swing.JLabel("<html>" + name + "</html>");
-        nameLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 12)); 
-        nameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP); 
-        nameLabel.setBounds(10, 155, 105, 35); 
-        panel.add(nameLabel);
-
-        // --- 3. PRICE LABEL ---
-        javax.swing.JLabel priceLabel = new javax.swing.JLabel("$" + price);
-        priceLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.PLAIN, 12));
-        priceLabel.setBounds(10, 190, 80, 20); 
-        panel.add(priceLabel);
-
-        // --- 4. ADD BUTTON ---
-        javax.swing.JButton addButton = new javax.swing.JButton("Add");
-        addButton.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 11)); 
-        addButton.setMargin(new java.awt.Insets(0,0,0,0)); 
-
-        addButton.setBounds(120, 175, 50, 50); 
-        
-        addButton.addActionListener(e -> {
-            controller.addToCart(pid);
-        });
-        panel.add(addButton);
-
-        return panel;
-    }
-    
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -552,7 +547,7 @@ public class GUI extends javax.swing.JFrame {
         double finalTotal = currentOrder.calculateTotal();
         lbTotal.setText(String.format("$%.2f", finalTotal));
 
-        // 2. Start the Payment Process (Cash vs QR)
+        // 2. Start the Payment Process
         if (finalTotal > 0) {
             controller.initiatePayment(finalTotal);
         } else {
@@ -621,7 +616,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     private void lbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdminMouseClicked
-        Admin​ ad = new Admin();
+        AdminView ad = new AdminView();
         ad.setVisible(true);
     }//GEN-LAST:event_lbAdminMouseClicked
 
@@ -668,7 +663,7 @@ public class GUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     // Explicitly start at the Login screen
-                    new Views.Login().setVisible(true);
+                    new Views.LoginView().setVisible(true);
                 }
         });
     }
