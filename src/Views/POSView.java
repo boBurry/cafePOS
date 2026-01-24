@@ -103,7 +103,7 @@ public class POSView extends javax.swing.JFrame {
             } 
             else {
                 // /Image/D01.png
-                String internalPath = "/Image/" + pid.toLowerCase() + ".png";
+                String internalPath = "/Image/" + pid + ".png";
                 java.net.URL imgURL = getClass().getResource(internalPath);
 
                 if (imgURL != null) {
@@ -645,17 +645,17 @@ public class POSView extends javax.swing.JFrame {
     
         // Check which panel is currently visible to search the correct category
         if (body.getComponent(0).isVisible() && body.getComponent(0) == Drink) {
-            loadProducts("Drink", dP1, lbtitle, text);
+            loadProducts("DRINK", dP1, lbtitle, text);
         } else {
-            loadProducts("Snack", sP1, lbtitle, text);
+            loadProducts("SNACK", sP1, lbtitle, text);
         }
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btRefreshMouseClicked
         if (body.getComponent(0).isVisible() && body.getComponent(0) == Drink) {
-            loadProducts("Drink", dP1, lbtitle,"");
+            loadProducts("DRINK", dP1, lbtitle,"");
         } else {
-            loadProducts("Snack", sP1, lbtitle,"");
+            loadProducts("SNACK", sP1, lbtitle,"");
         }
     }//GEN-LAST:event_btRefreshMouseClicked
 

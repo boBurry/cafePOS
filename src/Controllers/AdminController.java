@@ -191,6 +191,11 @@ public class AdminController {
             p.setString(5, dialog.getId()); 
             
             p.executeUpdate();
+            
+            if (dialog.getSelectedImage() != null) {
+                saveImage(dialog.getSelectedImage(), dialog.getId());
+            }
+            
             filterData();
             JOptionPane.showMessageDialog(view, "Updated Successfully!");
         } catch (Exception e) {
