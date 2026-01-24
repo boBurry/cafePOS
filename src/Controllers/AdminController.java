@@ -1,6 +1,5 @@
 package Controllers;
 
-import Models.Ingredient;
 import Models.db;
 import Views.AdminView;
 import Views.AddProductDialog;
@@ -243,7 +242,7 @@ public class AdminController {
             
             // 3. Create it if missing (with check)
             if (!folder.exists()) {
-                boolean created = folder.mkdirs(); 
+                boolean created = folder.mkdirs();       
                 System.out.println("DEBUG: Folder did not exist. Created? " + created);
             } else {
                 System.out.println("DEBUG: Folder already exists.");
