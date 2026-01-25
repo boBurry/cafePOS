@@ -54,9 +54,17 @@ public class Order {
         return totalAmount;
     }
     
-    public double getSubtotal() { return subtotal; }
-    public double getTotalAmount() { return totalAmount; }
-    public ArrayList<Product> getProducts() { return products; }
+    public double getSubtotal() { 
+        return subtotal; 
+    }
+    
+    public double getTotalAmount() { 
+        return totalAmount; 
+    }
+    
+    public ArrayList<Product> getProducts() {
+        return products; 
+    }
     
     public void clear() {
         products.clear();         // 1. Clear the list

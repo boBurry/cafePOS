@@ -1,10 +1,12 @@
 package Views;
 
 import Controllers.AdminController;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Date;
 
 public class AdminView extends JFrame {
     
@@ -23,7 +25,7 @@ public class AdminView extends JFrame {
     private JButton btnAdd, btnUpdate, btnDelete, btnClear, btnBack;
 
     // --- HISTORY COMPONENTS ---
-    private JTextField tfHistoryDate;
+    private JDateChooser dcHistoryDate;
     private JButton btnHistorySearch, btnHistoryRefresh;
     private JLabel lbHistoryTotal, lbHistoryCount;
     private JTable historyTable;
@@ -33,7 +35,8 @@ public class AdminView extends JFrame {
     private JTable ingredientTable; 
     private DefaultTableModel ingredientModel; 
     
-    private JTextField tfIngName, tfIngQty, tfIngPrice, tfIngBought, tfIngExpiry;
+    private JTextField tfIngName, tfIngQty, tfIngPrice;
+    private JDateChooser dcIngBought, dcIngExpiry;
     private JComboBox<String> cbIngCategory;
     private JButton btnIngAdd, btnIngUpdate, btnIngDelete, btnIngClear, btnIngRefresh;
 
@@ -158,12 +161,15 @@ public class AdminView extends JFrame {
 
         searchBar.add(new JLabel("Date (YYYY-MM-DD):"));
         
-        String today = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-        tfHistoryDate = new JTextField(today, 10);
+        dcHistoryDate = new JDateChooser();
+        dcHistoryDate.setDateFormatString("yyyy-MM-dd"); 
+        dcHistoryDate.setDate(new Date()); // Default to Today
+        dcHistoryDate.setPreferredSize(new Dimension(150, 25));
+        
         btnHistorySearch = new JButton("Search");
         btnHistoryRefresh = new JButton("Refresh");
         
-        searchBar.add(tfHistoryDate);
+        searchBar.add(dcHistoryDate);
         searchBar.add(btnHistorySearch);
         searchBar.add(btnHistoryRefresh);
         
@@ -254,18 +260,22 @@ public class AdminView extends JFrame {
 
         // Bought Date
         gbc.gridy++;
-        formPanel.add(new JLabel("Bought Date (YYYY-MM-DD):"), gbc);
+        formPanel.add(new JLabel("Bought Date:"), gbc);
         gbc.gridy++;
-        String today = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-        tfIngBought = new JTextField(today);
-        formPanel.add(tfIngBought, gbc);
+        
+        dcIngBought = new JDateChooser();
+        dcIngBought.setDateFormatString("yyyy-MM-dd");
+        dcIngBought.setDate(new Date()); // Default Today
+        formPanel.add(dcIngBought, gbc);
 
         // Expiry Date
         gbc.gridy++;
-        formPanel.add(new JLabel("Expiry Date (YYYY-MM-DD):"), gbc);
+        formPanel.add(new JLabel("Expiry Date:"), gbc);
         gbc.gridy++;
-        tfIngExpiry = new JTextField(15);
-        formPanel.add(tfIngExpiry, gbc);
+        
+        dcIngExpiry = new JDateChooser();
+        dcIngExpiry.setDateFormatString("yyyy-MM-dd");        
+        formPanel.add(dcIngExpiry, gbc);
 
         // Buttons 
         gbc.gridy++;
@@ -349,7 +359,7 @@ public class AdminView extends JFrame {
     public JButton getBtnBack() { return btnBack; }
     
     // History Getters
-    public JTextField getTfHistoryDate() { return tfHistoryDate; }
+    public JDateChooser getDcHistoryDate() { return dcHistoryDate; }
     public JButton getBtnHistorySearch() { return btnHistorySearch; }
     public JButton getBtnHistoryRefresh() { return btnHistoryRefresh; }
     public JTable getHistoryTable() { return historyTable; }
@@ -361,8 +371,8 @@ public class AdminView extends JFrame {
     public JTextField getTfIngName() { return tfIngName; }
     public JTextField getTfIngQty() { return tfIngQty; }
     public JTextField getTfIngPrice() { return tfIngPrice; }
-    public JTextField getTfIngBought() { return tfIngBought; }
-    public JTextField getTfIngExpiry() { return tfIngExpiry; }
+    public JDateChooser getDcIngBought() { return dcIngBought; }
+    public JDateChooser getDcIngExpiry() { return dcIngExpiry; }
     public JComboBox<String> getCbIngCategory() { return cbIngCategory; }
     
     public JButton getBtnIngAdd() { return btnIngAdd; }

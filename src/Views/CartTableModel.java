@@ -8,10 +8,7 @@ import javax.swing.table.AbstractTableModel;
 public class CartTableModel extends AbstractTableModel {
     
     private final Order order;
-    // Columns: Product, Price, Qty (Spinner), Custom, Total, Action (Button)
     private final String[] columnNames = {"Product", "Price", "Qty", "Custom", "Total", "Action"};
-    
-    // Define types so Java knows Col 2 is a Number and Col 5 is a Button
     private final Class[] columnTypes = {String.class, String.class, Integer.class, String.class, String.class, Object.class};
 
     public CartTableModel(Order order) {
@@ -53,8 +50,8 @@ public class CartTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return p.getName();
             case 1: return String.format("$%.2f", p.getUnitFinalPrice());
-            case 2: return p.getQuantity(); // Return Integer for Spinner
-            case 3: return p.getShortCustomization(); // Use the new helper
+            case 2: return p.getQuantity();
+            case 3: return p.getShortCustomization(); 
             case 4: return String.format("$%.2f", p.getTotal());
             case 5: return "X"; // Text for the button
             default: return null;

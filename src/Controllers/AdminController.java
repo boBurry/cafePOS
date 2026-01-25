@@ -25,32 +25,45 @@ public class AdminController {
         loadHistoryData("");
         loadInventory();
         
-        // Ingredient
+        // Ingredient Table Listener
         this.view.getTblIngredient().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = view.getTblIngredient().getSelectedRow();
                 if(row >= 0) {
-                    // Get data from table and fill text fields
-                    view.getTfIngName().setText(view.getTblIngredient().getValueAt(row, 1).toString());
-                    view.getCbIngCategory().setSelectedItem(view.getTblIngredient().getValueAt(row, 2).toString());
-                    view.getTfIngQty().setText(view.getTblIngredient().getValueAt(row, 3).toString());
-                    
-                    // Remove "$" from price for editing
-                    String priceStr = view.getTblIngredient().getValueAt(row, 4).toString().replace("$", "");
-                    view.getTfIngPrice().setText(priceStr);
-                    
-                    view.getTfIngBought().setText(view.getTblIngredient().getValueAt(row, 6).toString());
-                    
-                    // Handle Expiry (check for null)
-                    Object expiry = view.getTblIngredient().getValueAt(row, 7);
-                    view.getTfIngExpiry().setText(expiry != null ? expiry.toString() : "");
+                    try {
+                        // 1. Text Fields
+                        view.getTfIngName().setText(view.getTblIngredient().getValueAt(row, 1).toString());
+                        view.getCbIngCategory().setSelectedItem(view.getTblIngredient().getValueAt(row, 2).toString());
+                        view.getTfIngQty().setText(view.getTblIngredient().getValueAt(row, 3).toString());
+                        
+                        String priceStr = view.getTblIngredient().getValueAt(row, 4).toString().replace("$", "");
+                        view.getTfIngPrice().setText(priceStr);
+                        
+                        // 2. Date Choosers (Parse String -> Date)
+                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                        
+                        // Set Bought Date
+                        String boughtStr = view.getTblIngredient().getValueAt(row, 6).toString();
+                        view.getDcIngBought().setDate(sdf.parse(boughtStr));
+                        
+                        // Set Expiry Date (Check for null first)
+                        Object expiryObj = view.getTblIngredient().getValueAt(row, 7);
+                        if (expiryObj != null && !expiryObj.toString().isEmpty()) {
+                            view.getDcIngExpiry().setDate(sdf.parse(expiryObj.toString()));
+                        } else {
+                            view.getDcIngExpiry().setDate(null);
+                        }
+                        
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
 
         this.view.getBtnIngAdd().addActionListener(e -> addInventoryItem());
-        this.view.getBtnIngUpdate().addActionListener(e -> updateInventoryItem()); // NEW
-        this.view.getBtnIngDelete().addActionListener(e -> deleteInventoryItem()); // NEW
+        this.view.getBtnIngUpdate().addActionListener(e -> updateInventoryItem()); 
+        this.view.getBtnIngDelete().addActionListener(e -> deleteInventoryItem());
         this.view.getBtnIngClear().addActionListener(e -> clearInventoryForm());
 
         // Product
@@ -68,14 +81,21 @@ public class AdminController {
         });
         this.view.getCbTypeFilter().addActionListener(e -> filterData());
 
-        // History 
+        // History Search
         this.view.getBtnHistorySearch().addActionListener(e -> {
-            String date = view.getTfHistoryDate().getText().trim();
-            loadHistoryData(date);
+            java.util.Date rawDate = view.getDcHistoryDate().getDate();
+            String dateStr = "";
+            
+            if (rawDate != null) {
+                dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd").format(rawDate);
+            }
+            loadHistoryData(dateStr);
         });
         
+        // History Refresh
         this.view.getBtnHistoryRefresh().addActionListener(e -> {
-            view.getTfHistoryDate().setText(""); 
+            
+            view.getDcHistoryDate().setDate(new java.util.Date()); 
             loadHistoryData("");
         });
     }
@@ -325,31 +345,28 @@ public class AdminController {
             String cat = view.getCbIngCategory().getSelectedItem().toString();
             String qtyStr = view.getTfIngQty().getText();
             String priceStr = view.getTfIngPrice().getText();
-            String boughtStr = view.getTfIngBought().getText();
-            String expiryStr = view.getTfIngExpiry().getText();
 
-            if (name.isEmpty() || qtyStr.isEmpty() || priceStr.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Please fill in Name, Qty, and Price.");
+            // Get Dates directly from Chooser
+            java.util.Date rawBought = view.getDcIngBought().getDate();
+            java.util.Date rawExpiry = view.getDcIngExpiry().getDate();
+
+            if (name.isEmpty() || qtyStr.isEmpty() || priceStr.isEmpty() || rawBought == null) {
+                JOptionPane.showMessageDialog(view, "Please fill in Name, Qty, Price, and Bought Date.");
                 return;
             }
 
             int qty = Integer.parseInt(qtyStr);
             double price = Double.parseDouble(priceStr);
-            double total = qty * price; // Auto-calculate total value
+            double total = qty * price; 
             
-            java.sql.Date boughtDate = null;
-            java.sql.Date expiryDate = null;
-            try {
-                boughtDate = java.sql.Date.valueOf(boughtStr); // Must be YYYY-MM-DD
-                if (!expiryStr.isEmpty()) {
-                    expiryDate = java.sql.Date.valueOf(expiryStr);
-                }
-            } catch (IllegalArgumentException ie) {
-                 JOptionPane.showMessageDialog(view, "Date Format Error! Use YYYY-MM-DD.");
-                 return;
+            // (java.util.Date -> java.sql.Date)
+            java.sql.Date sqlBought = new java.sql.Date(rawBought.getTime());
+            
+            java.sql.Date sqlExpiry = null;
+            if (rawExpiry != null) {
+                sqlExpiry = new java.sql.Date(rawExpiry.getTime());
             }
 
-            // 4. Insert into DB
             String sql = "INSERT INTO ingredient (name, category, stock_qty, unit_price, total_value, bought_date, expiry_date) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement p = connection.prepareStatement(sql);
             
@@ -358,8 +375,8 @@ public class AdminController {
             p.setInt(3, qty);
             p.setDouble(4, price);
             p.setDouble(5, total);
-            p.setDate(6, boughtDate);
-            p.setDate(7, expiryDate);
+            p.setDate(6, sqlBought);
+            p.setDate(7, sqlExpiry);
             
             p.executeUpdate();
             
@@ -378,8 +395,8 @@ public class AdminController {
         view.getTfIngName().setText("");
         view.getTfIngQty().setText("");
         view.getTfIngPrice().setText("");
-        view.getTfIngExpiry().setText("");
-        view.getTfIngBought().setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
+        view.getDcIngExpiry().setDate(null); 
+        view.getDcIngBought().setDate(new java.util.Date()); 
     }
     
     private void updateInventoryItem() {
@@ -398,8 +415,18 @@ public class AdminController {
             double price = Double.parseDouble(view.getTfIngPrice().getText());
             double total = qty * price;
             
-            java.sql.Date bought = java.sql.Date.valueOf(view.getTfIngBought().getText());
-            java.sql.Date expiry = view.getTfIngExpiry().getText().isEmpty() ? null : java.sql.Date.valueOf(view.getTfIngExpiry().getText());
+            java.util.Date rawBought = view.getDcIngBought().getDate();
+            java.util.Date rawExpiry = view.getDcIngExpiry().getDate();
+
+            java.sql.Date sqlBought = null;
+            if (rawBought != null) {
+                sqlBought = new java.sql.Date(rawExpiry.getTime());
+            }
+            
+            java.sql.Date sqlExpiry = null;
+            if (rawExpiry != null) {
+                sqlExpiry = new java.sql.Date(rawExpiry.getTime());
+            }
 
             String sql = "UPDATE ingredient SET name=?, category=?, stock_qty=?, unit_price=?, total_value=?, bought_date=?, expiry_date=? WHERE id=?";
             PreparedStatement p = connection.prepareStatement(sql);
@@ -408,8 +435,8 @@ public class AdminController {
             p.setInt(3, qty);
             p.setDouble(4, price);
             p.setDouble(5, total);
-            p.setDate(6, bought);
-            p.setDate(7, expiry);
+            p.setDate(6, sqlBought);
+            p.setDate(7, sqlExpiry);
             p.setInt(8, id);
 
             p.executeUpdate();
@@ -418,6 +445,8 @@ public class AdminController {
             loadInventory();
             clearInventoryForm();
 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(view, "Error: Quantity and Price must be numbers.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Error Updating: " + e.getMessage());
         }
