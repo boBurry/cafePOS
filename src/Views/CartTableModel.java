@@ -53,7 +53,7 @@ public class CartTableModel extends AbstractTableModel {
             case 2: return p.getQuantity();
             case 3: return p.getShortCustomization(); 
             case 4: return String.format("$%.2f", p.getTotal());
-            case 5: return "X"; // Text for the button
+            case 5: return "X"; 
             default: return null;
         }
     }

@@ -98,6 +98,14 @@ public class ReceiptGenerator {
             PdfPTable totalTable = new PdfPTable(2);
             totalTable.setWidthPercentage(100);
 
+            double subtotal = order.calculateSubtotal(); 
+            addTextPair(totalTable, "Subtotal:", String.format("$%.2f", subtotal), normalFont);
+
+            if (subtotal > total) {
+                double discountAmount = subtotal - total;
+                addTextPair(totalTable, "Discount:", String.format("-$%.2f", discountAmount), normalFont);
+            }
+
             addTextPair(totalTable, "TOTAL:", String.format("$%.2f", total), boldFont);
             addTextPair(totalTable, "Payment:", payType, normalFont);
 

@@ -191,7 +191,7 @@ public class AdminView extends JFrame {
         
         historyPanel.add(topContainer, BorderLayout.NORTH);
 
-        String[] cols = {"Order ID", "Date/Time", "Total Price", "Payment"};
+        String[] cols = {"Order ID", "Date/Time", "Subtotal", "Discount", "Total", "Payment"};
         historyModel = new DefaultTableModel(cols, 0);
         historyTable = new JTable(historyModel);
         historyTable.setRowHeight(30);

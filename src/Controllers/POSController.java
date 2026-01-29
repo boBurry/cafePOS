@@ -254,11 +254,15 @@ public class POSController {
     private void saveOrderToDatabase(double finalTotal, String payType, double cashGiven, double change) {
         try {
             Connection con = db.myCon();
+            double subtotal = order.calculateSubtotal();
+            double discountAmount = subtotal - finalTotal;
             // 1. Insert Order
-            String sqlOrder = "INSERT INTO orders (total_price, payment_type, order_date) VALUES (?, ?, NOW())";
+            String sqlOrder = "INSERT INTO orders (subtotal, total_price, discount_val, payment_type, order_date) VALUES (?, ?, ?, ?, NOW())";
             PreparedStatement pst = con.prepareStatement(sqlOrder, java.sql.Statement.RETURN_GENERATED_KEYS);
-            pst.setDouble(1, finalTotal);
-            pst.setString(2, payType);
+            pst.setDouble(1, subtotal);
+            pst.setDouble(2, finalTotal);
+            pst.setDouble(3, discountAmount);
+            pst.setString(4, payType);
             pst.executeUpdate();
 
             ResultSet rs = pst.getGeneratedKeys();

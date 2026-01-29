@@ -126,12 +126,21 @@ public class AdminController {
             while(rs.next()) {
                 String id = rs.getString("order_id");
                 String date = rs.getString("order_date");
-                double price = rs.getDouble("total_price");
+                double subtotal = rs.getDouble("subtotal");
+                double discount = rs.getDouble("discount_val");
+                double total = rs.getDouble("total_price");
                 String type = rs.getString("payment_type");
 
-                model.addRow(new Object[]{ id, date, String.format("$%.2f", price), type });
+                model.addRow(new Object[]{ 
+                    id, 
+                    date, 
+                    String.format("$%.2f", subtotal),    
+                    String.format("-$%.2f", discount),    
+                    String.format("$%.2f", total),        
+                    type 
+                });
                 
-                totalRev += price;
+                totalRev += total;
                 orderCount++;
             }
             
