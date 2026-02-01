@@ -6,6 +6,7 @@ import Models.db;
 import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class POSView extends javax.swing.JFrame {
@@ -417,7 +418,8 @@ public class POSView extends javax.swing.JFrame {
         jPanel17.add(jLabel3);
         jLabel3.setBounds(20, 60, 130, 40);
 
-        lbSubtotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
+        lbSubtotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
+        lbSubtotal.setText("$0.00");
         lbSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbSubtotalActionPerformed(evt);
@@ -447,7 +449,8 @@ public class POSView extends javax.swing.JFrame {
         jPanel17.add(jLabel5);
         jLabel5.setBounds(20, 110, 60, 40);
 
-        lbTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 18)); // NOI18N
+        lbTotal.setFont(new java.awt.Font(".AppleSystemUIFont", 0, 20)); // NOI18N
+        lbTotal.setText("$0.00");
         lbTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lbTotalActionPerformed(evt);
@@ -613,6 +616,10 @@ public class POSView extends javax.swing.JFrame {
 
     public javax.swing.JTextField getLbSubtotal() {
         return lbSubtotal;
+    }
+    
+    public JComboBox<String> getCbDiscount() {
+        return cbDiscount;
     }
     
     private void lbAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAdminMouseClicked

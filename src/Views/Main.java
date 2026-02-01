@@ -15,7 +15,6 @@ public class Main {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    // Explicitly start at the Login screen
                     new Views.LoginView().setVisible(true);
                 }
         });

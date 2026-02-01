@@ -290,6 +290,9 @@ public class POSController {
             order.clear(); 
             ((CartTableModel) view.getTable().getModel()).fireTableDataChanged();
             updateSubtotal();
+            view.getLbSubtotal().setText("$0.00");
+            view.getLbTotal().setText("$0.00");
+            view.getCbDiscount().setSelectedIndex(0);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(view, "Database Error: " + e.getMessage());
