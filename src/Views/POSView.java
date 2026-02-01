@@ -143,7 +143,7 @@ public class POSView extends javax.swing.JFrame {
         return panel;
     }  
     
-     private void loadProducts(String category, javax.swing.JPanel targetPanel, javax.swing.JLabel titleLabel, String searchQuery) {
+    private void loadProducts(String category, javax.swing.JPanel targetPanel, javax.swing.JLabel titleLabel, String searchQuery) {
         // Title
         titleLabel.setText(category);
 

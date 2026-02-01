@@ -232,28 +232,37 @@ public class POSController {
             Image newImg = img.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
             qrIcon = new ImageIcon(newImg);
 
-            JOptionPane.showMessageDialog(view, 
+            int result = JOptionPane.showConfirmDialog(view, 
                 "", 
                 "Scan to Pay: $" + String.format("%.2f", total), 
-                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
                 qrIcon
             );
+            
+            if (result == JOptionPane.OK_OPTION) {
+                saveOrderToDatabase(total, "QR Code", total, 0.0);
+            } else {
+                JOptionPane.showMessageDialog(view, 
+                    "Payment cancelled. Order not saved.",
+                    "Cancelled",
+                    JOptionPane.INFORMATION_MESSAGE
+                );  
+            } 
         } else {
             JOptionPane.showMessageDialog(view, 
                 "QR Code image not found at: " + imagePath, 
                 "QR Payment", 
                 JOptionPane.WARNING_MESSAGE
             );
-        }
-
-        // Save transaction
-        saveOrderToDatabase(total, "QR Code", total, 0.0);
+        }        
     }
 
     // --- SAVE TO DB ---
     private void saveOrderToDatabase(double finalTotal, String payType, double cashGiven, double change) {
-        try {
-            Connection con = db.myCon();
+        Connection con = db.myCon();
+        try{
+            con.setAutoCommit(false);
             double subtotal = order.calculateSubtotal();
             double discountAmount = subtotal - finalTotal;
             // 1. Insert Order
@@ -283,6 +292,7 @@ public class POSController {
                 pst.addBatch();
             }
             pst.executeBatch();
+            con.commit();
 
             // 3. Receipt & Cleanup
             printReceipt(newOrderId, finalTotal, payType, cashGiven, change);
@@ -295,8 +305,23 @@ public class POSController {
             view.getCbDiscount().setSelectedIndex(0);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(view, "Database Error: " + e.getMessage());
-            e.printStackTrace();
+            try {
+                if (con != null) {
+                    con.rollback();
+                    JOptionPane.showMessageDialog(view, 
+                        "Order failed and was rolled back: " + e.getMessage());
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } 
+        } finally {
+            try {
+                if (con != null) {
+                    con.setAutoCommit(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     
