@@ -8,8 +8,8 @@ import java.net.URLEncoder;
 
 public class TelegramService {
 
-    private static final String BOT_TOKEN = "8492743804:AAEoaaaTiAgj_X_0Aj1tCX2MRtLDBZ7tv-Y"; 
-    private static final String CHAT_ID = "807381574";     
+    private static final String BOT_TOKEN = "YOUR_TOKEN_HERE"; 
+    private static final String CHAT_ID = "YOUR_ID_HERE";     
 
     public static void sendOrderNotification(int orderId, double total, String paymentType) {
         // Run in a separate thread to avoid freezing the POS UI
