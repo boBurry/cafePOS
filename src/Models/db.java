@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class db {
-    private static Connection con = null;
+    private static Connection con = null; //Singleton
    
     private db() {}
     
