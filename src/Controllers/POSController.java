@@ -8,6 +8,7 @@ import Views.DrinkCustomizationDialog;
 import Views.CartTableModel; 
 import Models.db;
 import Services.ReceiptGenerator;
+import Services.TelegramService;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -294,7 +295,10 @@ public class POSController {
             pst.executeBatch();
             con.commit();
 
-            // 3. Receipt & Cleanup
+            // 3. Save to Telegram
+            TelegramService.sendOrderNotification(newOrderId, finalTotal, payType);
+            
+            // 4. Receipt & Cleanup
             printReceipt(newOrderId, finalTotal, payType, cashGiven, change);
             
             order.clear(); 

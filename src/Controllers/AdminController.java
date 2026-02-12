@@ -262,19 +262,18 @@ public class AdminController {
         if (!type.equals("All")) sql += " AND type = '" + type + "'";
         loadData(sql, "%" + search + "%");
     }
-    
-    // --- SAVE IMAGE ---
+     
     private void saveImage(File source, String pid) {
         try {
-            // 1. Get the path and print it
+            // Get the path and print it
             String projectPath = System.getProperty("user.dir"); 
             // Project Path is: /Users/sunsovisal/NetBeansProjects/ITC-I3
             
-            // 2. Define the folder
+            // Define the folder
             File folder = new File(projectPath + File.separator + "product_images");
             // Target Folder: /Users/sunsovisal/NetBeansProjects/ITC-I3/product_images
             
-            // 3. Create it if missing (with check)
+            // Create it if missing (with check)
             if (!folder.exists()) {
                 boolean created = folder.mkdirs();       
                 System.out.println("DEBUG: Folder did not exist. Created? " + created);
@@ -282,11 +281,11 @@ public class AdminController {
                 System.out.println("DEBUG: Folder already exists.");
             } 
             
-            // 4. Clean ID and define destination
+            // Clean ID and define destination
             String cleanId = pid.trim().toUpperCase();
             File dest = new File(folder, cleanId + ".png");
             
-            // 5. Copy
+            // Copy
             Files.copy(source.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
             // Image saved to: /Users/sunsovisal/NetBeansProjects/ITC-I3/product_images/D13.png
             

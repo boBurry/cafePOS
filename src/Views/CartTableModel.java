@@ -37,7 +37,7 @@ public class CartTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // Allow editing ONLY for Qty (Col 2) and Remove Button (Col 5)
+        // Allow editing ONLY for Qty and Remove Button
         return columnIndex == 2 || columnIndex == 5;
     }
 
@@ -74,9 +74,6 @@ public class CartTableModel extends AbstractTableModel {
     }
 }
 
-// =========================================================
-//              HELPER CLASSES FOR THE SMART TABLE
-// =========================================================
 // 1. LABEL RENDERER: X
 class ButtonRenderer extends javax.swing.JLabel implements javax.swing.table.TableCellRenderer {
     public ButtonRenderer() {
