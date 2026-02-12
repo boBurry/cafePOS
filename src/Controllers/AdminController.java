@@ -99,15 +99,12 @@ public class AdminController {
             loadHistoryData("");
         });
        
-this.view.getCbType().addActionListener(e -> filterData());
-this.view.getTfSearch().addKeyListener(new java.awt.event.KeyAdapter() {
-    public void keyReleased(java.awt.event.KeyEvent e) {
-        filterData();
-    }
-});
-
-
-        
+        this.view.getCbTypeFilter().addActionListener(e -> filterData());
+        this.view.getTfSearch().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                filterData();
+            }
+        });   
     }
     
     // History 
@@ -161,8 +158,6 @@ this.view.getTfSearch().addKeyListener(new java.awt.event.KeyAdapter() {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
     
     // Product
@@ -244,32 +239,6 @@ this.view.getTfSearch().addKeyListener(new java.awt.event.KeyAdapter() {
         }
     }
 
-    try {
-        // Map Category based on Type
-        String category = (selectedType.equals("Cake")) ? "Snack" : "Drinks";
-
-        // Update statement covering Name, Category, Type, and Price based on PID
-        String sql = "UPDATE product SET Name=?, Category=?, Type=?, Price=? WHERE PID=?";
-        PreparedStatement p = connection.prepareStatement(sql);
-        p.setString(1, name);
-        p.setString(2, category);
-        p.setString(3, selectedType);
-        p.setDouble(4, Double.parseDouble(price));
-        p.setString(5, id);
-        
-        int rows = p.executeUpdate();
-        if(rows > 0) {
-            filterData();
-            clearFields();
-            JOptionPane.showMessageDialog(view, "Product Updated Successfully!");
-        } else {
-            JOptionPane.showMessageDialog(view, "Product ID not found.");
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
-    }
-}
-    
     private void deleteData() {
         int row = view.getTable().getSelectedRow();
         if (row == -1) {
